@@ -1,0 +1,43 @@
+type User {
+  _id: ID!
+  username: String
+  email: String
+  profile: UserStandardProfile
+  emails: [UserEmail]
+  roles: [String]
+  hasPhoneVerified: Boolean!
+  isEnabled: Boolean!
+  phone: Phone
+}
+
+type UserEmail {
+  address: String
+  verified: Boolean
+}
+
+type UserStandardProfile {
+  firstName: String
+  lastName: String
+  fullName: String
+  avatarId: String
+  avatar: AppUpload
+  phoneNumber: String
+  dateOfBirth: Date
+  gender: GenderEnum
+}
+
+type Phone {
+  number: String,
+  verified: Boolean
+}
+
+enum RolesEnum {
+  ADMIN
+  ORGANISER
+  USER
+}
+
+enum GenderEnum {
+  MALE
+  FEMALE
+}
