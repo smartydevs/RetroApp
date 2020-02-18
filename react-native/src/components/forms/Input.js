@@ -5,14 +5,14 @@ import { Metrics, Colors, ApplicationStyles } from '../../themes'
 import { Row } from '..'
 import { normalizeWidth } from '../../themes/Metrics'
 
-const {red} = Colors
+const {white, primaryDark, primaryGray} = Colors
 const {imageSize, input} = Metrics.forms
 
 const styles = StyleSheet.create({
   container: {
     height: input.height,
     borderWidth: Metrics.border.base,
-    backgroundColor: Colors.white,
+    backgroundColor: white,
     paddingLeft: normalizeWidth(20)
   },
   textStyle: {
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     flex: 1,
     padding: 0,
-    color: Colors.primaryDark
+    color: primaryDark
   },
   image: {
     ...imageSize
@@ -34,16 +34,11 @@ const Input = (props) => {
   let textInputRef
 
   let {color} = props
-  const [borderColor, setBorderColor] = useState(color || Colors.primaryGray)
+  const [borderColor, setBorderColor] = useState(color || primaryGray)
 
   const onPressInput = (textRef) => {
     textRef.focus()
-    setBorderColor(color || Colors.primaryLightDark)
   }
-
-  useEffect(() => {
-    setBorderColor(color || Colors.primaryGray)
-  }, [error])
 
   return (
     <TouchableWithoutFeedback onPress={() => onPressInput(textInputRef)}>
@@ -54,10 +49,10 @@ const Input = (props) => {
             textInputRef = textRef
           }}
           {...props}
-          placeholderTextColor={Colors.primaryGray}
+          placeholderTextColor={primaryGray}
           style={[styles.textStyle, textStyle]}
           onSubmitEditing={Keyboard.dismiss}
-          onEndEditing={() => setBorderColor(color || Colors.primaryGray)}
+          onEndEditing={() => setBorderColor(color || primaryGray)}
         />
         {
           iconSource && <Image style={styles.image} source={iconSource} resizeMode='contain' />

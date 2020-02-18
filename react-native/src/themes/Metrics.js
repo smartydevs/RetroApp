@@ -89,23 +89,6 @@ const Metrics = {
     paddingHorizontal: normalizeWidth(12),
     itemHeight: normalizeHeight(46)
   },
-  teamItem: {
-    rank: '20%',
-    club: '44%',
-    points: '12%',
-    pl: '12%',
-    gd: '12%'
-  },
-  matchItem: {
-    match: '15%',
-    info: '70%',
-    bet: '15%'
-  },
-  rankItem: {
-    rank: '22%',
-    name: '58%',
-    score: '20%'
-  },
   icons: {
     tiny: normalizeHeight(15),
     small: normalizeHeight(20),
