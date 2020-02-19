@@ -1,0 +1,5 @@
+type Category {
+    name: String!
+    createdAt: Date
+    updatedAt: Date
+}

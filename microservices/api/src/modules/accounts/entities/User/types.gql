@@ -5,9 +5,19 @@ type User {
   profile: UserStandardProfile
   emails: [UserEmail]
   roles: [String]
-  hasPhoneVerified: Boolean!
-  isEnabled: Boolean!
   phone: Phone
+  ownedEvents: [Event]
+  participatingEvents: [Event]
+}
+
+type UserEmail {
+  address: String
+  verified: Boolean
+}
+
+type Query {
+    hello: String
+    getUser: User
 }
 
 type UserEmail {
@@ -20,7 +30,7 @@ type UserStandardProfile {
   lastName: String
   fullName: String
   avatarId: String
-  avatar: AppUpload
+  ##avatar: AppUpload
   phoneNumber: String
   dateOfBirth: Date
   gender: GenderEnum

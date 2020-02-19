@@ -1,0 +1,22 @@
+type Event {
+    organiserId: String
+    location: Location
+    title: String
+    description: String
+    startDate: Date!
+    endDate: String
+    categoriesId: [String]
+    categories: [Category]
+    usersId: [String]
+    users: [User]
+    photoId: String
+    photo: AppUpload
+    createdAt: Date
+    updatedAt: Date
+}
+
+type Location {
+    latitude: String!
+    longitude: String!
+    addressName: String
+}

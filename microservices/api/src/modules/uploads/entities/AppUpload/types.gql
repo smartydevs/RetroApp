@@ -1,0 +1,36 @@
+type AppUpload {
+  _id: ID!
+  name: String
+  path: String!
+  fullPath: String!
+  size: Int!
+  mimeType: String!
+  dimension: UploadDimension
+  resourceType: String
+  resourceId: String
+  userId: String
+  user: User
+  thumbs: [AppUploadThumb]
+  thumb(size: ThumbSizeInput): AppUploadThumb
+  createdAt: Date
+  updatedAt: Date
+  createdBy: User
+  updatedBy: User
+}
+
+input ThumbSizeInput {
+    width: Int
+    height: Int
+}
+
+type UploadDimension {
+    width: Int
+    height: Int
+}
+
+type AppUploadThumb {
+  path: String!
+  fullPath: String
+  width: Int
+  height: Int
+}
