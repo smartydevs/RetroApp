@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { BackHandler, Platform } from 'react-native'
+import { BackHandler, Platform } from 'retro-web-native'
 import {
   createReactNavigationReduxMiddleware,
   createReduxContainer
-} from 'react-navigation-redux-helpers'
-import { connect } from 'react-redux'
+} from 'retro-web-navigation-redux-helpers'
+import { connect } from 'retro-web-redux'
 import AppNavigation from './AppNavigation'
 import { ScreenEnum } from '../lib/enums'
 import NavigationService from './NavigationService'

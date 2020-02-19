@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'retro-web-native'
 import PropTypes from 'prop-types'
 import { ApplicationStyles, Colors, Metrics } from '../../themes'
 

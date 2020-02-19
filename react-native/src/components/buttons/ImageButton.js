@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Button from './Button'
-import { Image } from 'react-native'
+import { Image } from 'retro-web-native'
 
 const ImageButton = ({ style, onPress, source, resizeMode = 'contain' }) => (
   <Button onPress={onPress}>

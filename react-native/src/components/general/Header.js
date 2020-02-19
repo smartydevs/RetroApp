@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'retro-web-native'
 import Row from './Row'
 import { Fonts, ApplicationStyles, Images, Colors, Metrics } from '../../themes'
 import { normalizeHeight } from '../../themes/Metrics'
 import ImageButton from '../buttons/ImageButton'
-import { connect } from 'react-redux'
+import { connect } from 'retro-web-redux'
 
 const styles = StyleSheet.create({
   container: {

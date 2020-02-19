@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Button from './Button'
-import { StyleSheet, Text, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, ActivityIndicator } from 'retro-web-native'
 import { Fonts, Colors, Metrics, ApplicationStyles } from '../../themes'
 
 const styles = StyleSheet.create({

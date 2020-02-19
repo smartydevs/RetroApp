@@ -1,6 +1,6 @@
 import React from 'react'
-import { Image } from 'react-native'
-import { createBottomTabNavigator } from 'react-navigation-tabs'
+import { Image } from 'retro-web-native'
+import { createBottomTabNavigator } from 'retro-web-navigation-tabs'
 import { HomeContainer } from './home'
 import { SearchContainer } from './search'
 import { NotificationContainer } from './notification'
@@ -13,9 +13,9 @@ const [MAIN, NOTIFICATION, SEARCH, PROFILE] = ['Main', 'Notification', 'Search',
 
 const BottomNavigatorContainer = createBottomTabNavigator(
   {
-    [MAIN]: {screen: HomeContainer}, 
-    [SEARCH]: {screen: SearchContainer}, 
-    [NOTIFICATION]: {screen: NotificationContainer}, 
+    [MAIN]: {screen: HomeContainer},
+    [SEARCH]: {screen: SearchContainer},
+    [NOTIFICATION]: {screen: NotificationContainer},
     [PROFILE]: {screen: ProfileContainer}
   },
   {

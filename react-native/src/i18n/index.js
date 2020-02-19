@@ -1,4 +1,4 @@
-import I18n from 'react-native-i18n'
+import I18n from 'retro-web-native-i18n'
 import en from './locales/en'
 
 I18n.fallbacks = true

@@ -1,5 +1,5 @@
 import React from 'react'
-import {TouchableOpacity} from 'react-native'
+import {TouchableOpacity} from 'retro-web-native'
 import PropTypes from 'prop-types'
 
 const Button = ({ style, onPress, children }) => (

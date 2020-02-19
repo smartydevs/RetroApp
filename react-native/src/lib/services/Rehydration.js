@@ -1,5 +1,5 @@
 import ReduxPersist from '../../config/ReduxPersist'
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage } from 'retro-web-native'
 import { persistStore } from 'redux-persist'
 
 const updateReducers = (store) => {
