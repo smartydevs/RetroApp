@@ -26,6 +26,6 @@
     "ios": {
       "supportsTablet": true
     },
-    "entryPoint": "./src/containers/RootContainer.js"
+    "entryPoint": "./src/containers/App.js"
   }
 }

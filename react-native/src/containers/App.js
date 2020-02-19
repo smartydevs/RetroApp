@@ -1,21 +1,44 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import '../config'
+import React, { Component } from 'react'
+import { Provider } from 'react-redux'
+import { registerRootComponent } from 'expo'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+import ApiClient from '../api/client'
+import RootContainer from './RootContainer'
+import createStore from '../redux'
+import { AsyncStorage } from 'react-native'
+import Constants from '../lib/enums'
+
+const store = createStore()
+
+class App extends Component {
+  state = {
+    isLoading: true
   }
-})
 
-const App = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  )
+  componentDidMount () {
+    // AsyncStorage.clear()
+    AsyncStorage.getItem(Constants.TOKEN)
+    .then(token => {
+      console.log('TOKEN', token)
+      ApiClient.setToken(token)
+      this.setState({isLoading: false})
+    })
+  }
+
+  render () {
+    const { isLoading } = this.state
+
+    if (isLoading) {
+      return null
+    }
+
+    return (
+      <Provider store={store}>
+        <RootContainer />
+      </Provider>
+    )
+  }
 }
 
-export default App
+export default registerRootComponent(App)
