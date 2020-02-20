@@ -4,7 +4,7 @@ import {
   View,
   Animated,
   Text
-} from 'retro-web-native'
+} from 'react-native'
 import PropTypes from 'prop-types'
 import ImageButton from '../buttons/ImageButton'
 import { Colors, Fonts, Metrics, Images } from '../../themes'

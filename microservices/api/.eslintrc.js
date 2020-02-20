@@ -11,6 +11,7 @@ module.exports = {
         'eslint:recommended',
         'plugin:prettier/recommended',
         'plugin:meteor/recommended',
+        'plugin:react/recommended',
         'plugin:flowtype/recommended',
     ],
     env: {

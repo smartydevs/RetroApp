@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet, TextInput, Image } from 'retro-web-native'
+import { StyleSheet, TextInput, Image } from 'react-native'
 import { ApplicationStyles, Colors, Fonts, Metrics, Images } from '../../themes'
 import Row from './Row'
 import { normalizeWidth } from '../../themes/Metrics'

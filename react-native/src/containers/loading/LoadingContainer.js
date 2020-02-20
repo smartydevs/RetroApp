@@ -1,5 +1,5 @@
 import React from 'react'
-import { StackActions, NavigationActions } from 'retro-web-navigation'
+import { StackActions, NavigationActions } from 'react-navigation'
 import ApiClient from '../../api/client'
 import { ScreenEnum } from '../../lib/enums'
 

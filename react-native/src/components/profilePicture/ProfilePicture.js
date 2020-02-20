@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text } from 'retro-web-native'
+import { Text } from 'react-native'
 import PropTypes from 'prop-types'
 import { ApplicationStyles, Colors } from '../../themes'
 import { Row } from '..'
