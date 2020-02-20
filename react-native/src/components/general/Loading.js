@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, ActivityIndicator } from 'retro-web-native'
+import { View, ActivityIndicator } from 'react-native'
 import PropTypes from 'prop-types'
 import { Colors, ApplicationStyles } from '../../themes'
 

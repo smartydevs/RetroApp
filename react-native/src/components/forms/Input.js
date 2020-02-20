@@ -1,4 +1,4 @@
-import {StyleSheet, TextInput, Image, TouchableWithoutFeedback, Keyboard} from 'retro-web-native'
+import {StyleSheet, TextInput, Image, TouchableWithoutFeedback, Keyboard} from 'react-native'
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Metrics, Colors, ApplicationStyles } from '../../themes'

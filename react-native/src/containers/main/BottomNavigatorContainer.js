@@ -1,6 +1,6 @@
 import React from 'react'
-import { Image } from 'retro-web-native'
-import { createBottomTabNavigator } from 'retro-web-navigation-tabs'
+import { Image } from 'react-native'
+import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { HomeContainer } from './home'
 import { SearchContainer } from './search'
 import { NotificationContainer } from './notification'

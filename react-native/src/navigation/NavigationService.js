@@ -1,4 +1,4 @@
-import { NavigationActions, StackActions } from 'retro-web-navigation'
+import { NavigationActions, StackActions } from 'react-navigation'
 
 let navigator
 

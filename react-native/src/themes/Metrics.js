@@ -1,4 +1,4 @@
-import { Dimensions, Platform, PixelRatio } from 'retro-web-native'
+import { Dimensions, Platform, PixelRatio } from 'react-native'
 import {OS} from '../lib/enums'
 
 export const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get(

@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { BackHandler, Platform } from 'retro-web-native'
+import { BackHandler, Platform } from 'react-native'
 import {
   createReactNavigationReduxMiddleware,
   createReduxContainer
-} from 'retro-web-navigation-redux-helpers'
-import { connect } from 'retro-web-redux'
+} from 'react-navigation-redux-helpers'
+import { connect } from 'react-redux'
 import AppNavigation from './AppNavigation'
 import { ScreenEnum } from '../lib/enums'
 import NavigationService from './NavigationService'
@@ -17,7 +17,7 @@ export const appNavigatorMiddleware = createReactNavigationReduxMiddleware(
 const ReduxAppNavigator = createReduxContainer(AppNavigation, 'root')
 
 class ReduxNavigation extends React.Component {
-  componentDidMount () {
+  componentDidMount() {
     NavigationService.setTopLevelNavigator(this.props)
     if (Platform.OS === 'ios') return
     BackHandler.addEventListener('hardwareBackPress', () => {
@@ -30,12 +30,12 @@ class ReduxNavigation extends React.Component {
     })
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (Platform.OS === 'ios') return
     BackHandler.removeEventListener('hardwareBackPress', undefined)
   }
 
-  render () {
+  render() {
     return <ReduxAppNavigator dispatch={this.props.dispatch} state={this.props.nav} />
   }
 }
