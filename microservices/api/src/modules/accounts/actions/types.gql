@@ -1,0 +1,15 @@
+type Mutation {
+    registerUser(input: String): RegisterResponse
+}
+
+input ProfileInput {
+    email: String!
+    password: String!
+    firstName: String
+    lastName: String
+}
+
+type RegisterResponse {
+    message: String
+    success: Boolean
+}

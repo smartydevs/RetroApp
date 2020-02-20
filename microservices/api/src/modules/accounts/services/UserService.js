@@ -12,4 +12,8 @@ export default class UserService {
 
     return null;
   }
+
+  registerUser(input) {
+
+  }
 }

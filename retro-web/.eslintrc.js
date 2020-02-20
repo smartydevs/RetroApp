@@ -11,7 +11,6 @@ module.exports = {
         'eslint:recommended',
         'plugin:prettier/recommended',
         'plugin:meteor/recommended',
-        'plugin:retro-web/recommended',
         'plugin:flowtype/recommended',
     ],
     env: {
