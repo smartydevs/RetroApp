@@ -6,7 +6,7 @@ const {container, center} = ApplicationStyles
 
 const ProfileComponent = () => {
     return (
-        <View style={container, center}>
+        <View style={[container, center]}>
             <Text> Profile Screen </Text>
         </View>
     )

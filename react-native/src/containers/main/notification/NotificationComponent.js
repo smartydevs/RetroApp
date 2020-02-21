@@ -6,7 +6,7 @@ const {container, center} = ApplicationStyles
 
 const NotificationComponent = () => {
     return (
-        <View style={container, center}>
+        <View style={[container, center]}>
             <Text> Notification Screen </Text>
         </View>
     )

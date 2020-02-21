@@ -6,7 +6,7 @@ const {container, center} = ApplicationStyles
 
 const ChooseFeedComponent = () => {
     return (
-        <View style={container, center}>
+        <View style={[container, center]}>
             <Text> Choose Feed Screen </Text>
         </View>
     )

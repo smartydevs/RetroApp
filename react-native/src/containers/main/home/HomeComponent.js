@@ -6,7 +6,7 @@ const {container, center} = ApplicationStyles
 
 const HomeComponent = () => {
     return (
-        <View style={container, center}>
+        <View style={[container, center]}>
             <Text> Home Screen </Text>
         </View>
     )

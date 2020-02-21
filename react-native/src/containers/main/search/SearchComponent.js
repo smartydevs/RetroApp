@@ -6,7 +6,7 @@ const {container, center} = ApplicationStyles
 
 const SearchComponent = () => {
     return (
-        <View style={container, center}>
+        <View style={[container, center]}>
             <Text> Search Screen </Text>
         </View>
     )

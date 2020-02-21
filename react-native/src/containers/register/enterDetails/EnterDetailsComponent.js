@@ -6,7 +6,7 @@ const {container, center} = ApplicationStyles
 
 const EnterDetailsComponent = () => {
     return (
-        <View style={container, center}>
+        <View style={[container, center]}>
             <Text> Enter Details Screen </Text>
         </View>
     )
