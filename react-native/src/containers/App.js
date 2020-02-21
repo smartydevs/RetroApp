@@ -2,6 +2,7 @@ import '../config'
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { registerRootComponent } from 'expo'
+import * as Font from 'expo-font'
 
 import ApiClient from '../api/client'
 import RootContainer from './RootContainer'
@@ -22,8 +23,15 @@ class App extends Component {
     .then(token => {
       console.log('TOKEN', token)
       ApiClient.setToken(token)
-      this.setState({isLoading: false})
     })
+    this.loadFonts()
+  }
+
+  loadFonts = () => {
+    Font.loadAsync({
+      'GothamRounded-Book': require('../../assets/fonts/Gotham-Rounded-Book.otf'),
+      'GothamRounded-Medium': require('../../assets/fonts/Gotham-Rounded-Medium.otf')
+    }).then(() => this.setState({isLoading: false}))
   }
 
   render () {

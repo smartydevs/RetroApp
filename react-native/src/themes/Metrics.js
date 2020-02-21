@@ -60,6 +60,9 @@ const Metrics = {
   borderWidth: {
     default: 0.5
   },
+  borderRadius: {
+    default: normalizeHeight(25)
+  },
   buttons: {
     default: normalizeHeight(48),
     small: normalizeHeight(40)
