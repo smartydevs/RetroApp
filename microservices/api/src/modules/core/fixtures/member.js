@@ -6,7 +6,7 @@ import RolesEnum from '../../accounts/db/users/enums/RolesEnum';
 
 const PASSWORD = '12345';
 
-export function createUser(email) {
+export function createMember(email) {
   const userId = Accounts.createUser({
     email,
     password: PASSWORD,
@@ -16,5 +16,5 @@ export function createUser(email) {
     },
   });
 
-  Roles.addUsersToRoles(userId, [RolesEnum.USER]);
+  Roles.addUsersToRoles(userId, [RolesEnum.MEMBER]);
 }

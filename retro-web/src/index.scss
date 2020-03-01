@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+@import 'styles/_common.scss';
+
+$dark-color: #25222A;
+$cream-color: #FBFBFB;
+$primaryPink-color: #F38181;
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  list-style-type: none;
+  font-family: 'Lato', serif;
+}
+
+body {
+  background-color: $cream-color;
+}
+
+.dark-text {
+  color: $dark-color;
+}
+
+.primaryPink-text {
+  color: $primaryPink-color;
+}
+

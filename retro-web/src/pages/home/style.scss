@@ -1,0 +1,38 @@
+.cc-home {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+
+  &--image-container {
+    width: 50%;
+    height: 90vh;
+  }
+
+  &--image {
+    width: 100%;
+    object-fit: contain;
+  }
+
+  &--hero {
+    margin-top: 5vw;
+    display: flex;
+    padding: 0 24px;
+    width: 50%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    &_action {
+      width: 80%;
+      padding: 17px 10px;
+    }
+
+    &_buttons {
+      margin-top: 10px;
+    }
+  }
+
+}
+

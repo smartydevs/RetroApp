@@ -5,9 +5,8 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 
-import { loadRoles } from './roles';
 import { createAdmin } from './admin';
-import { createUser } from './user';
+import { createMember } from './member';
 import { createOrganiser } from './organiser';
 import { createCategory } from './category';
 import { createEvent } from './event';
@@ -16,9 +15,8 @@ import { Categories } from '../db';
 import { Users } from '../../accounts/db';
 
 async function loadUsers() {
-  console.log('users');
   for (let i = 1; i <= 10; i++) {
-    createUser(`retro-user${i}@retro.com`);
+    createMember(`retro-user${i}@retro.com`);
   }
 }
 

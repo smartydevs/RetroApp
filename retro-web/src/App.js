@@ -1,7 +1,35 @@
 import React from 'react';
+import _ from 'lodash';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { BrowserRouter } from 'react-router-dom';
+
+import apolloClient from './services/apollo';
+import { appRoutes, RouteActions, routeTypes } from './routing';
+import { NavBar } from './components';
 
 function App() {
-  return <div className="App">hello world</div>;
+  return (
+    <ApolloProvider client={apolloClient}>
+      <BrowserRouter>
+        <NavBar />
+        <RouteActions>
+          {_.map(appRoutes, (route, index) => {
+            const RouteComponent = routeTypes[route.type];
+            if (RouteComponent) {
+              return (
+                <RouteComponent
+                  key={index}
+                  path={route.path}
+                  exact={route.exact}
+                  component={route.component}
+                />
+              );
+            }
+          })}
+        </RouteActions>
+      </BrowserRouter>
+    </ApolloProvider>
+  );
 }
 
 export default App;

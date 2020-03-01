@@ -1,0 +1,19 @@
+type Mutation {
+    createEvent(eventDetails: EventInput!): String
+}
+
+input EventInput {
+    location: LocationInput
+    title: String!
+    description: String!
+    startDate: Date!
+    endDate: Date
+    categoriesId: [String]
+    uploadPhoto: Upload
+}
+
+input LocationInput {
+    latitude: String!
+    longitude: String!
+    addressName: String
+}

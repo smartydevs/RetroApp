@@ -12,6 +12,7 @@ module.exports = {
         'plugin:prettier/recommended',
         'plugin:meteor/recommended',
         'plugin:flowtype/recommended',
+        "plugin:react/recommended"
     ],
     env: {
         es6: true,
@@ -39,5 +40,6 @@ module.exports = {
             },
         ],
         'no-console': 0,
+        'react/prop-types': 'warn',
     },
 };

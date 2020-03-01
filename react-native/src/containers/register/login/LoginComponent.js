@@ -6,7 +6,7 @@ const {container, center} = ApplicationStyles
 
 const LoginComponent = () => {
     return (
-        <View style={container, center}>
+        <View style={[container, center]}>
             <Text> Log in Screen </Text>
         </View>
     )

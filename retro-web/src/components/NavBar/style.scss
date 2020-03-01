@@ -1,0 +1,33 @@
+@import 'index.scss';
+
+.cc-navbar {
+    background-color: $dark-color;
+    display: flex;
+    flex-direction: row;
+    padding: 0 24px;
+    justify-content: space-between;
+    align-items: center;
+    height: 10vh;
+    width: 100%;
+
+    &--logo {
+        height: 80%;
+
+        &_img {
+            height: 100%;
+        }
+    }
+
+    &--links {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 15%;
+        min-width: 100px;
+    }
+
+    &--link {
+        color: $cream-color;
+    }
+
+}
