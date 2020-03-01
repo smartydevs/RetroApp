@@ -6,7 +6,7 @@ const {container, center} = ApplicationStyles
 
 const SignupComponent = () => {
     return (
-        <View style={container, center}>
+        <View style={[container, center]}>
             <Text> Sign up Screen </Text>
         </View>
     )

@@ -7,10 +7,11 @@ import { Fonts, Colors, Metrics, ApplicationStyles } from '../../themes'
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: Metrics.buttons.default
+    height: Metrics.buttons.default,
+    borderRadius: Metrics.borderRadius.default
   },
   text: {
-    fontSize: Fonts.size.medium,
+    ...Fonts.style.button,
     color: Colors.white
   }
 })
@@ -18,7 +19,11 @@ const styles = StyleSheet.create({
 const TextButton = ({ style, onPress, text, textStyle, isLoading, hasChildren, children }) => (
   <Button onPress={onPress} style={[styles.container, ApplicationStyles.center, style]}>
     {
-      isLoading ? <ActivityIndicator color={Colors.white} /> : hasChildren ? children : <Text style={textStyle}>{text}</Text>
+      isLoading ? (
+        <ActivityIndicator color={Colors.white} />
+      ) : (
+        hasChildren ? children : <Text style={[styles.text, textStyle]}>{text}</Text>
+      )
     }
   </Button>
 )

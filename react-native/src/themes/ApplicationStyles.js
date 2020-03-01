@@ -24,7 +24,7 @@ const ApplicationStyles = {
   screen: {
     mainContainer: {
       flex: 1,
-      backgroundColor: Colors.black
+      backgroundColor: Colors.dark
     },
     backgroundImage: {
       position: 'absolute',
@@ -82,7 +82,7 @@ const ApplicationStyles = {
     alignItems: 'center'
   },
   marginVertical: {
-    marginVertical: '20%'
+    marginVertical: Metrics.margin
   },
   loadingContainer: {
     width: '100%',

@@ -5,7 +5,7 @@ import { Metrics, Colors, ApplicationStyles } from '../../themes'
 import { Row } from '..'
 import { normalizeWidth } from '../../themes/Metrics'
 
-const {white, primaryDark, primaryGray} = Colors
+const {white, black, primaryGray} = Colors
 const {imageSize, input} = Metrics.forms
 
 const styles = StyleSheet.create({
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     flex: 1,
     padding: 0,
-    color: primaryDark
+    color: black
   },
   image: {
     ...imageSize
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 const {alignCenter} = ApplicationStyles
 
 const Input = (props) => {
-  const {containerStyle, textStyle, error, iconSource} = props
+  const {containerStyle, textStyle, iconSource} = props
   let textInputRef
 
   let {color} = props
@@ -67,7 +67,6 @@ Input.propTypes = {
   textStyle: PropTypes.instanceOf(Object),
   color: PropTypes.number,
   iconSource: PropTypes.number,
-  error: PropTypes.string,
   ...TextInput.propTypes
 }
 
@@ -75,7 +74,6 @@ Input.defaultProps = {
   containerStyle: {},
   textStyle: {},
   iconSource: null,
-  error: ''
 }
 
 export default Input
