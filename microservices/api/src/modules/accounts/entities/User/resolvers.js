@@ -13,6 +13,9 @@ export default {
       const user = await Meteor.users.findOne(userId);
       return user && user.emails && user.emails.length && user.emails[0].address;
     },
+    news: async ({ _id: userId }) => {
+      return UserService.getNews(userId);
+    },
   },
   UserStandardProfile: {
     fullName: userProfile => UserService.getFullName(userProfile),

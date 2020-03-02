@@ -1,4 +1,5 @@
 type Mutation {
     createCategory(categoryName: String!): String
     editCategory(categoryId: String!, categoryName: String!): Boolean
+    deleteCategory(categoryId: String!): Boolean
 }

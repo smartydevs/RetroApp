@@ -29,4 +29,15 @@ export default class UserService {
       throw new Error('email-used');
     }
   }
+
+  getNews(userId) {
+    const { db } = this;
+
+    return db.notifications
+      .find({
+        receiverId: userId,
+        isViewed: false,
+      })
+      .fetch();
+  }
 }

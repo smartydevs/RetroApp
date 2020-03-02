@@ -19,6 +19,12 @@ load({
 
         return CategoryService.editCategory({ categoryId, categoryName });
       },
+
+      deleteCategory(_, { categoryId }, { userId }) {
+        SecurityService.checkRole(userId, RolesEnum.ADMIN);
+
+        return CategoryService.deleteCategory(categoryId);
+      },
     },
   },
 });

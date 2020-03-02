@@ -45,5 +45,59 @@ export default class EventService {
     return eventId;
   }
 
+  joinEvent(userId, eventId) {
+    const { db } = this;
 
+    const event = db.event.findOne(eventId);
+    if (!event) {
+      throw new Error('Something went wrong');
+    }
+
+    const user = event.usersId.find(userId);
+    if (user) {
+      throw new Error('user-alreadyJoined');
+    }
+
+    return db.events.update(eventId, {
+      $push: {
+        usersId: userId,
+      },
+    });
+  }
+
+  leaveEvent(userId, eventId) {
+    const { db } = this;
+
+    const event = db.event.findOne(eventId);
+    if (!event) {
+      throw new Error('Something went wrong');
+    }
+
+    const user = event.usersId.find(userId);
+    if (!user) {
+      throw new Error('user-notJoined');
+    }
+
+    const newUsersId = event.usersId.filter(u => u !== userId);
+
+    return db.events.update(eventId, {
+      $set: {
+        usersId: newUsersId,
+      },
+    });
+  }
+
+  getUserEvents(userId) {
+    const { db } = this;
+
+    const events = db.events
+      .find({
+        usersId: {
+          $in: [userId],
+        },
+      })
+      .fetch();
+
+    return events;
+  }
 }

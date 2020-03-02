@@ -13,6 +13,16 @@ load({
 
         return EventService.createEvent(userId, eventDetails);
       },
+      joinEvent(_, { eventId }, { userId }) {
+        return EventService.joinEvent(userId, eventId);
+      },
+      leaveEvent(_, { eventId }, { userId }) {
+        return EventService.leaveEvent(userId, eventId);
+      },
+      getUserEvents(_, v, { userId }) {
+        SecurityService.checkLoggedIn({ userId });
+        return EventService.getUserEvents(userId);
+      },
     },
   },
 });

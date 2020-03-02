@@ -1,5 +1,5 @@
 import Users from './collection';
-import { Events } from '../../../core/db';
+import { Events, Notifications } from '../../../core/db';
 
 Users.addLinks({
   ownedEvents: {
