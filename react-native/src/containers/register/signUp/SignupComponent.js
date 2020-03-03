@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, KeyboardAvoidingView, Platform } from 'react-native'
 import PropTypes from 'prop-types'
 import { ApplicationStyles, Images, Fonts } from '../../../themes'
 
@@ -7,13 +7,19 @@ import styles from './styles'
 import strings from '../../../lib/stringEnums'
 import { Input, TextButton } from '../../../components'
 import { Ionicons } from '@expo/vector-icons'
+import { OS } from '../../../lib/enums'
 
 const {container, center, marginVertical} = ApplicationStyles
 const {bigBoldTitle, creamText, button} = Fonts.style
 
 const SignupComponent = ({onChangeEmail, onChangePassword, onChangeRepeatPassword, email,
   password, repeatPassword, onPressFacebook, onPressSignUp}) => (
-  <View style={[container, center, styles.screen]}>
+  <KeyboardAvoidingView
+    behavior={OS.IOS === Platform.OS ? 'position' : 'height'}
+    contentContainerStyle={[container, center, styles.screen]}
+    style={container}
+    enabled
+  >
     <Image
       source={Images.logo}
       style={styles.logo}
@@ -66,7 +72,7 @@ const SignupComponent = ({onChangeEmail, onChangePassword, onChangeRepeatPasswor
       />
       <Text style={[button, creamText]}>{strings.facebookLogin}</Text>
     </TextButton>
-  </View>
+  </KeyboardAvoidingView>
 )
 
 SignupComponent.propTypes = {

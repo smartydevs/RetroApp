@@ -10,7 +10,8 @@ const strings = {
     notOnApp: 'Not on Retro App yet? Sign up',
     signup: 'Sign up',
     providePassword: 'Please provide a password of at least 6 characters',
-    passwordsDontMatch: 'The passwords provided don\'t match'
+    passwordsDontMatch: 'The passwords provided don\'t match',
+    enterDetailsDescription: 'Let us know you'
 }
 
 export default strings

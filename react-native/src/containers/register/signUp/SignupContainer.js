@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { SignupComponent } from '.'
 import { Notification } from '../../../components'
 import strings from '../../../lib/stringEnums'
-import { NotificationTypeEnum } from '../../../lib/enums'
+import { NotificationTypeEnum, ScreenEnum } from '../../../lib/enums'
 
 const {ERROR} = NotificationTypeEnum
 
@@ -38,7 +38,7 @@ class SignupContainer extends Component {
       return
     }
 
-    this.props.navigation.goBack()
+    this.props.navigation.push(ScreenEnum.ENTER_DETAILS)
   }
 
   onPressFacebook = () => {

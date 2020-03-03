@@ -23,7 +23,7 @@ class LoginContainer extends Component {
   onPressFacebook = () => {}
 
   onPressLogin = () => {
-    this.props.navigation.push(ScreenEnum.ENTER_DETAILS)
+    this.props.navigation.push(ScreenEnum.MAIN)
   }
 
   onPressRegister = () => {}
