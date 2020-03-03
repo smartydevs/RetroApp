@@ -1,15 +1,83 @@
 import React from 'react'
-import { View, Text } from 'react-native'
-import { ApplicationStyles } from '../../../themes'
+import { View, Text, Image } from 'react-native'
+import PropTypes from 'prop-types'
+import { ApplicationStyles, Images, Fonts } from '../../../themes'
 
-const {container, center} = ApplicationStyles
+import styles from './styles'
+import strings from '../../../lib/stringEnums'
+import { Input, TextButton } from '../../../components'
+import { Ionicons } from '@expo/vector-icons'
 
-const SignupComponent = () => {
-    return (
-        <View style={[container, center]}>
-            <Text> Sign up Screen </Text>
-        </View>
-    )
+const {container, center, marginVertical} = ApplicationStyles
+const {bigBoldTitle, creamText, button} = Fonts.style
+
+const SignupComponent = ({onChangeEmail, onChangePassword, onChangeRepeatPassword, email,
+  password, repeatPassword, onPressFacebook, onPressSignUp}) => (
+  <View style={[container, center, styles.screen]}>
+    <Image
+      source={Images.logo}
+      style={styles.logo}
+      resizeMode={'contain'}
+    />
+    <Text style={[styles.welcome, bigBoldTitle, creamText]}>
+      {strings.welcome}
+    </Text>
+    <View style={styles.maxWidth}>
+      <Input
+        containerStyle={[styles.inputContainer]}
+        placeholder={strings.email}
+        onChangeText={onChangeEmail}
+        value={email}
+      />
+      <Input
+        containerStyle={[styles.inputContainer]}
+        placeholder={strings.password}
+        autoCompleteType={'password'}
+        onChangeText={onChangePassword}
+        value={password}
+        secureTextEntry
+      />
+      <Input
+        containerStyle={[styles.inputContainer]}
+        placeholder={strings.repeatPassword}
+        autoCompleteType={'password'}
+        onChangeText={onChangeRepeatPassword}
+        value={repeatPassword}
+        secureTextEntry
+      />
+    </View>
+    <TextButton
+      style={[styles.signup]}
+      onPress={onPressSignUp}
+      text={strings.signup}
+    />
+    <Text style={[bigBoldTitle, creamText, marginVertical]}>
+      {strings.or.toUpperCase()}
+    </Text>
+    <TextButton
+      style={[styles.facebook]}
+      onPress={onPressFacebook}
+      hasChildren
+    >
+      <Ionicons
+        name={'logo-facebook'}
+        size={28}
+        style={styles.facebookLogo}
+      />
+      <Text style={[button, creamText]}>{strings.facebookLogin}</Text>
+    </TextButton>
+  </View>
+)
+
+SignupComponent.propTypes = {
+  onChangeEmail: PropTypes.func.isRequired,
+  onChangePassword: PropTypes.func.isRequired,
+  onChangeRepeatPassword: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  repeatPassword: PropTypes.string.isRequired,
+  onPressFacebook: PropTypes.func.isRequired,
+  onPressSignUp: PropTypes.func.isRequired
 }
 
 export default SignupComponent

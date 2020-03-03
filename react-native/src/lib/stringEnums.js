@@ -6,7 +6,11 @@ const strings = {
     forgotPassword: 'Forgot your password ?',
     login: 'Log in',
     or: 'or',
-    facebookLogin: 'Continue with Facebook'
+    facebookLogin: 'Continue with Facebook',
+    notOnApp: 'Not on Retro App yet? Sign up',
+    signup: 'Sign up',
+    providePassword: 'Please provide a password of at least 6 characters',
+    passwordsDontMatch: 'The passwords provided don\'t match'
 }
 
 export default strings

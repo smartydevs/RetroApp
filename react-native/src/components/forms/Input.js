@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     height: input.height,
     borderWidth: Metrics.border.base,
     backgroundColor: white,
-    paddingLeft: normalizeWidth(20)
+    paddingLeft: normalizeWidth(20),
+    borderRadius: normalizeWidth(10)
   },
   textStyle: {
     margin: 0,

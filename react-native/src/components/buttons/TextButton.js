@@ -7,8 +7,8 @@ import { Fonts, Colors, Metrics, ApplicationStyles } from '../../themes'
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: Metrics.buttons.default,
-    borderRadius: Metrics.borderRadius.default
+    height: Metrics.buttons.small,
+    borderRadius: Metrics.borderRadius.default,
   },
   text: {
     ...Fonts.style.button,

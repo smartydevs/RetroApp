@@ -3,7 +3,7 @@ import { View, Text, Image } from 'react-native'
 import PropTypes from 'prop-types'
 import { Ionicons } from '@expo/vector-icons'
 import { ApplicationStyles, Images, Fonts, Colors } from '../../../themes'
-import { Input, TextButton } from '../../../components'
+import { Input, TextButton, Separator } from '../../../components'
 
 import strings from '../../../lib/stringEnums'
 import styles from './styles'
@@ -12,7 +12,7 @@ const {container, center, marginVertical} = ApplicationStyles
 const {bigBoldTitle, creamText, boldTitle, button} = Fonts.style
 
 const LoginComponent = ({onPressLogin, onPressForgotPassword, onPressFacebook,
-  onChangePassword, onChangeEmail, email, password}) => {
+  onPressSignUp, onChangePassword, onChangeEmail, email, password}) => {
   return (
     <View style={[container, center, styles.screen]}>
       <Image
@@ -33,7 +33,7 @@ const LoginComponent = ({onPressLogin, onPressForgotPassword, onPressFacebook,
         <Input
           placeholder={strings.password}
           autoCompleteType={'password'}
-          onChangePassword={onChangePassword}
+          onChangeText={onChangePassword}
           value={password}
           secureTextEntry
         />
@@ -57,12 +57,17 @@ const LoginComponent = ({onPressLogin, onPressForgotPassword, onPressFacebook,
         hasChildren
       >
         <Ionicons
-          name={'facebook-with-circle'}
-          size={24}
+          name={'logo-facebook'}
+          size={28}
           style={styles.facebookLogo}
         />
         <Text style={[button, creamText]}>{strings.facebookLogin}</Text>
       </TextButton>
+      <Separator width={'80%'} style={styles.separator} />
+      <TextButton 
+        text={strings.notOnApp}
+        onPress={onPressSignUp}
+      />
     </View>
   )
 }
@@ -70,7 +75,8 @@ const LoginComponent = ({onPressLogin, onPressForgotPassword, onPressFacebook,
 LoginComponent.propTypes = {
   onPressFacebook: PropTypes.func.isRequired,
   onPressForgotPassword: PropTypes.func.isRequired,
-  onPressLogin: PropTypes.func.isRequired
+  onPressLogin: PropTypes.func.isRequired,
+  onPressSignUp: PropTypes.func.isRequired
 }
 
 export default LoginComponent

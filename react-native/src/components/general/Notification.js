@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     marginHorizontal: normalizeWidth(12)
   },
   message: {
-    color: Colors.primaryDark,
+    color: Colors.dark,
     flex: 1,
     marginHorizontal: normalizeWidth(16),
     fontFamily: Fonts.type.thin,

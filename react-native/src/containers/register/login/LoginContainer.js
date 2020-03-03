@@ -23,10 +23,14 @@ class LoginContainer extends Component {
   onPressFacebook = () => {}
 
   onPressLogin = () => {
-    this.props.navigation.push(ScreenEnum.MAIN)
+    this.props.navigation.push(ScreenEnum.ENTER_DETAILS)
   }
 
   onPressRegister = () => {}
+
+  onPressSignUp = () => {
+    this.props.navigation.push(ScreenEnum.SIGN_UP)
+  }
 
   render() {
     const {email, password} = this.state
@@ -39,6 +43,7 @@ class LoginContainer extends Component {
         onPressLogin={this.onPressLogin}
         onPressForgotPassword={this.onPressForgotPassword}
         onPressRegister={this.onPressRegister}
+        onPressSignUp={this.onPressSignUp}
         email={email}
         password={password}
       />

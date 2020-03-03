@@ -29,6 +29,9 @@ const styles = StyleSheet.create({
     facebookLogo: {
         color: Colors.white,
         marginRight: Metrics.margin
+    },
+    separator: {
+        marginTop: normalizeHeight(20)
     }
 })
 
