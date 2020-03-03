@@ -8,6 +8,7 @@ const type = {
 
 const size = {
   extraLargeTitle: normalizeWidth(48),
+  largeTitle: normalizeWidth(24),
   bigTitle: normalizeWidth(18),
   title: normalizeWidth(14),
   button: normalizeWidth(12),
@@ -15,6 +16,11 @@ const size = {
 }
 
 const style = {
+  largeBoldTitle: {
+    fontSize: size.largeTitle,
+    fontFamily: type.bold,
+    color: Colors.black
+  },
   extraLargeTitle: {
     fontSize: size.extraLargeTitle,
     fontFamily: type.base,

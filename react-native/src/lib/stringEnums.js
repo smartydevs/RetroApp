@@ -1,5 +1,6 @@
 const strings = {
     welcome: 'Welcome to Retro App',
+    chooseFeedComponent: 'Choose some of your interests',
     email: 'Email',
     password: 'Password',
     repeatPassword: 'Repeat password',
@@ -11,7 +12,8 @@ const strings = {
     signup: 'Sign up',
     providePassword: 'Please provide a password of at least 6 characters',
     passwordsDontMatch: 'The passwords provided don\'t match',
-    enterDetailsDescription: 'Let us know you'
+    enterDetailsDescription: 'Let us know you',
+    skip: 'Skip'
 }
 
 export default strings

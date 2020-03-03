@@ -38,7 +38,7 @@ class SignupContainer extends Component {
       return
     }
 
-    this.props.navigation.push(ScreenEnum.ENTER_DETAILS)
+    this.props.navigation.push(ScreenEnum.CHOOSE_FEED)
   }
 
   onPressFacebook = () => {
