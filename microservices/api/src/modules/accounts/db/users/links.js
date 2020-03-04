@@ -1,5 +1,5 @@
 import Users from './collection';
-import { Events, Notifications } from '../../../core/db';
+import { Categories, Events } from '../../../core/db';
 
 Users.addLinks({
   ownedEvents: {
@@ -9,5 +9,10 @@ Users.addLinks({
   participatingEvents: {
     collection: Events,
     inversedBy: 'users',
+  },
+  followingCategories: {
+    collection: Categories,
+    field: 'profile.categoryIds',
+    type: 'many',
   },
 });

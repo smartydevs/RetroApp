@@ -21,4 +21,9 @@ export default class CategoryService {
     const { db } = this;
     return db.categories.remove(categoryId);
   }
+
+  getCategories() {
+    const { db } = this;
+    return db.categories.find().fetch();
+  }
 }

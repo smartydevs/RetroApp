@@ -2,6 +2,9 @@ type Mutation {
     createEvent(eventDetails: EventInput!): String
     joinEvent(eventId: String!): String
     leaveEvent(eventId: String!): String
+}
+
+type Query {
     getUserEvents: [Event]
 }
 

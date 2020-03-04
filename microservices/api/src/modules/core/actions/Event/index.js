@@ -7,6 +7,12 @@ import RolesEnum from '../../../accounts/db/users/enums/RolesEnum';
 load({
   typeDefs,
   resolvers: {
+    Query: {
+      getUserEvents(_, v, { userId }) {
+        SecurityService.checkLoggedIn({ userId });
+        return EventService.getUserEvents(userId);
+      },
+    },
     Mutation: {
       createEvent(_, { eventDetails }, { userId }) {
         SecurityService.checkRole(userId, RolesEnum.ORGANISER);
@@ -18,10 +24,6 @@ load({
       },
       leaveEvent(_, { eventId }, { userId }) {
         return EventService.leaveEvent(userId, eventId);
-      },
-      getUserEvents(_, v, { userId }) {
-        SecurityService.checkLoggedIn({ userId });
-        return EventService.getUserEvents(userId);
       },
     },
   },

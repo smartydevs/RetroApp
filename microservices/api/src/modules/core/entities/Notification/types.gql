@@ -3,5 +3,5 @@ type Notification {
     receiver: User
     createdAt: Date
     type: String
-    data: Object
+    ##data: Object
 }

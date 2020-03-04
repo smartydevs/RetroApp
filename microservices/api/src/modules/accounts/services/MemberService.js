@@ -43,4 +43,13 @@ export default class MemberService {
 
     return true;
   }
+
+  addMemberCategories(userId, categories) {
+    const { db } = this;
+    return db.users.update(userId, {
+      $set: {
+        'profile.categoryIds': [...categories],
+      },
+    });
+  }
 }

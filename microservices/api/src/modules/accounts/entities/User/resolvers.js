@@ -5,9 +5,6 @@ import RolesEnum from '../../db/users/enums/RolesEnum';
 import { UserService } from '../../services';
 
 export default {
-  Query: {
-    hello: () => 'hello',
-  },
   User: {
     email: async ({ _id: userId }) => {
       const user = await Meteor.users.findOne(userId);
