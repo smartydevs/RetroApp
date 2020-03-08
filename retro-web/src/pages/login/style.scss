@@ -1,0 +1,28 @@
+@import 'index.scss';
+
+.cc-login {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  &--form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    &_button {
+      background-color: $primaryPink-color;
+      color: #fff;
+      border: 1px solid #eee;
+      border-radius: 20px;
+      box-shadow: 5px 5px 5px #eee;
+      text-shadow:none;
+      width: 5vw;
+      cursor: pointer;
+    }
+  }
+
+}
