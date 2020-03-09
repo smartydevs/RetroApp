@@ -1,0 +1,15 @@
+@import 'index.scss';
+
+.cc-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 25px;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.16);
+  background-color: #fbfbfb;
+  min-width: 100px;
+  min-height: 100px;
+  height: 80%;
+  width: 56%;
+}

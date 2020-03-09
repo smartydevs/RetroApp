@@ -1,10 +1,9 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { androi } from '@fortawesome/free-solid-svg-icons';
 
 import './style.scss';
 
-const ActionButton = ({ backgroundColor, imgSrc, title, text, style = {} }) => {
+const ActionButton = ({ backgroundColor, icon, title, text, style = {}, iconStyle = {}, size }) => {
   return (
     <div
       className="cc-actionButton"
@@ -13,15 +12,13 @@ const ActionButton = ({ backgroundColor, imgSrc, title, text, style = {} }) => {
         ...style,
       }}
     >
-      <img
-        alt="Button Image"
-        src={imgSrc}
-        style={{
-          fill: 'white',
-        }}
-      />
+      <FontAwesomeIcon icon={icon} style={iconStyle} size={size} />
       <div className="cc-actionButton--card">
-        <p className="dark-text">{title}</p>
+        <p className="dark-text">
+          <b>
+            {title}
+          </b>
+        </p>
         <p
           style={{
             color: '#4B4554',
