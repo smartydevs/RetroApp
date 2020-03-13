@@ -1,14 +1,14 @@
 import React from 'react';
-import { Image as ImageNative, TouchableHighlight, Text } from 'react-native';
+import { Image as ImageNative, TouchableOpacity, Text } from 'react-native';
 import PropTypes from 'prop-types'
 
 const Card = ({ cardStyle, containerStyle, onPress, imageSource, resizeMode = "cover", title, titleStyle }) => (
-    <TouchableHighlight style={containerStyle} onPress={onPress}>
+    <TouchableOpacity style={containerStyle} onPress={onPress}>
         <React.Fragment>
             <ImageNative style={cardStyle} resizeMode={resizeMode} source={{ uri: imageSource }} />
             <Text style={titleStyle}>{title}</Text>
         </React.Fragment>
-    </TouchableHighlight >
+    </TouchableOpacity >
 )
 
 Card.propTypes = {

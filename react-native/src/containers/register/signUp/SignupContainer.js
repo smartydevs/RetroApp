@@ -26,19 +26,19 @@ class SignupContainer extends Component {
   }
 
   onPressSignUp = () => {
-    const {password, repeatPassword} = this.state
+    // const {password, repeatPassword} = this.state
 
-    if (password.trim().length < 6 || repeatPassword.trim().length < 6) {
-      Notification.show(strings.providePassword, ERROR)
-      return
-    }
+    // if (password.trim().length < 6 || repeatPassword.trim().length < 6) {
+    //   Notification.show(strings.providePassword, ERROR)
+    //   return
+    // }
 
-    if (password !== repeatPassword) {
-      Notification.show(strings.passwordsDontMatch, ERROR)
-      return
-    }
+    // if (password !== repeatPassword) {
+    //   Notification.show(strings.passwordsDontMatch, ERROR)
+    //   return
+    // }
 
-    this.props.navigation.push(ScreenEnum.CHOOSE_FEED)
+    this.props.navigation.push(ScreenEnum.ENTER_DETAILS)
   }
 
   onPressFacebook = () => {

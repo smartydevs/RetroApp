@@ -16,7 +16,9 @@ const strings = {
     skip: 'Skip',
     search: 'Search',
     whatToSearchFor: "Search for events nearby",
-    searchPlaceholder: "Search for an event"
+    searchPlaceholder: "Search for an event",
+    firstName: 'First Name',
+    lastName: 'Last Name'
 }
 
 export default strings

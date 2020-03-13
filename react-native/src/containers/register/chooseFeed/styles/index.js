@@ -5,7 +5,9 @@ import { Colors, Fonts } from '../../../../themes'
 const styles = StyleSheet.create({
     title: {
         color: Colors.primaryAqua,
-        marginTop: Platform.OS === "ios" ? 0 : StatusBar.currentHeight
+        marginTop: Platform.OS === "ios" ? 0 : StatusBar.currentHeight,
+        paddingVertical: normalizeHeight(28),
+        textAlign: 'center'
     },
     card: {
         backgroundColor: "white",
@@ -14,7 +16,8 @@ const styles = StyleSheet.create({
         borderRadius: 15
     },
     container: {
-        margin: 10
+        margin: 10,
+        borderRadius: 15
     },
     cardTitle: {
         color: Colors.white,
@@ -32,6 +35,9 @@ const styles = StyleSheet.create({
     },
     skipText: {
         fontSize: Fonts.size.bigTitle,
+        color: Colors.primaryAqua
+    },
+    completeFeed: {
         color: Colors.primaryAqua
     }
 })

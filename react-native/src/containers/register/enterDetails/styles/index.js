@@ -8,6 +8,17 @@ const styles = StyleSheet.create({
   },
   userIcon: {
     color: Colors.primaryPink
+  },
+  inputContainer: {
+    marginBottom: Metrics.margin
+  },
+  signup: {
+    backgroundColor: Colors.primaryPink,
+    marginTop: Metrics.margin
+  },
+  enterDetails: {
+    marginBottom: Metrics.margin * 2,
+    marginTop: Metrics.margin
   }
 })
 
