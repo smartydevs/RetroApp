@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, Image as ImageNative, TouchableHighlight, View, Text } from 'react-native';
+import { Image as ImageNative, TouchableHighlight, Text } from 'react-native';
 import PropTypes from 'prop-types'
 
 const Card = ({ cardStyle, containerStyle, onPress, imageSource, resizeMode = "cover", title, titleStyle }) => (

@@ -21,7 +21,7 @@ const PrimaryNav = createStackNavigator({
   [MAIN]: { screen: BottomNavigatorContainer },
 }, {
   headerMode: 'none',
-  initialRouteName: LOADING,
+  initialRouteName: MAIN,
   navigationOptions: {
     headerStyle: styles.header
   },

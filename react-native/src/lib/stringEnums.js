@@ -13,7 +13,10 @@ const strings = {
     providePassword: 'Please provide a password of at least 6 characters',
     passwordsDontMatch: 'The passwords provided don\'t match',
     enterDetailsDescription: 'Let us know you',
-    skip: 'Skip'
+    skip: 'Skip',
+    search: 'Search',
+    whatToSearchFor: "Search for events nearby",
+    searchPlaceholder: "Search for an event"
 }
 
 export default strings

@@ -4,7 +4,9 @@ import { SearchComponent } from '.'
 class SearchContainer extends Component {
     render() {
         return (
-            <SearchComponent />
+            <SearchComponent
+                onChangeText={() => { }}
+            />
         )
     }
 }

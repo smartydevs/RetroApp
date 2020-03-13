@@ -30,23 +30,23 @@ const styles = StyleSheet.create({
   }
 })
 
-const { title, grayText } = Fonts.style
+const { largeBoldTitle, grayText } = Fonts.style
 const { amountText, amountIcon, alignCenter, padding } = ApplicationStyles
 
-const Header = ({ icon, text, style, textStyle, onPress, amount }) => {
+const Header = ({ icon, iconStyle, text, style, textStyle, onPress, amount }) => {
   const leftButton = icon ? (
     <ImageButton
       source={icon}
-      style={styles.icon}
+      style={[styles.icon, iconStyle]}
       onPress={onPress}
     />
   ) : null
   return (
     <Row style={[styles.container, style]}>
-      <View style={[styles.leftContainer, {alignItems: 'flex-start'}, padding]}>
+      <View style={[styles.leftContainer, { alignItems: 'flex-start' }, padding]}>
         {leftButton}
       </View>
-      <Text style={[textStyle, title, grayText, {alignSelf: 'center'}]}>{text}</Text>
+      <Text style={[grayText, { alignSelf: 'center' }, textStyle]}>{text}</Text>
       <Row style={[styles.rightContainer, alignCenter, padding]}>
         <Text style={amountText}>{amount}</Text>
         <Image
@@ -78,5 +78,5 @@ Header.defaultProps = {
   icon: undefined,
   style: {},
   textStyle: {},
-  onPress: () => {}
+  onPress: () => { }
 }
