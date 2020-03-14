@@ -1,4 +1,4 @@
-import { Home, Login } from '../pages';
+import { Home, Login, Register } from '../pages';
 
 const routes = {
   home: {
@@ -12,6 +12,12 @@ const routes = {
     exact: true,
     type: 'public',
     component: Login,
+  },
+  register: {
+    path: '/register',
+    exact: true,
+    type: 'public',
+    component: Register,
   },
 };
 

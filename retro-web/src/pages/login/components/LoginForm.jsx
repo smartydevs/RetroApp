@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import React from 'react';
 
-import { ErrorMessage, Input } from '../../../components';
+import { Input } from '../../../components';
 
 const styles = {
   inputContainer: {
@@ -12,9 +12,9 @@ const styles = {
     borderRadius: '10px',
     padding: '0 10px',
     backgroundColor: '#F3F2F5',
-    boxShadow: '0 -2px rgba(0, 0, 0, 0.2)'
-  }
-}
+    boxShadow: '0 -2px rgba(0, 0, 0, 0.2)',
+  },
+};
 
 const LoginForm = ({ initialValues, validationSchema, onSubmit }) => {
   return (

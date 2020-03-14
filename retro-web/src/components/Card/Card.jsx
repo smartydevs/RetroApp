@@ -1,12 +1,10 @@
-import React from 'react'
-import './styles.scss'
+import React from 'react';
+import classNames from 'classnames';
+import './styles.scss';
 
-const Card = ({children}) => {
-  return (
-    <div className='cc-card'>
-      {children}
-    </div>
-  )
-}
+const Card = ({ children, className }) => {
+  const classes = classNames('cc-card', className);
+  return <div className={classes}>{children}</div>;
+};
 
-export default Card
+export default Card;
