@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ActionButton from '../../../components/Button/ActionButton';
-import apple from '../../../assets/apple-brands.svg';
+import { faAppleAlt } from '@fortawesome/free-solid-svg-icons'
 
 const AppleButton = ({ style }) => {
   return (
@@ -10,8 +10,11 @@ const AppleButton = ({ style }) => {
         backgroundColor="#756C83"
         title="iOS"
         text="Download"
-        imgSrc={apple}
-        style={style}
+        icon={faAppleAlt}
+        size={'2x'}
+        iconStyle={{
+          color: '#0c0b0e'
+        }}
       />
     </a>
   );

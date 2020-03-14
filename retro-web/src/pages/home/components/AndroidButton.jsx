@@ -1,8 +1,7 @@
 import React from 'react';
+import { faIcons } from '@fortawesome/free-solid-svg-icons';
 
 import { ActionButton } from '../../../components';
-
-import android from '../../../assets/android-brands.svg';
 
 const AndroidButton = () => {
   return (
@@ -11,7 +10,11 @@ const AndroidButton = () => {
         backgroundColor="#F38181"
         title="Android"
         text="Download"
-        imgSrc={android}
+        icon={faIcons}
+        size={'2x'}
+        iconStyle={{
+          color: '#fbfbfb'
+        }}
       />
     </a>
   );
