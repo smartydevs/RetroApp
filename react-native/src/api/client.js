@@ -17,45 +17,44 @@ let currentClientInstance
 let currentClientToken
 
 export default class ApiClient {
-  static setToken (token) {
+  static setToken(token) {
     ApiClient.init(token)
     currentClientToken = token
   }
 
-  static getToken () {
+  static getToken() {
     return currentClientToken
   }
 
-  static createServerLink (token) {
+  static createServerLink(token) {
     const authMiddleware = setContext(() => ({
       headers: {
-        [Constants.METEOR_LOGIN_TOKEN]: token
-      }
+        [Constants.METEOR_LOGIN_TOKEN]: token,
+      },
     }))
 
     const httpLink = createHttpLink({
-      uri: `${API_BASE_URL}/graphql`
+      uri: `${API_BASE_URL}/graphql`,
     })
 
     const httpLinkWithMiddleware = authMiddleware.concat(httpLink)
 
     let terminatingLink = meteorAccountsLink.concat(httpLinkWithMiddleware)
 
-    terminatingLink = ApolloLink.split(
-      ({ query }) => {
-        const { kind, operation } = getMainDefinition(query)
-        return kind === 'OperationDefinition' && (operation === 'subscription' ||
-          operation === 'query' || operation === 'mutation')
-      },
-      terminatingLink
-    )
+    terminatingLink = ApolloLink.split(({ query }) => {
+      const { kind, operation } = getMainDefinition(query)
+      return (
+        kind === 'OperationDefinition' &&
+        (operation === 'subscription' ||
+          operation === 'query' ||
+          operation === 'mutation')
+      )
+    }, terminatingLink)
 
-    return ApolloLink.from([
-      terminatingLink
-    ])
+    return ApolloLink.from([terminatingLink])
   }
 
-  static init (token) {
+  static init(token) {
     if (token && token === currentClientToken && currentClientInstance) {
       return currentClientInstance
     }
@@ -65,12 +64,12 @@ export default class ApiClient {
     const defaultOptions = {
       watchQuery: {
         fetchPolicy: 'network-only',
-        errorPolicy: 'ignore'
+        errorPolicy: 'ignore',
       },
       query: {
         fetchPolicy: 'network-only',
-        errorPolicy: 'all'
-      }
+        errorPolicy: 'all',
+      },
     }
 
     currentClientInstance = new ApolloClient({
@@ -78,10 +77,10 @@ export default class ApiClient {
       cache: new InMemoryCache({
         dataIdFromObject: obj => obj.id,
         fragmentMatcher: {
-          match: ({ id }, typeCond, context) => !!context.store.get(id)
-        }
+          match: ({ id }, typeCond, context) => !!context.store.get(id),
+        },
       }),
-      defaultOptions
+      defaultOptions,
     })
 
     currentClientToken = token
@@ -89,7 +88,7 @@ export default class ApiClient {
     return currentClientInstance
   }
 
-  static currentInstance () {
+  static currentInstance() {
     return currentClientInstance
   }
 }

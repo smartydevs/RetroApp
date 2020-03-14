@@ -1,5 +1,5 @@
 type Mutation {
-    registerMember(input: ProfileInput): Boolean
+    registerMember(input: ProfileInput!): Boolean
     addMemberDetails(email: String!, details: DetailsInput!): Boolean
     addMemberCategories(categories: [String]!): Boolean
 }

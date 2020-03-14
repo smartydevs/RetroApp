@@ -3,30 +3,31 @@ import { SignupComponent } from '.'
 import { Notification } from '../../../components'
 import strings from '../../../lib/stringEnums'
 import { NotificationTypeEnum } from '../../../lib/enums'
+import { registerMember } from '../../../api'
 
-const {ERROR} = NotificationTypeEnum
+const { ERROR } = NotificationTypeEnum
 
 class SignupContainer extends Component {
   state = {
     email: '',
     password: '',
-    repeatPassword: ''
+    repeatPassword: '',
   }
 
-  onChangeEmail = (email) => {
+  onChangeEmail = email => {
     this.setState({ email })
   }
 
-  onChangePassword = (password) => {
+  onChangePassword = password => {
     this.setState({ password })
   }
 
-  onChangeRepeatPassword = (repeatPassword) => {
+  onChangeRepeatPassword = repeatPassword => {
     this.setState({ repeatPassword })
   }
 
   onPressSignUp = () => {
-    const {password, repeatPassword} = this.state
+    const { password, repeatPassword, email } = this.state
 
     if (password.trim().length < 6 || repeatPassword.trim().length < 6) {
       Notification.show(strings.providePassword, ERROR)
@@ -38,15 +39,17 @@ class SignupContainer extends Component {
       return
     }
 
-    this.props.navigation.goBack()
+    registerMember({ password, email }).then(({ isOk, data }) => {
+      console.log('is ok', isOk)
+      console.log('data', data)
+      this.props.navigation.goBack()
+    })
   }
 
-  onPressFacebook = () => {
-    
-  }
+  onPressFacebook = () => {}
 
   render() {
-    const {email, password, repeatPassword} = this.state
+    const { email, password, repeatPassword } = this.state
 
     return (
       <SignupComponent
