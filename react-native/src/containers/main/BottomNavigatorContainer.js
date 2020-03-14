@@ -9,12 +9,13 @@ import { normalizeHeight } from '../../themes/Metrics'
 import { Colors } from '../../themes'
 
 
-const [MAIN, NOTIFICATION, SEARCH, PROFILE] = ['Main', 'Notification', 'Search', 'Profile']
+const [MAIN, NOTIFICATION, SEARCH, PROFILE, CREATE] = ['Main', 'Notification', 'Search', 'Profile', 'Create']
 
 const BottomNavigatorContainer = createBottomTabNavigator(
   {
     [MAIN]: {screen: HomeContainer},
     [SEARCH]: {screen: SearchContainer},
+    // [CREATE]: {screen: ''},
     [NOTIFICATION]: {screen: NotificationContainer},
     [PROFILE]: {screen: ProfileContainer}
   },
@@ -53,7 +54,10 @@ const BottomNavigatorContainer = createBottomTabNavigator(
           const icon = iconConfig[routeName]
 
           return (
-            <Text style={iconStyle}>{icon}</Text> //will be replaced with icons
+            //will be replaced with icons
+            <Text style={[iconStyle, {color: 'white'}]}>
+              {routeName}
+            </Text>
           )
         }
       }
@@ -66,6 +70,9 @@ const icons = {
     style: {}
   },
   [SEARCH]: {
+    style: {}
+  },
+  [CREATE]: {
     style: {}
   },
   [NOTIFICATION]: {

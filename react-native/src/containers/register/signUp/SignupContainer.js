@@ -29,15 +29,15 @@ class SignupContainer extends Component {
   onPressSignUp = () => {
     const { password, repeatPassword, email } = this.state
 
-    if (password.trim().length < 6 || repeatPassword.trim().length < 6) {
-      Notification.show(strings.providePassword, ERROR)
-      return
-    }
+    // if (password.trim().length < 6 || repeatPassword.trim().length < 6) {
+    //   Notification.show(strings.providePassword, ERROR)
+    //   return
+    // }
 
-    if (password !== repeatPassword) {
-      Notification.show(strings.passwordsDontMatch, ERROR)
-      return
-    }
+    // if (password !== repeatPassword) {
+    //   Notification.show(strings.passwordsDontMatch, ERROR)
+    //   return
+    // }
 
     registerMember({ password, email }).then(({ isOk, data }) => {
       console.log('is ok', isOk)

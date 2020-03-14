@@ -43,7 +43,7 @@ export const responsiveHeight = (height) => height / 100 * SCREEN_HEIGHT
 const Metrics = {
   width: SCREEN_WIDTH,
   height: SCREEN_HEIGHT,
-  margin: normalizeWidth(10),
+  margin: normalizeWidth(12),
   defaultButtonHeight: normalizeHeight(48),
   actionButtonHeigth: normalizeHeight(60),
   smallButtonHeight: normalizeHeight(40),

@@ -1,15 +1,58 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-import { ApplicationStyles } from '../../../themes'
+import PropTypes from 'prop-types'
+import { Ionicons } from '@expo/vector-icons'
 
-const {container, center} = ApplicationStyles
+import { ApplicationStyles, Fonts } from '../../../themes'
+import {Input, TextButton} from '../../../components'
 
-const EnterDetailsComponent = () => {
-    return (
-        <View style={[container, center]}>
-            <Text> Enter Details Screen </Text>
-        </View>
-    )
+import styles from './styles'
+import strings from '../../../lib/stringEnums'
+
+const { container, center } = ApplicationStyles
+const { bigBoldTitle, whiteText } = Fonts.style
+
+const EnterDetailsComponent = ({ firstName, lastName, onChangeLastName, onChangeFirstName, onRegisterDetails }) => {
+  return (
+    <View style={[container, center, styles.container]}>
+      <Ionicons
+        name={'md-person'}
+        size={100}
+        style={styles.userIcon}
+      />
+      <Text
+        style={[styles.enterDetails, bigBoldTitle, whiteText]}
+      >
+        {strings.enterDetailsDescription}
+      </Text>
+      <Input
+        containerStyle={[styles.inputContainer]}
+        placeholder={strings.firstName}
+        onChangeText={onChangeFirstName}
+        value={firstName}
+      />
+      <Input
+        containerStyle={[styles.inputContainer]}
+        placeholder={strings.lastName}
+        onChangeText={onChangeLastName}
+        value={lastName}
+      />
+      <TextButton
+        style={[styles.signup]}
+        text={strings.signup}
+        onPress={onRegisterDetails}
+      />
+    </View>
+  )
 }
+
+EnterDetailsComponent.propTypes = {
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
+  onChangeFirstName: PropTypes.func.isRequired,
+  onChangeLastName: PropTypes.func.isRequired,
+  onRegisterDetails: PropTypes.func.isRequired
+}
+
 
 export default EnterDetailsComponent
