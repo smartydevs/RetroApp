@@ -15,7 +15,7 @@ load({
     },
     Mutation: {
       createEvent(_, { eventDetails }, { userId }) {
-        SecurityService.checkRole(userId, RolesEnum.ORGANISER);
+        SecurityService.checkRole(userId, RolesEnum.MEMBER);
 
         return EventService.createEvent(userId, eventDetails);
       },
