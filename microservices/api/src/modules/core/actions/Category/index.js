@@ -7,6 +7,11 @@ import RolesEnum from '../../../accounts/db/users/enums/RolesEnum';
 load({
   typeDefs,
   resolvers: {
+    Query: {
+      getCategories() {
+        return CategoryService.getCategories();
+      },
+    },
     Mutation: {
       createCategory(_, { categoryName }, { userId }) {
         SecurityService.checkRole(userId, RolesEnum.ADMIN);
@@ -18,6 +23,12 @@ load({
         SecurityService.checkRole(userId, RolesEnum.ADMIN);
 
         return CategoryService.editCategory({ categoryId, categoryName });
+      },
+
+      deleteCategory(_, { categoryId }, { userId }) {
+        SecurityService.checkRole(userId, RolesEnum.ADMIN);
+
+        return CategoryService.deleteCategory(categoryId);
       },
     },
   },

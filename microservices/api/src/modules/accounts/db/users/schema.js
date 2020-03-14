@@ -15,6 +15,7 @@ export const UserStandardProfile = new SimpleSchema({
     optional: true,
     allowedValues: _.values(GenderEnum),
   },
+  categoryIds: { type: String, optional: true },
 });
 
 export default new SimpleSchema({

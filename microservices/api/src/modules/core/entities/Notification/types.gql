@@ -1,0 +1,7 @@
+type Notification {
+    receiverId: String
+    receiver: User
+    createdAt: Date
+    type: String
+    ##data: Object
+}

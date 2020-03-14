@@ -1,7 +1,6 @@
 import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 
-import { Users } from '../db';
 import { UserService } from './index';
 import RolesEnum from '../db/users/enums/RolesEnum';
 
@@ -24,13 +23,14 @@ export default class MemberService {
   }
 
   addMemberDetails({ email, details }) {
+    const { db } = this;
     const user = Accounts.findUserByEmail(email);
     if (!user) {
       throw new Error('email-not-used');
     }
 
     const { _id: userId } = user;
-    Users.update(
+    db.users.update(
       { _id: userId },
       {
         $set: {
@@ -42,5 +42,14 @@ export default class MemberService {
     );
 
     return true;
+  }
+
+  addMemberCategories(userId, categories) {
+    const { db } = this;
+    return db.users.update(userId, {
+      $set: {
+        'profile.categoryIds': [...categories],
+      },
+    });
   }
 }
