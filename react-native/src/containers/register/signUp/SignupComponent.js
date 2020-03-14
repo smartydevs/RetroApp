@@ -9,8 +9,8 @@ import { Input, TextButton } from '../../../components'
 import { Ionicons } from '@expo/vector-icons'
 import { OS } from '../../../lib/enums'
 
-const {container, center, marginVertical} = ApplicationStyles
-const {bigBoldTitle, creamText, button} = Fonts.style
+const { container, center, marginVertical } = ApplicationStyles
+const { bigBoldTitle, creamText, button } = Fonts.style
 
 const SignupComponent = ({onChangeEmail, onChangePassword, onChangeRepeatPassword, email,
   password, repeatPassword, onPressFacebook, onPressSignUp}) => (
@@ -52,24 +52,12 @@ const SignupComponent = ({onChangeEmail, onChangePassword, onChangeRepeatPasswor
         secureTextEntry
       />
     </View>
-    <TextButton
-      style={[styles.signup]}
-      onPress={onPressSignUp}
-      text={strings.signup}
-    />
+    <TextButton style={[styles.signup]} onPress={onPressSignUp} text={strings.signup} />
     <Text style={[bigBoldTitle, creamText, marginVertical]}>
       {strings.or.toUpperCase()}
     </Text>
-    <TextButton
-      style={[styles.facebook]}
-      onPress={onPressFacebook}
-      hasChildren
-    >
-      <Ionicons
-        name={'logo-facebook'}
-        size={28}
-        style={styles.facebookLogo}
-      />
+    <TextButton style={[styles.facebook]} onPress={onPressFacebook} hasChildren>
+      <Ionicons name={'logo-facebook'} size={28} style={styles.facebookLogo} />
       <Text style={[button, creamText]}>{strings.facebookLogin}</Text>
     </TextButton>
   </KeyboardAvoidingView>
@@ -83,7 +71,7 @@ SignupComponent.propTypes = {
   password: PropTypes.string.isRequired,
   repeatPassword: PropTypes.string.isRequired,
   onPressFacebook: PropTypes.func.isRequired,
-  onPressSignUp: PropTypes.func.isRequired
+  onPressSignUp: PropTypes.func.isRequired,
 }
 
 export default SignupComponent

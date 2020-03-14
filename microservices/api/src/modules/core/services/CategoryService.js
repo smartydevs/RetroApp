@@ -16,4 +16,14 @@ export default class CategoryService {
       },
     });
   }
+
+  deleteCategory(categoryId) {
+    const { db } = this;
+    return db.categories.remove(categoryId);
+  }
+
+  getCategories() {
+    const { db } = this;
+    return db.categories.find().fetch();
+  }
 }

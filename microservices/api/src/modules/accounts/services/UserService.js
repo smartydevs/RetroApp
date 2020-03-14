@@ -29,4 +29,39 @@ export default class UserService {
       throw new Error('email-used');
     }
   }
+
+  getNews(userId) {
+    const { db } = this;
+
+    return db.notifications
+      .find({
+        receiverId: userId,
+        isViewed: false,
+      })
+      .fetch();
+  }
+
+  getUserInfo(userId) {
+    const { db } = this;
+
+    return db.user
+      .createQuery({
+        $filter: {
+          _id: userId,
+        },
+        roles: 1,
+        email: 1,
+        profile: {
+          firstName: 1,
+          lastName: 1,
+          fullName: 1,
+        },
+        news: {
+          type: 1,
+          // date: 1,
+          createdAt: 1,
+        },
+      })
+      .fetch();
+  }
 }
