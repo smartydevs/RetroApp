@@ -1,21 +1,22 @@
 import React, { Component } from 'react'
 import { LoginComponent } from '.'
 import { ScreenEnum } from '../../../lib/enums'
+import { login } from '../../../api/register/login/methods'
 
-const {MAIN} = ScreenEnum
+const { MAIN } = ScreenEnum
 
 class LoginContainer extends Component {
   state = {
     email: '',
-    password: ''
+    password: '',
   }
 
-  onChangeEmail = (email) => {
-    this.setState({email})
+  onChangeEmail = email => {
+    this.setState({ email })
   }
 
-  onChangePassword = (password) => {
-    this.setState({password})
+  onChangePassword = password => {
+    this.setState({ password })
   }
 
   onPressForgotPassword = () => {}
@@ -23,7 +24,11 @@ class LoginContainer extends Component {
   onPressFacebook = () => {}
 
   onPressLogin = () => {
-    this.props.navigation.push(ScreenEnum.MAIN)
+    const { state } = this
+    login(state).then(res => {
+      console.log('res', res)
+      this.props.navigation.push(ScreenEnum.MAIN)
+    })
   }
 
   onPressSignUp = () => {
@@ -31,7 +36,7 @@ class LoginContainer extends Component {
   }
 
   render() {
-    const {email, password} = this.state
+    const { email, password } = this.state
 
     return (
       <LoginComponent
