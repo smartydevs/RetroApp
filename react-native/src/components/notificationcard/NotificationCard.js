@@ -13,7 +13,7 @@ const NotificationCard = ({ containerStyle, imageContainerStyle, imageStyle, con
                 source={{ uri: imageSource }} />
         </View>
         <View style={contentContainerStyle}>
-            <Text style={messageStyle}>{message} a</Text>
+            <Text style={messageStyle}>{message}</Text>
         </View>
     </TouchableOpacity>
 )
