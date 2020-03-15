@@ -18,7 +18,9 @@ const strings = {
     whatToSearchFor: "Search for events nearby",
     searchPlaceholder: "Search for an event",
     firstName: 'First Name',
-    lastName: 'Last Name'
+    lastName: 'Last Name',
+    notifications: 'Notifications',
+    userprofile: "Profile"
 }
 
 export default strings
