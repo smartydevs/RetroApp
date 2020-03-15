@@ -20,7 +20,9 @@ const strings = {
     firstName: 'First Name',
     lastName: 'Last Name',
     notifications: 'Notifications',
-    userprofile: "Profile"
+    userprofile: "Profile",
+    going: "Going events",
+    created: "Created events"
 }
 
 export default strings

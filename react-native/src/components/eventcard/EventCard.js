@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, Text } from 'react-native';
 
-const EventCard = ({ style, imageContainerStyle, imageStyle, contentStyle, sectionOneStyle, sectionTwoStyle, sectionThreeStyle, titleStyle, subtitleStyle, textStyle, participantImageStyle, title, subTitle, participants, left }) => (
+const EventCard = ({ style, imageContainerStyle, imageStyle, contentStyle, sectionOneStyle, sectionTwoStyle, sectionThreeStyle, titleStyle, subtitleStyle, textStyle, participantImageStyle, title, subTitle, participants, left, date, isSmall }) => (
     <View
         style={style}
     >
@@ -18,19 +18,20 @@ const EventCard = ({ style, imageContainerStyle, imageStyle, contentStyle, secti
             </View>
             <View style={sectionTwoStyle}>
                 <Text style={subtitleStyle}>{subTitle}</Text>
-                <Text style={textStyle}>12 Jan 2020</Text>
+                <Text style={textStyle}>{date}</Text>
             </View>
-            <View style={sectionThreeStyle}>
-                <Text style={textStyle}>{participants.length} people going</Text>
-                <View style={{ flexDirection: "row" }}>
-                    {participants.slice(0, 7).map((participant, i) => {
-                        return <Image key={i} style={[participantImageStyle, { left: -(i * left.left) }]}
-                            source={{ uri: participant.profilePicture }}
-                        />
-                    })}
+            {!isSmall == false ?
+                <View style={sectionThreeStyle}>
+                    <Text style={textStyle}>{participants ? participants.length : null} people going</Text>
+                    <View style={{ flexDirection: "row" }}>
+                        {participants ? participants.slice(0, 7).map((participant, i) => {
+                            return <Image key={i} style={[participantImageStyle, { left: -(i * left.left) }]}
+                                source={{ uri: participant.profilePicture }}
+                            />
+                        }) : null}
 
-                </View>
-            </View>
+                    </View>
+                </View> : null}
         </View>
     </View>
 )
