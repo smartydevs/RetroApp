@@ -31,7 +31,7 @@ const PrimaryNav = createStackNavigator({
   headerMode: 'none',
   initialRouteName: LOADING,
   navigationOptions: {
-    headerStyle: styles.header
+    headerStyle: styles.header,
   },
   transitionConfig: animator
 })

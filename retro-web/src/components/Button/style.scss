@@ -1,10 +1,11 @@
 .cc-actionButton {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: space-around;
   border-radius: 25px;
-  width: 26vw;
-  height: 9vh;
+  width: 20vw;
+  height: 8vh;
 
   &--card {
     display: flex;

@@ -12,17 +12,22 @@ import { Ionicons } from '@expo/vector-icons'
 const { container, center, } = ApplicationStyles
 const { bigBoldTitle } = Fonts.style
 
-const ChooseFeedComponent = ({ onCardPress, onSkipButtonPress, cards, numberOfCards, onCompleteFeed }) => {
-  const onRenderCard = ({ title, imageSource }) => (
-    <Card
-      onPress={onCardPress}
-      title={title}
-      titleStyle={[Fonts.style.bigBoldTitle, styles.cardTitle]}
-      cardStyle={styles.card}
-      containerStyle={styles.container}
-      imageSource={imageSource}
-    />
-  )
+const ChooseFeedComponent = ({ onCardPress, onSkipButtonPress, cards, numberOfCards,
+  onCompleteFeed, cardsChosen }) => {
+  const onRenderCard = ({ id, title, imageSource }) => {
+    // const existingCard = cardsChosen.find(cardId => cardId === id)
+    console.log(cardsChosen)
+    return (
+      <Card
+        onPress={() => onCardPress(id)}
+        title={title}
+        titleStyle={[Fonts.style.bigBoldTitle, styles.cardTitle]}
+        cardStyle={styles.card}
+        containerStyle={styles.container}
+        imageSource={imageSource}
+      />
+    )
+  }
 
   const onComplete = () => {
     if (numberOfCards < 5) {
@@ -49,7 +54,7 @@ const ChooseFeedComponent = ({ onCardPress, onSkipButtonPress, cards, numberOfCa
       <FlatList
         numColumns={2}
         data={cards}
-        keyExtractor={(item, i) => `${i}`}
+        keyExtractor={({id}) => id}
         renderItem={({ item }) => onRenderCard(item)}
       />
       <TextButton
@@ -67,7 +72,12 @@ ChooseFeedComponent.propTypes = {
   onSkipButtonPress: PropTypes.func.isRequired,
   cards: PropTypes.instanceOf(Array).isRequired,
   numberOfCards: PropTypes.number.isRequired,
-  onCompleteFeed: PropTypes.func.isRequired
+  onCompleteFeed: PropTypes.func.isRequired,
+  cardsChosen: PropTypes.instanceOf(Array)
+}
+
+ChooseFeedComponent.defaultProps = {
+  cardsChosen: []
 }
 
 export default ChooseFeedComponent

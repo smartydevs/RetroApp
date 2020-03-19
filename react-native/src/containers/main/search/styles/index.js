@@ -11,14 +11,14 @@ const styles = StyleSheet.create({
         marginBottom: normalizeWidth(10)
     },
     headerContainer: {
-        backgroundColor: Colors.gray,
+        backgroundColor: Colors.dark,
         paddingTop: StatusBar.currentHeight
     },
     container: {
         backgroundColor: Colors.light
     },
     header: {
-        backgroundColor: Colors.gray,
+        backgroundColor: Colors.dark,
         height: normalizeHeight(66)
     },
     icon: {
