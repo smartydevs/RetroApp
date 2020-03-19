@@ -1,5 +1,5 @@
 import { REGISTER_MEMBER } from './mutations'
-import ApiClient from '../../../client'
+import ApiClient from '../../client'
 
 const { currentInstance } = ApiClient
 
