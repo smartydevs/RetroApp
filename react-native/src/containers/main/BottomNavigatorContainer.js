@@ -71,7 +71,7 @@ const icons = {
     icon: 'md-home'
   },
   [SEARCH]: {
-    icon: 'ios-search'
+    icon: 'md-search'
   },
   [CREATE]: {
     icon: 'md-create'
