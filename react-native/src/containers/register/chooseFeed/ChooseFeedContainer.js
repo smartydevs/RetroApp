@@ -5,7 +5,7 @@ import { cards } from '../../../fixtures/ChooseFeedData'
 import { ScreenEnum } from '../../../lib/enums'
 import { getCategories, addMemberCategories } from '../../../api'
 import { Notification } from '../../../components'
-import { strings } from '../../../lib/stringEnums'
+import strings from '../../../lib/stringEnums'
 
 class ChooseFeedContainer extends Component {
   constructor(props) {

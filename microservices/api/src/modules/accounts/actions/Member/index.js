@@ -24,6 +24,12 @@ load({
       loginMember(_, { loginInput }) {
         return MemberService.loginMember(loginInput);
       },
+
+      addPushToken(_, { token }, { userId }) {
+        SecurityService.checkLoggedIn({ userId });
+
+        return MemberService.addPushToken(userId, token);
+      },
     },
   },
 });

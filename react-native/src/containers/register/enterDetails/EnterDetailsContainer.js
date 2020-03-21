@@ -4,7 +4,7 @@ import { EnterDetailsComponent } from '.'
 import { ScreenEnum } from '../../../lib/enums'
 import { addMemberDetails } from '../../../api'
 import { Notification } from '../../../components'
-import { strings } from '../../../lib/stringEnums'
+import strings from '../../../lib/stringEnums'
 
 class EnterDetailsContainer extends Component {
   state = {

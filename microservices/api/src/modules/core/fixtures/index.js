@@ -54,13 +54,11 @@ async function loadEvents() {
     const usersId = _.sampleSize(usersIds, randomNumber);
     const eventCategories = _.sampleSize(categoriesIds, randomNumber);
     const title = `Event-${i}`;
-    const date = new Date();
     createEvent({
       organiserId,
       usersId,
       categoriesId: eventCategories,
       title,
-      startDate: date,
     });
   }
 }

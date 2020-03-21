@@ -27,7 +27,7 @@ type UserStandardProfile {
   lastName: String
   fullName: String
   avatarId: String
-  ##avatar: AppUpload
+  avatar: AppUpload
   phoneNumber: String
   dateOfBirth: Date
   gender: GenderEnum
