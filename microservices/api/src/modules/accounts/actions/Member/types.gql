@@ -2,6 +2,7 @@ type Mutation {
     registerMember(input: ProfileInput!): Boolean
     addMemberDetails(email: String!, details: DetailsInput!): Boolean
     addMemberCategories(email: String!, categories: [String]!): Boolean
+    addPushToken(token: String!): Boolean
     loginMember(loginInput: LoginInput!): LoginResponse
 }
 

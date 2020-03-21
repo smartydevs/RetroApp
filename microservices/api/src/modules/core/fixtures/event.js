@@ -2,12 +2,12 @@ import faker from 'faker';
 
 import Events from '../db/events';
 
-export function createEvent({ organiserId, usersId, startDate, title, categoriesId }) {
+export function createEvent({ organiserId, usersId, title, categoriesId }) {
   const address = faker.address;
   Events.insert({
     organiserId,
     usersId,
-    startDate,
+    startDate: faker.date.future(),
     categoriesId,
     title,
     description: faker.random.words(),

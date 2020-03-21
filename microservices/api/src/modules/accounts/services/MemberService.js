@@ -23,6 +23,23 @@ export default class MemberService {
     return true;
   }
 
+  addPushToken(userId, token) {
+    const { db } = this;
+
+    db.users.update(
+      {
+        _id: userId,
+      },
+      {
+        $set: {
+          'profile.pushToken': token,
+        },
+      }
+    );
+
+    return true;
+  }
+
   addMemberDetails({ email, details }) {
     const { db } = this;
     const user = Accounts.findUserByEmail(email);

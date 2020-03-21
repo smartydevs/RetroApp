@@ -7,6 +7,9 @@ const NotificationsSchema = new SimpleSchema({
   receiverId: {
     type: String,
   },
+  eventId: {
+    type: String,
+  },
   isViewed: {
     type: String,
     optional: true,
@@ -19,11 +22,7 @@ const NotificationsSchema = new SimpleSchema({
   createdAt: {
     type: Date,
     optional: true,
-  },
-  type: {
-    type: String,
-    allowedValues: Object.values(Events),
-  },
+  }
 });
 
 Notifications.attachSchema(NotificationsSchema);
