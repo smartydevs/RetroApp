@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
-import { normalizeHeight, normalizeWidth } from '../../themes/Metrics';
-import { Fonts, Colors, ApplicationStyles } from '../../themes';
-import { Row } from '../general';
+import { normalizeHeight, normalizeWidth } from '../../../../themes/Metrics';
+import { Fonts, Colors, ApplicationStyles } from '../../../../themes';
+import { Row } from '../../../../components/general';
 
 const { shadow, center } = ApplicationStyles
 const { primaryDarkText, boldTitle } = Fonts.style

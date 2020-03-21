@@ -4,7 +4,7 @@ import { ApplicationStyles } from '../../../themes'
 import { Header } from '../../../components/general/'
 import strings from '../../../lib/stringEnums'
 import styles from './styles'
-import NotificationCard from '../../../components/notificationcard/NotificationCard'
+import Card from './card'
 import { notifications } from '../../../fixtures/NotificationsData'
 import { normalizeWidth } from '../../../themes/Metrics'
 
@@ -16,7 +16,7 @@ const NotificationComponent = ({ showNotification }) => {
             onPress={() => showNotification(_id)}
             style={{paddingHorizontal: normalizeWidth(5)}}
         >
-            <NotificationCard
+            <Card
                 message={message}
                 imageSource={imageSource}
             />
@@ -41,7 +41,7 @@ const NotificationComponent = ({ showNotification }) => {
                         renderItem={({ item }) => renderNotification(item)}
                     />
                 ) : (
-                    <NotificationCard message={strings.noNotifications} />
+                    <Card message={strings.noNotifications} />
                 )}
             </View>
         </SafeAreaView>
