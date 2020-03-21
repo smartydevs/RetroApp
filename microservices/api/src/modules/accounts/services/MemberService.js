@@ -52,4 +52,33 @@ export default class MemberService {
       },
     });
   }
+
+  loginMember(input) {
+    const { db } = this;
+    const { email, password } = input;
+
+    const user = Accounts.findUserByEmail(email);
+
+    if (!user) {
+      throw new Error('Email not used');
+    }
+
+    // const user = db.users.findOne(userId);
+
+    const userId = user._id;
+
+    const response = Accounts._checkPassword(user, password);
+    if (response.error) {
+      throw new Error(response.errors);
+    }
+
+    Accounts._clearAllLoginTokens(userId);
+
+    const stampedLoginToken = Accounts._generateStampedLoginToken();
+    Accounts._insertLoginToken(userId, stampedLoginToken);
+
+    const { token } = stampedLoginToken;
+
+    return { token, userId };
+  }
 }
