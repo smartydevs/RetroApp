@@ -1,22 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {View, StyleSheet} from 'react-native'
-import { Colors } from '../../themes'
-import { normalizeHeight } from '../../themes/Metrics'
+import { Colors, ApplicationStyles } from '../../themes'
+import Metrics, { normalizeHeight } from '../../themes/Metrics'
+
+const { shadow } = ApplicationStyles
 
 const styles = StyleSheet.create({
   separator: (width) => ({
-    width,
+    width: width || '100%',
     borderWidth: 0.5,
-    borderColor: Colors.primaryDark,
+    height: normalizeHeight(2),
+    backgroundColor: Colors.primaryLight,
+    alignSelf: "center",
   }),
   margin: {
-    margin: normalizeHeight(24)
+    marginVertical: Metrics.margin
   }
 })
 
 const Separator = ({width, style}) => {
-  return <View style={[styles.separator(width), style || styles.margin]} />
+  return <View style={[styles.separator(width), shadow, styles.margin, style]} />
 }
 
 Separator.propTypes = {

@@ -75,63 +75,9 @@ const styles = StyleSheet.create({
     eventCardStyle: {
         height: normalizeHeight(100),
         maxHeight: normalizeHeight(100),
-        flexDirection: "row",
         borderRadius: normalizeWidth(10),
-        backgroundColor: "white",
-        shadowOpacity: 0.2,
-        shadowRadius: normalizeWidth(5),
-        shadowColor: 'black',
-        shadowOffset: { height: 0, width: 0 },
+        backgroundColor: Colors.lightGray,
         marginBottom: normalizeHeight(20)
-    },
-    eventCardImageStyle: {
-        width: "100%",
-        height: "100%",
-        borderTopLeftRadius: normalizeWidth(10),
-        borderBottomLeftRadius: normalizeWidth(10)
-    },
-    eventCardImageContainerStyle: {
-        flex: 3,
-        borderRadius: 25
-    },
-    eventCardContentStyle: {
-        flex: 8
-    },
-    eventCardParticipantImageStyle: {
-        width: normalizeWidth(30),
-        height: normalizeWidth(30),
-        borderRadius: normalizeWidth(15),
-        borderColor: "white",
-        borderWidth: 1
-    },
-    eventCardTitleStyle: {
-        fontSize: normalizeWidth(17.5),
-        fontWeight: "700",
-        color: Colors.primaryDark
-    },
-    eventCardSectionOneStyle: {
-        flex: 1,
-        borderTopRightRadius: normalizeWidth(10),
-        justifyContent: "center",
-        padding: normalizeWidth(10),
-    },
-    eventCardSectionTwoStyle: {
-        flex: 1,
-        padding: normalizeWidth(10),
-        borderBottomRightRadius: normalizeWidth(10),
-        justifyContent: 'space-between',
-        flexDirection: "row",
-    },
-    eventCardSubtitleStyle: {
-        fontSize: normalizeWidth(15),
-        color: Colors.gray
-    },
-    eventCardTextStyle: {
-        fontSize: normalizeWidth(15),
-        color: Colors.gray
-    },
-    eventCardLeft: {
-        left: normalizeWidth(12)
     },
     searchBarContainerStyle: {
         height: normalizeHeight(60),

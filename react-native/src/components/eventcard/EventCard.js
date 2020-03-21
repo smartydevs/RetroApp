@@ -1,30 +1,59 @@
 import React from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
-import { Colors } from '../../themes';
+import { Colors, Fonts, ApplicationStyles } from '../../themes';
 import { Row } from '../general';
 import { normalizeWidth } from '../../themes/Metrics';
 
-const EventCard = ({ style, imageContainerStyle, imageStyle, contentStyle,
-    sectionThreeStyle, titleStyle, subtitleStyle, textStyle, participantImageStyle,
-    title, location, participants, left, date, isSmall, eventImage }) => {
-    const styles = StyleSheet.create({
-        more: {
-            backgroundColor: Colors.white,
-            justifyContent: "center",
-            alignItems: "center",
-            left: -6 * left
-        },
-        titleContainer: {
-            flex: 1,
-            borderTopRightRadius: 15,
-            justifyContent: "center",
-            padding: normalizeWidth(10)
-        },
-        informationContainer: {
-            padding: normalizeWidth(10),
-            justifyContent: 'space-between'
-        }
-    })
+const { boldTitle, caption, smallCaption, primaryLightText, primaryDarkText } = Fonts.style
+const { center } = ApplicationStyles
+const left = normalizeWidth(12)
+
+const styles = StyleSheet.create({
+    more: {
+        backgroundColor: Colors.white,
+        justifyContent: "center",
+        alignItems: "center",
+        left: -6 * left
+    },
+    titleContainer: {
+        flex: 1,
+        borderTopRightRadius: 15,
+        justifyContent: "center",
+        padding: normalizeWidth(10)
+    },
+    informationContainer: {
+        padding: normalizeWidth(10),
+        justifyContent: 'space-between'
+    },
+    image: {
+        width: "100%",
+        height: "100%",
+        borderTopLeftRadius: normalizeWidth(10),
+        borderBottomLeftRadius: normalizeWidth(10)
+    },
+    imageContainer: {
+        flex: 3,
+        borderRadius: 25
+    },
+    content: {
+        flex: 8
+    },
+    participantImage: {
+        width: normalizeWidth(30),
+        height: normalizeWidth(30),
+        borderRadius: 15,
+        borderColor: "white",
+        borderWidth: 1
+    },
+    detailsContainer: {
+        flex: 2,
+        borderBottomRightRadius: 15,
+        padding: normalizeWidth(10),
+        justifyContent: "space-around"
+    },
+})
+
+const EventCard = ({ title, location, participants, date, isSmall = false, eventImage, containerStyle }) => {
     const renderParticipants = () => {
         if (!participants) {
             return
@@ -34,7 +63,7 @@ const EventCard = ({ style, imageContainerStyle, imageStyle, contentStyle,
             return participants.map((participant, i) => (
                 <Image
                     key={i}
-                    style={[participantImageStyle, { left: -(i * left) }]}
+                    style={[styles.participantImage, { left: -(i * left) }]}
                     source={{ uri: participant.profilePicture }}
                 />
             ))
@@ -44,7 +73,7 @@ const EventCard = ({ style, imageContainerStyle, imageStyle, contentStyle,
             participants.slice(0, 6).map((participant, i) => (
                 <Image
                     key={i}
-                    style={[participantImageStyle, { left: -(i * left) }]}
+                    style={[styles.participantImage, { left: -(i * left) }]}
                     source={{ uri: participant.profilePicture }}
                 />
             ))
@@ -52,40 +81,45 @@ const EventCard = ({ style, imageContainerStyle, imageStyle, contentStyle,
     }
 
     return (
-        <View
-            style={style}
+        <Row
+            style={containerStyle}
         >
-            <View style={imageContainerStyle}>
+            <View style={styles.imageContainer}>
                 <Image
                     resizeMode="cover"
-                    style={imageStyle}
+                    style={styles.image}
                     source={{ uri: eventImage }}
                 />
             </View>
-            <View style={contentStyle}>
+            <View style={styles.content}>
                 <View style={styles.titleContainer}>
-                    <Text style={titleStyle}>{title}</Text>
+                    <Text style={[boldTitle, primaryDarkText]}>{title}</Text>
                 </View>
                 <Row style={styles.informationContainer}>
-                    <Text style={textStyle}>{location}</Text>
-                    <Text style={textStyle}>{date}</Text>
+                    <Text style={[caption, primaryLightText]}>{location}</Text>
+                    <Text style={[caption, primaryLightText]}>{date}</Text>
                 </Row>
-                {!(isSmall == false) ?
-                    <View style={sectionThreeStyle}>
-                        <Text style={textStyle}>{participants ? participants.length : null} people going</Text>
-                        <View style={{ flexDirection: "row" }}>
+                {!isSmall ?
+                    <View style={styles.detailsContainer}>
+                        <Text style={[caption, primaryLightText]}>
+                            {participants ? participants.length : null}
+                            {' '}
+                            people going
+                        </Text>
+                        <Row>
                             {renderParticipants()}
                             {participants.length > 6 ? (
-                                <View style={[participantImageStyle, styles.more]}>
-                                    <Text>
+                                <View style={[styles.more, styles.participantImage, center]}>
+                                    <Text style={[smallCaption, primaryLightText]}>
                                         {participants.length < 105 ? `+${participants.length - 6}` : "99+"}
                                     </Text>
                                 </View>
                             ): null}
-                        </View>
-                    </View> : null}
+                        </Row>
+                    </View>
+                : null}
             </View>
-        </View>
+        </Row>
     )
 }
 

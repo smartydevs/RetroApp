@@ -1,7 +1,7 @@
 import React from 'react'
-import { View, Text, SafeAreaView, StatusBar, Image, TextInput, TouchableOpacity } from 'react-native'
-import { ApplicationStyles, Colors, Fonts } from '../../../themes'
-import { Header, Separator, SearchBar } from '../../../components/general/'
+import { View, SafeAreaView, TouchableOpacity } from 'react-native'
+import { ApplicationStyles } from '../../../themes'
+import { Header, SearchBar } from '../../../components/general/'
 import strings from '../../../lib/stringEnums'
 import styles from './styles'
 import EventCard from '../../../components/eventcard/EventCard'
@@ -16,20 +16,10 @@ const SearchComponent = ({ onChangeText, showEvent }) => {
     <TouchableOpacity
       onPress={() => showEvent(id)}
       style={{paddingHorizontal: normalizeWidth(5)}}
+      key={id}
     >
       <EventCard
-        style={[styles.eventCardStyle, shadow]}
-        imageContainerStyle={styles.eventCardImageContainerStyle}
-        imageStyle={styles.eventCardImageStyle}
-        contentStyle={styles.eventCardContentStyle}
-        sectionOneStyle={styles.eventCardSectionOneStyle}
-        sectionTwoStyle={styles.eventCardSectionTwoStyle}
-        sectionThreeStyle={styles.eventCardSectionThreeStyle}
-        titleStyle={styles.eventCardTitleStyle}
-        subtitleStyle={styles.eventCardSubtitleStyle}
-        textStyle={styles.eventCardTextStyle}
-        participantImageStyle={styles.eventCardParticipantImageStyle}
-        left={normalizeWidth(12)}
+        containerStyle={[styles.eventCardStyle, shadow]}
         participants={participants}
         title={title}
         location={location}
@@ -49,19 +39,16 @@ const SearchComponent = ({ onChangeText, showEvent }) => {
           icon={require("../../../../assets/icon.png")} />
       </View>
       <View style={styles.content}>
-        <Text style={[Fonts.style.largeBoldTitle, styles.title]}>{strings.whatToSearchFor}</Text>
-        <Separator
-          style={styles.separator}
-        />
         <SearchBar
           onChangeText={onChangeText}
           placeholder={strings.searchPlaceholder}
+          style={{marginVertical: Metrics.margin * 2}}
         />
         <FlatList
           bounces={false}
           data={events}
           renderItem={({item}) => renderEvents(item)}
-          style={{marginVertical: Metrics.margin}}
+          style={{marginBottom: Metrics.margin}}
         />
       </View>
     </SafeAreaView>

@@ -86,6 +86,9 @@ const style = {
   },
   primaryLightText: {
     color: Colors.primaryLight
+  },
+  primaryDarkText: {
+    color: Colors.primaryDark
   }
 }
 

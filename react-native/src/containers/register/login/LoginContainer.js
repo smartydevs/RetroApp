@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { LoginComponent } from '.'
-import Constants, { ScreenEnum } from '../../../lib/enums'
-import { login } from '../../../api/register/login/methods'
+import Constants, { ScreenEnum, NotificationTypeEnum } from '../../../lib/enums'
+import { login } from '../../../api'
 import { AsyncStorage } from 'react-native'
 import ApiClient from '../../../api/client'
+import { Notification } from '../../../components'
 
 const { MAIN } = ScreenEnum
 
@@ -27,6 +28,7 @@ class LoginContainer extends Component {
 
   onPressLogin = () => {
     const { state } = this
+    
     login(state)
       .then(async ({ data: { loginMember }, isOk }) => {
         if (isOk) {
@@ -34,10 +36,9 @@ class LoginContainer extends Component {
           await this.storeUserId(loginMember.userId)
           this.props.navigation.push(ScreenEnum.MAIN)
         } else {
-          console.log(data)
+          // Notification.show(, NotificationTypeEnum.ERROR)
         }
       })
-      .catch(e => console.log(e))
   }
 
   storeToken = async token => {

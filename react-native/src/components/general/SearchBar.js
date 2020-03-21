@@ -77,7 +77,6 @@ const SearchBar = (props) => {
 
 SearchBar.propTypes = {
   onChangeText: PropTypes.func.isRequired,
-  icon: PropTypes.number.isRequired,
   placeholder: PropTypes.string.isRequired,
   textStyle: PropTypes.oneOfType([PropTypes.instanceOf(Object), PropTypes.instanceOf(Array)]),
   style: PropTypes.oneOfType([PropTypes.instanceOf(Object), PropTypes.instanceOf(Array)])
