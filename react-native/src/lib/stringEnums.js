@@ -24,6 +24,7 @@ const strings = {
     userprofile: "Profile",
     going: "Going events",
     created: "Created events",
+    noNotifications: 'You don’t have any notifications yet. Start exploring the events'
 }
 
 export default strings
