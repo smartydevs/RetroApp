@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { SignupComponent } from '.'
 import { Notification } from '../../../components'
 import strings from '../../../lib/stringEnums'
-import { NotificationTypeEnum } from '../../../lib/enums'
+import { NotificationTypeEnum, ScreenEnum } from '../../../lib/enums'
 import { registerMember } from '../../../api'
 
 const { ERROR } = NotificationTypeEnum
@@ -39,11 +39,17 @@ class SignupContainer extends Component {
     //   return
     // }
 
-    registerMember({ password, email }).then(({ isOk, data }) => {
-      console.log('is ok', isOk)
-      console.log('data', data)
-      this.props.navigation.goBack()
-    })
+    // registerMember({ password, email })
+    //   .then(({ isOk }) => {
+    //     if (isOk) {
+    //       this.props.navigation.push(ScreenEnum.ENTER_DETAILS)
+    //       return
+    //     }
+        
+    //     Notification.show(strings.error, ERROR)
+    //   })
+
+    this.props.navigation.push(ScreenEnum.ENTER_DETAILS)
   }
 
   onPressFacebook = () => {}

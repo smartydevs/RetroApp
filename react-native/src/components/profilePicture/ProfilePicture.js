@@ -9,24 +9,24 @@ const { green, orange, yellow, primaryYellow, red, white, primaryDarkYellow, gra
 
 const backgroundColors = [green, orange, yellow, primaryYellow, primaryDarkYellow, red, white, gray, cream]
 
-const DefaultProfilePicture = ({firstName, lastName, style = null, textStyle}) => {
+const DefaultProfilePicture = ({ firstName, lastName, style = null, textStyle, imageSource }) => {
   const [colorNum] = useState(Math.floor(Math.random() * 9))
 
   const getBackgroundColor = () => {
     const backgroundColor = backgroundColors[colorNum]
-    return {backgroundColor}
+    return { backgroundColor }
   }
 
   const onFormatLetter = (name) => {
     return name ? name.charAt(0).toUpperCase() : 'A'
   }
-
-  return (
-    <Row style={[center, getBackgroundColor(), style]}>
-      <Text style={textStyle}>{onFormatLetter(firstName)}</Text>
-      <Text style={textStyle}>{onFormatLetter(lastName)}</Text>
-    </Row>
-  )
+  if (!imageSource)
+    return (
+      <Row style={[center, getBackgroundColor(), style]}>
+        <Text style={textStyle}>{onFormatLetter(firstName)}</Text>
+        <Text style={textStyle}>{onFormatLetter(lastName)}</Text>
+      </Row>
+    )
 }
 
 DefaultProfilePicture.propTypes = {

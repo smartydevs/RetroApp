@@ -39,6 +39,15 @@ const styles = StyleSheet.create({
     },
     completeFeed: {
         color: Colors.primaryAqua
+    },
+    highlight: {
+        shadowColor: Colors.primaryAqua,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
     }
 })
 
