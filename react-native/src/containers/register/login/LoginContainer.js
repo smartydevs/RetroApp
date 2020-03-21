@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { LoginComponent } from '.'
-import Constants, { ScreenEnum, NotificationTypeEnum } from '../../../lib/enums'
-import { login } from '../../../api'
+import Constants, { NotificationTypeEnum, ScreenEnum } from '../../../lib/enums'
+import { login } from '../../../api/register/login/methods'
 import { AsyncStorage } from 'react-native'
 import ApiClient from '../../../api/client'
 import { Notification } from '../../../components'
+import strings from '../../../lib/stringEnums'
 
 const { MAIN } = ScreenEnum
 
@@ -28,17 +29,42 @@ class LoginContainer extends Component {
 
   onPressLogin = () => {
     const { state } = this
-    
+
+    const email = state.email.trim()
+    const password = state.password.trim()
+
+    const emailEmpty = !email.length
+    const passwordEmpty = !password.length
+
+    if (emailEmpty || passwordEmpty) {
+      return Notification.show('Please fill in all inputs', NotificationTypeEnum.ERROR)
+    }
+
     login(state)
-      .then(async ({ data: { loginMember }, isOk }) => {
+      .then(async ({ data, isOk }) => {
         if (isOk) {
+          const { loginMember } = data
           await this.storeToken(loginMember.token)
           await this.storeUserId(loginMember.userId)
           this.props.navigation.push(ScreenEnum.MAIN)
         } else {
-          // Notification.show(, NotificationTypeEnum.ERROR)
+          const { message } = data
+          if (message.indexOf('email-expected') >= 0) {
+            return Notification.show('Email is expected', NotificationTypeEnum.ERROR)
+          }
+          if (message.indexOf('email-invalid') >= 0) {
+            return Notification.show(
+              'Please enter a valid email',
+              NotificationTypeEnum.ERROR
+            )
+          }
+          if (message.indexOf('Email not used') >= 0) {
+            return Notification.show('Email or password wrong')
+          }
+          return Notification.show(strings.error, NotificationTypeEnum.ERROR)
         }
       })
+      .catch(e => console.log(e))
   }
 
   storeToken = async token => {

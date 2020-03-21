@@ -29,27 +29,22 @@ class SignupContainer extends Component {
   onPressSignUp = () => {
     const { password, repeatPassword, email } = this.state
 
-    // if (password.trim().length < 6 || repeatPassword.trim().length < 6) {
-    //   Notification.show(strings.providePassword, ERROR)
-    //   return
-    // }
+    if (password.trim().length < 6 || repeatPassword.trim().length < 6) {
+      return Notification.show(strings.providePassword, ERROR)
+    }
 
-    // if (password !== repeatPassword) {
-    //   Notification.show(strings.passwordsDontMatch, ERROR)
-    //   return
-    // }
+    if (password !== repeatPassword) {
+      return Notification.show(strings.passwordsDontMatch, ERROR)
+    }
 
-    // registerMember({ password, email })
-    //   .then(({ isOk }) => {
-    //     if (isOk) {
-    //       this.props.navigation.push(ScreenEnum.ENTER_DETAILS)
-    //       return
-    //     }
-        
-    //     Notification.show(strings.error, ERROR)
-    //   })
+    registerMember({ password, email }).then(({ isOk }) => {
+      if (isOk) {
+        return this.props.navigation.push(ScreenEnum.ENTER_DETAILS, { email })
+      }
 
-    this.props.navigation.push(ScreenEnum.ENTER_DETAILS)
+      Notification.show(strings.error, ERROR)
+    })
+
   }
 
   onPressFacebook = () => {}

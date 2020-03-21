@@ -1,10 +1,5 @@
 import React, { Component } from 'react'
-import {
-  StyleSheet,
-  View,
-  Animated,
-  Text
-} from 'react-native'
+import { StyleSheet, View, Animated, Text } from 'react-native'
 import PropTypes from 'prop-types'
 import ImageButton from '../buttons/ImageButton'
 import { Colors, Fonts, Metrics, Images } from '../../themes'
@@ -13,7 +8,7 @@ import { NotificationTypeEnum, NotificationLength } from '../../lib/enums'
 
 export const DURATION = {
   LENGTH_SHORT: 500,
-  FOREVER: 0
+  FOREVER: 0,
 }
 
 const styles = StyleSheet.create({
@@ -30,14 +25,14 @@ const styles = StyleSheet.create({
     shadowColor: '#00000033',
     shadowOffset: {
       width: 0,
-      height: 0
+      height: 0,
     },
     shadowRadius: normalizeHeight(5),
-    zIndex: 10
+    zIndex: 10,
   },
   icon: {
     height: Metrics.icons.tiny,
-    marginHorizontal: normalizeWidth(12)
+    marginHorizontal: normalizeWidth(12),
   },
   message: {
     color: Colors.dark,
@@ -47,63 +42,64 @@ const styles = StyleSheet.create({
     fontSize: Fonts.size.subhead,
     paddingVertical: normalizeHeight(10),
   },
-  label: (backgroundColor) => ({
+  label: backgroundColor => ({
     backgroundColor,
     height: '100%',
-    width: normalizeWidth(6)
-  })
+    width: normalizeWidth(6),
+  }),
 })
 
 let ref = null
 
 const badges = {
   [NotificationTypeEnum.SUCESS]: Colors.green,
-  [NotificationTypeEnum.ERROR]: Colors.red
+  [NotificationTypeEnum.ERROR]: Colors.red,
 }
 
 export default class Notification extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       isShown: false,
       type: NotificationTypeEnum.SUCESS,
-      text: ''
+      text: '',
     }
   }
 
-  static setRef = (toast) => {
+  static setRef = toast => {
     if (ref === null) {
       ref = toast
     }
   }
 
-  static show (text, type, duration) {
+  static show(text, type, duration) {
     ref.show(text, type, duration)
   }
 
-  static close () {
+  static error(text) {
+    ref.show(text, NotificationTypeEnum.ERROR)
+  }
+
+  static close() {
     ref.close()
   }
 
-  componentWillMount () {
+  componentWillMount() {
     this.opacityValue = new Animated.Value(0)
   }
 
-  show (text, type = NotificationTypeEnum.SUCESS, duration = NotificationLength.SHORT) {
+  show(text, type = NotificationTypeEnum.SUCESS, duration = NotificationLength.SHORT) {
     this.delay && clearTimeout(this.delay)
     this.setState({
       isShown: true,
       type,
-      text
+      text,
     })
-    Animated.timing(
-      this.opacityValue,
-      {
-        toValue: 1,
-        duration: this.props.fadeInDuration,
-        useNativeDriver: true
-      }
-    ).start((isFinished) => {
+    Animated.timing(this.opacityValue, {
+      toValue: 1,
+      duration: this.props.fadeInDuration,
+      useNativeDriver: true,
+    }).start(isFinished => {
       if (isFinished) {
         if (duration !== NotificationLength.FOREVER) {
           this.delay = setTimeout(() => {
@@ -113,18 +109,15 @@ export default class Notification extends Component {
       }
     })
   }
-  close () {
-    Animated.timing(
-      this.opacityValue,
-      {
-        toValue: 0,
-        duration: this.props.fadeOutDuration,
-        useNativeDriver: true
-      }
-    ).start((isFinished) => {
+  close() {
+    Animated.timing(this.opacityValue, {
+      toValue: 0,
+      duration: this.props.fadeOutDuration,
+      useNativeDriver: true,
+    }).start(isFinished => {
       if (isFinished) {
         this.setState({
-          isShown: false
+          isShown: false,
         })
       }
     })
@@ -132,26 +125,30 @@ export default class Notification extends Component {
   onPressCancel = () => {
     this.delay && clearTimeout(this.delay)
     this.setState({
-      isShown: false
+      isShown: false,
     })
   }
-  render () {
+  render() {
     const { text, type } = this.state
     const elevation = this.opacityValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 5]
+      outputRange: [0, 5],
     })
     return this.state.isShown ? (
       <Animated.View
-        style={[styles.container, {opacity: this.opacityValue, shadowOpacity: this.opacityValue, elevation}]}
+        style={[
+          styles.container,
+          { opacity: this.opacityValue, shadowOpacity: this.opacityValue, elevation },
+        ]}
       >
         <View style={styles.label(badges[type])} />
         <Text style={styles.message}>{text}</Text>
         <ImageButton
           source={Images.icons.close}
           style={styles.icon}
-          resizeMode='cover'
-          onPress={this.onPressCancel} />
+          resizeMode="cover"
+          onPress={this.onPressCancel}
+        />
       </Animated.View>
     ) : null
   }
@@ -159,10 +156,10 @@ export default class Notification extends Component {
 
 Notification.propTypes = {
   fadeInDuration: PropTypes.number,
-  fadeOutDuration: PropTypes.number
+  fadeOutDuration: PropTypes.number,
 }
 
 Notification.defaultProps = {
   fadeInDuration: 500,
-  fadeOutDuration: 500
+  fadeOutDuration: 500,
 }

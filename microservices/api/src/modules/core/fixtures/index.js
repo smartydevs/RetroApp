@@ -5,6 +5,7 @@
 import { Meteor } from 'meteor/meteor';
 import _ from 'lodash';
 
+import business from '../business';
 import { createAdmin } from './admin';
 import { createMember } from './member';
 import { createOrganiser } from './organiser';
@@ -33,9 +34,9 @@ async function loadOrganiser() {
 }
 
 async function loadCategories() {
-  for (let i = 1; i <= 15; i++) {
-    createCategory(`category-${i}`);
-  }
+  const { defaultCategories } = business;
+
+  defaultCategories.map(category => createCategory(category));
 }
 
 async function loadEvents() {

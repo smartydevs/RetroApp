@@ -1,4 +1,5 @@
 type Notification {
+    _id: ID!
     receiverId: String
     receiver: User
     createdAt: Date
