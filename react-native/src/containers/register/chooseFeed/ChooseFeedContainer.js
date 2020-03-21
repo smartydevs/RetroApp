@@ -45,20 +45,23 @@ class ChooseFeedContainer extends Component {
   }
 
   onCardPress = _id => {
-    const { cardsChosen } = this.state
+    const { cardsChosen, numberOfCards } = this.state
     const existingCard = cardsChosen.find(cardId => cardId === _id)
     let newCardsChosen = []
+    let newNumberOfCards = numberOfCards
 
     if (existingCard) {
       newCardsChosen = cardsChosen.filter(cardId => cardId !== _id)
+      newNumberOfCards--
     } else {
       newCardsChosen = [...cardsChosen, _id]
+      newNumberOfCards++
     }
 
-    this.setState(prevState => ({
-      numberOfCards: prevState + 1,
+    this.setState({
+      numberOfCards: newNumberOfCards,
       cardsChosen: newCardsChosen,
-    }))
+    })
   }
 
   onSkipButtonPress = () => {

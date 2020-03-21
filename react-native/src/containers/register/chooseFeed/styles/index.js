@@ -41,16 +41,20 @@ const styles = StyleSheet.create({
     color: Colors.primaryAqua,
   },
   highlight: {
-    shadowColor: Colors.primaryAqua,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    borderColor: 'red',
+    borderColor: Colors.primaryAqua,
     borderWidth: 2,
   },
+  saveLogo: {
+    color: Colors.dark,
+    marginRight: Metrics.margin
+  },
+  saveButton: {
+    backgroundColor: Colors.primaryAqua,
+    width: normalizeWidth(100),
+    marginBottom: Metrics.margin * 2,
+    color: Colors.dark,
+    flexDirection: 'row'
+  }
 })
 
 export default styles

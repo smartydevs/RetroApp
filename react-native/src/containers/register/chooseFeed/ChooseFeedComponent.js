@@ -6,11 +6,11 @@ import Card from '../../../components/card/Card'
 import { ApplicationStyles, Fonts, Colors } from '../../../themes'
 import styles from './styles'
 import strings from '../../../lib/stringEnums'
-import TextButton from '../../../components/buttons/TextButton'
+import { TextButton } from '../../../components'
 import { Ionicons } from '@expo/vector-icons'
 
 const { container, center } = ApplicationStyles
-const { bigBoldTitle } = Fonts.style
+const { bigBoldTitle, button } = Fonts.style
 
 const ChooseFeedComponent = ({
   onCardPress,
@@ -37,18 +37,25 @@ const ChooseFeedComponent = ({
   }
 
   const onComplete = () => {
-    if (numberOfCards < 5) {
+    if (numberOfCards < 1) {
       return
     }
 
     return (
-      <TouchableOpacity onPress={onCompleteFeed}>
+      <TextButton 
+        onPress={onCompleteFeed}
+        style={[styles.saveButton, center]}
+        hasChildren
+      >
         <Ionicons
-          name={'ios-checkmark-circle-outline'}
-          size={40}
-          style={styles.completeFeed}
+          name={'md-checkmark-circle-outline'}
+          size={24}
+          style={styles.saveLogo}
         />
-      </TouchableOpacity>
+        <Text style={[button]}>
+          {strings.save}
+        </Text>
+      </TextButton>
     )
   }
 

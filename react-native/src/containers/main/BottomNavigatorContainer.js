@@ -55,7 +55,7 @@ const BottomNavigatorContainer = createBottomTabNavigator(
           const iconConfig = icons[routeName]
           const icon = iconConfig.icon
 
-          const color = focused ? Colors.primaryPink : Colors.white
+          const color = focused ? Colors.primaryAqua : Colors.white
 
           return (
             <Ionicons style={{color}} name={icon} size={30} />
