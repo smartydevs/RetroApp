@@ -1,51 +1,148 @@
 import React from 'react'
-import { View, Text, SafeAreaView } from 'react-native'
+import { View, Text, SafeAreaView, Image, FlatList } from 'react-native'
+import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler'
 import { ApplicationStyles, Fonts } from '../../../themes'
-import { Header } from '../../../components/general/'
+import { Header, Row } from '../../../components/general/'
 import strings from '../../../lib/stringEnums'
 import styles from './styles'
 import EventCard from '../../../components/eventcard/EventCard'
-import { Cover } from '../../../components/cover'
-import { ProfilePicture } from '../../../components'
+import { ProfilePicture, TextButton } from '../../../components'
+import Metrics, { normalizeWidth } from '../../../themes/Metrics'
+import { Card } from '../notification'
+import { LoadMoreEnum, BottomStackScreensEnum } from '../../../lib/enums'
 
-const { container, shadow } = ApplicationStyles
-const { bigBoldTitle, whiteText } = Fonts.style
+const { container, shadow, center } = ApplicationStyles
+const { bigBoldTitle, primaryDarkText, boldTitle, grayText } = Fonts.style
+const { ON_GOING_EVENTS, CREATED_EVENTS } = LoadMoreEnum
 
-const ProfileComponent = () => {
+const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore,
+    goingEvents, totalGoingEvents, createdEvents, totalCreatedEvents, navigate }) => {
+
+    const renderGoingEvents = ({_id, title, location, date, eventImage}) => (
+        <TouchableOpacity
+            onPress={() => showEvent(_id)}
+            style={{paddingHorizontal: normalizeWidth(5)}}
+        >
+            <EventCard
+                containerStyle={[styles.eventCard, shadow]}
+                title={title}
+                location={location}
+                date={date}
+                eventImage={eventImage}
+                isSmall
+            />
+        </TouchableOpacity>
+    )
+
+    const renderCreatedEvents = ({_id, title, location, date, eventImage}) => (
+        <TouchableOpacity
+            onPress={() => showEvent(_id)}
+            style={{paddingHorizontal: normalizeWidth(5)}}
+        >
+            <EventCard
+                containerStyle={[styles.eventCard, shadow]}
+                title={title}
+                location={location}
+                date={date}
+                eventImage={eventImage}
+                isSmall
+            />
+        </TouchableOpacity>
+    )
+
+    const getGoingEvents = () => {
+        if (totalGoingEvents) {
+            return (
+                <View>
+                    <Text style={[boldTitle, grayText, {paddingVertical: Metrics.margin}]}>
+                        {strings.going}
+                    </Text>
+                    <FlatList
+                        bounces={false}
+                        data={goingEvents}
+                        renderItem={({item}) => renderGoingEvents(item)}
+                    />
+                    <TextButton
+                        style={[styles.loadMore, center, {marginBottom: Metrics.margin}]}
+                        onPress={() => loadMore(ON_GOING_EVENTS)}
+                        text={strings.loadMore}
+                    />
+                </View>
+            )
+        }
+
+        return (
+            <Card
+                message={strings.noGoingEvents}
+                icon={'md-search'}
+                containerStyle={{marginHorizontal: normalizeWidth(5)}}
+                onPress={() => navigate(BottomStackScreensEnum.SEARCH)}
+            />
+        )
+    }
+
+    const getCreatedEvents = () => {
+        if (totalCreatedEvents) {
+            return (
+                <View>
+                    <Text style={[boldTitle, grayText, {paddingVertical: Metrics.margin}]}>
+                        {strings.created}
+                    </Text>
+                    <FlatList
+                        bounces={false}
+                        data={createdEvents}
+                        renderItem={({item}) => renderCreatedEvents(item)}
+                    />
+                    <TextButton
+                        style={[styles.loadMore]}
+                        onPress={() => loadMore(CREATED_EVENTS)}
+                        text={strings.loadMore}
+                    />
+                </View>
+            )
+        }
+
+        return (
+            <Card
+                message={strings.noCreatedEvents}
+                icon={'md-create'}
+                containerStyle={{marginHorizontal: normalizeWidth(5)}}
+                onPress={() => navigate(BottomStackScreensEnum.CREATE)}
+            />
+        )
+    }
+
     return (
         <SafeAreaView style={[container, styles.container]}>
-            <View style={styles.headerContainer}>
-                <Header
-                    style={styles.header}
-                    iconStyle={styles.icon}
-                    text={strings.userprofile}
-                    icon={require("../../../../assets/icon.png")}
-                />
-            </View>
-            <Cover
-                containerStyle={styles.coverContainerStyle}
-                imageStyle={styles.coverImageStyle}
+            <Header
+                style={styles.header}
+                iconStyle={styles.icon}
+                text={strings.userprofile}
+                icon={require("../../../../assets/icon.png")}
             />
-            <View
-                style={styles.content}
-            >
-                <View style={{ flexDirection: "row" }}>
+            <ScrollView>
+                <Image
+                    style={styles.cover}
+                    resizeMode="cover"
+                    source={coverUrl && {uri: coverUrl}}
+                />
+                <Row style={styles.infoContainer}>
                     <ProfilePicture
-                        firstName="Vlad"
-                        lastName="Romila"
+                        firstName={firstName}
+                        lastName={lastName}
                         style={styles.profilePicture}
                     />
-                    <Text style={styles.nameTextStyle}>Vlad Romila</Text></View>
-                <Text style={styles.sectionsTextStyle}>{strings.going}</Text>
-                <EventCard
-                    containerStyle={[styles.eventCardStyle, shadow]}
-                    isSmall
-                    title="Retro Night"
-                    location="Retro Bar"
-                    date="12 Ian 2020"
-                />
-                <Text style={styles.sectionsTextStyle}>{strings.created}</Text>
-            </View>
+                    <Text style={[bigBoldTitle, primaryDarkText]}>
+                        {firstName}
+                        {' '}
+                        {lastName}
+                    </Text>
+                </Row>
+                <View style={[styles.content]}>
+                    {getGoingEvents()}
+                    {getCreatedEvents()}
+                </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }

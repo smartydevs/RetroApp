@@ -10,9 +10,9 @@ import { CreateEventContainer } from './createEvent'
 
 import { normalizeHeight, normalizeWidth } from '../../themes/Metrics'
 import { Colors } from '../../themes'
+import { BottomStackScreensEnum } from '../../lib/enums'
 
-
-const [MAIN, NOTIFICATION, SEARCH, PROFILE, CREATE] = ['Main', 'Notification', 'Search', 'Profile', 'Create']
+const {MAIN, NOTIFICATION, SEARCH, PROFILE, CREATE} = BottomStackScreensEnum
 
 const BottomNavigatorContainer = createBottomTabNavigator(
   {
@@ -29,7 +29,16 @@ const BottomNavigatorContainer = createBottomTabNavigator(
         height: normalizeHeight(48),
         alignItems: 'center',
         justifyContent: 'center',
-        borderTopWidth: 0
+        borderTopWidth: 0,
+        shadowColor: Colors.dark,
+        shadowOffset: {
+          width: 0,
+          height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+
+        elevation: 9
       },
       adaptive: true,
       tabStyle: {

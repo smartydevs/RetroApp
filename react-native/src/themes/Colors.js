@@ -6,6 +6,7 @@ const colors = {
   lightGray: '#F3F2F5',
   primaryLight: '#a49daf',
   light: '#e5e3e8',
+  lighCream: '#EAE8ED',
   cream: '#fbfbfb',
   white: '#ffffff',
   primaryPink: '#f38181',

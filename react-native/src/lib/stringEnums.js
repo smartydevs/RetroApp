@@ -24,8 +24,11 @@ const strings = {
   userprofile: "Profile",
   going: "Going events",
   created: "Created events",
-  noNotifications: 'You don’t have any notifications yet. Start exploring the events',
-  save: 'Save'
+  noNotifications: 'You don’t have any notifications yet. Start exploring the events!',
+  noGoingEvents: 'You are not going to any event yet. Start exploring the events!',
+  noCreatedEvents: 'You haven\'t created an event yet. When you\'ll have something to share, feel free to create an event!',
+  save: 'Save',
+  loadMore: 'Load more'
 }
 
 export default strings

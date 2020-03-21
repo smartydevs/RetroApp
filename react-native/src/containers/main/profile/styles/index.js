@@ -1,19 +1,8 @@
 import { StyleSheet, StatusBar } from 'react-native'
 import { Colors } from '../../../../themes'
-import { normalizeWidth, normalizeHeight } from '../../../../themes/Metrics';
+import Metrics, { normalizeWidth, normalizeHeight } from '../../../../themes/Metrics';
 
 const styles = StyleSheet.create({
-    title: {
-        color: Colors.gray,
-        alignSelf: "center",
-        fontSize: normalizeWidth(20),
-        marginTop: normalizeWidth(15),
-        marginBottom: normalizeWidth(10)
-    },
-    headerContainer: {
-        backgroundColor: Colors.dark,
-        paddingTop: StatusBar.currentHeight
-    },
     container: {
         backgroundColor: Colors.light
     },
@@ -32,85 +21,52 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         marginHorizontal: normalizeWidth(40),
+        marginVertical: normalizeHeight(20)
     },
     profilePicture: {
         width: normalizeWidth(70),
         height: normalizeWidth(70),
         borderRadius: normalizeWidth(35),
-        top: -normalizeWidth(35),
-        backgroundColor: Colors.gray
+        top: -normalizeWidth(37),
+        borderWidth: normalizeWidth(2),
+        borderColor: Colors.light,
+        marginRight: Metrics.margin * 2
     },
-    profilePictureTextStyle: {
-        fontSize: normalizeWidth(20),
-        fontWeight: "700"
-    },
-    nameTextStyle: {
-        fontSize: normalizeWidth(20),
-        fontWeight: "700",
-        left: normalizeWidth(20)
-    },
-    coverImageStyle: {
-        width: "100%",
-        height: "100%"
-    },
-    sectionsTextStyle: {
-        fontSize: normalizeWidth(17),
-        marginBottom: normalizeHeight(20)
-    },
-    coverContainerStyle: {
+    cover: {
         flex: 1,
-        maxHeight: normalizeHeight(150),
-        backgroundColor: Colors.gray
+        height: normalizeHeight(150),
+        backgroundColor: Colors.gray,
+        width: "100%",
     },
     separator: {
         height: 3,
         width: "100%",
-        backgroundColor: Colors.primaryLight,
+        backgroundColor: Colors.red,
         alignSelf: "center",
         shadowOpacity: 0.2,
         shadowRadius: normalizeWidth(5),
         shadowColor: Colors.black,
         shadowOffset: { height: 0, width: 0 }
     },
-    eventCardStyle: {
-        height: normalizeHeight(100),
+    eventCard: {
+        height: normalizeHeight(80),
         maxHeight: normalizeHeight(100),
         borderRadius: normalizeWidth(10),
         backgroundColor: Colors.lightGray,
         marginBottom: normalizeHeight(20)
     },
-    searchBarContainerStyle: {
-        height: normalizeHeight(60),
-        flexDirection: "row",
-        marginTop: 10
+    infoContainer: {
+        marginTop: Metrics.margin,
+        paddingHorizontal: normalizeWidth(40),
+        height: normalizeWidth(50),
+        borderBottomWidth: normalizeHeight(2),
+        borderColor: Colors.lighCream
     },
-    searchBarInputContainerStyle: {
-        flex: 3,
-        paddingRight: 10,
-        backgroundColor: "white",
-        borderTopLeftRadius: 15,
-        borderBottomLeftRadius: 15
-    },
-    searchBarButtonContainerStyle: {
-        flex: 1
-    },
-    searchBarInputStyle: {
-        height: normalizeHeight(60),
-        borderTopLeftRadius: 15,
-        borderBottomLeftRadius: 15,
-        backgroundColor: "white",
-        fontSize: normalizeWidth(20),
-        paddingLeft: normalizeWidth(20)
-    },
-    searchBarButtonStyle: {
+    loadMore: {
+        width: normalizeWidth(150),
         backgroundColor: Colors.primaryPink,
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        borderTopRightRadius: 15,
-        borderBottomRightRadius: 15
-    },
-    searchBarIconSize: normalizeWidth(20)
+        color: Colors.cream
+    }
 })
 
 export default styles;

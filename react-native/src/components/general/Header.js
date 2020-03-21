@@ -12,7 +12,16 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.black,
     height: normalizeHeight(57),
     justifyContent: 'space-between',
-    width: '100%'
+    width: '100%',
+    shadowColor: Colors.dark,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.32,
+    shadowRadius: 5.46,
+
+    elevation: 9,
   },
   rightContainer: {
     height: '100%',
@@ -49,11 +58,6 @@ const Header = ({ icon, iconStyle, text, style, textStyle, onPress, amount }) =>
       <Text style={[largeBoldTitle, whiteText, { alignSelf: 'center' }, textStyle]}>{text}</Text>
       <Row style={[styles.rightContainer, alignCenter, padding]}>
         <Text style={amountText}>{amount}</Text>
-        <Image
-          resizeMode={'contain'}
-          style={amountIcon}
-          source={Images.icons.amount}
-        />
       </Row>
     </Row>
   )

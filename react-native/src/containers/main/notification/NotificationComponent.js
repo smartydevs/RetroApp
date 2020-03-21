@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
+import { View, SafeAreaView, FlatList } from 'react-native'
 import { ApplicationStyles } from '../../../themes'
 import { Header } from '../../../components/general/'
 import strings from '../../../lib/stringEnums'
@@ -12,15 +12,13 @@ const { container } = ApplicationStyles
 
 const NotificationComponent = ({ showNotification }) => {
     const renderNotification = ({ _id, message = '', imageSource = '' }) => (
-        <TouchableOpacity
+        <Card
             onPress={() => showNotification(_id)}
-            style={{paddingHorizontal: normalizeWidth(5)}}
-        >
-            <Card
-                message={message}
-                imageSource={imageSource}
-            />
-        </TouchableOpacity>
+            containerStyle={{marginHorizontal: normalizeWidth(5)}}
+            message={message}
+            imageSource={imageSource}
+            icon={'md-search'}
+        />
     )
 
     return (
@@ -41,7 +39,7 @@ const NotificationComponent = ({ showNotification }) => {
                         renderItem={({ item }) => renderNotification(item)}
                     />
                 ) : (
-                    <Card message={strings.noNotifications} />
+                    <Card message={strings.noNotifications} icon={'md-search'} />
                 )}
             </View>
         </SafeAreaView>

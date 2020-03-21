@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { Text } from 'react-native'
 import PropTypes from 'prop-types'
-import { ApplicationStyles, Colors } from '../../themes'
+import { ApplicationStyles, Colors, Fonts } from '../../themes'
 import { Row } from '..'
 
 const { center } = ApplicationStyles
-const { green, orange, yellow, primaryYellow, red, white, primaryDarkYellow, gray, cream } = Colors
+const { green, blue, red, primaryAqua, primaryPink, white, cream, light, primaryLight, lightGray, gray, primaryDark } = Colors
+const { button, bigTitle, title, bigBoldTitle, boldTitle } = Fonts.style
 
-const backgroundColors = [green, orange, yellow, primaryYellow, primaryDarkYellow, red, white, gray, cream]
+
+const backgroundColors = [green, blue, red, primaryAqua, primaryPink, white, cream, primaryLight, lightGray, gray, primaryDark]
 
 const DefaultProfilePicture = ({ firstName, lastName, style = null, textStyle, imageSource }) => {
   const [colorNum] = useState(Math.floor(Math.random() * 9))
@@ -23,8 +25,8 @@ const DefaultProfilePicture = ({ firstName, lastName, style = null, textStyle, i
   if (!imageSource)
     return (
       <Row style={[center, getBackgroundColor(), style]}>
-        <Text style={textStyle}>{onFormatLetter(firstName)}</Text>
-        <Text style={textStyle}>{onFormatLetter(lastName)}</Text>
+        <Text style={[bigBoldTitle, textStyle]}>{onFormatLetter(firstName)}</Text>
+        <Text style={[bigBoldTitle, textStyle]}>{onFormatLetter(lastName)}</Text>
       </Row>
     )
 }

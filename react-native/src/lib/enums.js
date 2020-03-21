@@ -32,6 +32,14 @@ export const ScreenEnum = {
   MAIN: 'Main',
 }
 
+export const BottomStackScreensEnum = {
+  MAIN: 'Main',
+  NOTIFICATION: 'Notification',
+  SEARCH: 'Search',
+  PROFILE: 'Profile',
+  CREATE: 'Create'
+}
+
 export const NotificationTypeEnum = {
   ERROR: 'ERROR',
   SUCESS: 'SUCESS',
@@ -41,6 +49,11 @@ export const NotificationLength = {
   SHORT: 1000,
   LONG: 2000,
   FOREVER: 0,
+}
+
+export const LoadMoreEnum = {
+  ON_GOING_EVENTS: 'onGoingEvents',
+  CREATED_EVENTS: 'creaedEvents'
 }
 
 export default Constants

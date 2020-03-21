@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: Metrics.buttons.small,
     borderRadius: Metrics.borderRadius.default,
+    alignSelf: 'center'
   },
   text: {
     ...Fonts.style.button,
