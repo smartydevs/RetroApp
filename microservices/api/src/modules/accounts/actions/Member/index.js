@@ -22,6 +22,10 @@ load({
 
         return MemberService.addMemberCategories(userId, categories);
       },
+
+      loginMember(_, { loginInput }) {
+        return MemberService.loginMember(loginInput);
+      },
     },
   },
 });
