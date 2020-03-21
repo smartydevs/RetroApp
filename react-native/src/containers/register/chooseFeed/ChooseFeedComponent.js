@@ -4,25 +4,32 @@ import PropTypes from 'prop-types'
 
 import Card from '../../../components/card/Card'
 import { ApplicationStyles, Fonts, Colors } from '../../../themes'
-import styles from './styles';
-import strings from '../../../lib/stringEnums';
-import TextButton from '../../../components/buttons/TextButton';
+import styles from './styles'
+import strings from '../../../lib/stringEnums'
+import TextButton from '../../../components/buttons/TextButton'
 import { Ionicons } from '@expo/vector-icons'
 
-const { container, center, } = ApplicationStyles
+const { container, center } = ApplicationStyles
 const { bigBoldTitle } = Fonts.style
 
-const ChooseFeedComponent = ({ onCardPress, onSkipButtonPress, cards, numberOfCards,
-  onCompleteFeed, cardsChosen }) => {
-  const onRenderCard = ({ id, title, imageSource }) => {
-    // const existingCard = cardsChosen.find(cardId => cardId === id)
-    console.log(cardsChosen)
+const ChooseFeedComponent = ({
+  onCardPress,
+  onSkipButtonPress,
+  cards,
+  numberOfCards,
+  onCompleteFeed,
+  cardsChosen,
+}) => {
+  const onRenderCard = ({ _id, name, imageSource }) => {
+    const existingCard = cardsChosen.find(cardId => cardId === _id)
+    const cardStyle = [styles.card]
+    if (existingCard) cardStyle.push(styles.highlight)
     return (
       <Card
-        onPress={() => onCardPress(id)}
-        title={title}
+        onPress={() => onCardPress(_id)}
+        title={name}
         titleStyle={[Fonts.style.bigBoldTitle, styles.cardTitle]}
-        cardStyle={styles.card}
+        cardStyle={cardStyle}
         containerStyle={styles.container}
         imageSource={imageSource}
       />
@@ -31,7 +38,7 @@ const ChooseFeedComponent = ({ onCardPress, onSkipButtonPress, cards, numberOfCa
 
   const onComplete = () => {
     if (numberOfCards < 5) {
-      return 
+      return
     }
 
     return (
@@ -47,14 +54,12 @@ const ChooseFeedComponent = ({ onCardPress, onSkipButtonPress, cards, numberOfCa
 
   return (
     <View style={[container, center]}>
-      <Text style={[bigBoldTitle, styles.title]}>
-        {strings.chooseFeedComponent}
-      </Text>
+      <Text style={[bigBoldTitle, styles.title]}>{strings.chooseFeedComponent}</Text>
       {onComplete()}
       <FlatList
         numColumns={2}
         data={cards}
-        keyExtractor={({id}) => id}
+        keyExtractor={({ _id }) => _id}
         renderItem={({ item }) => onRenderCard(item)}
       />
       <TextButton
@@ -73,11 +78,11 @@ ChooseFeedComponent.propTypes = {
   cards: PropTypes.instanceOf(Array).isRequired,
   numberOfCards: PropTypes.number.isRequired,
   onCompleteFeed: PropTypes.func.isRequired,
-  cardsChosen: PropTypes.instanceOf(Array)
+  cardsChosen: PropTypes.instanceOf(Array),
 }
 
 ChooseFeedComponent.defaultProps = {
-  cardsChosen: []
+  cardsChosen: [],
 }
 
 export default ChooseFeedComponent

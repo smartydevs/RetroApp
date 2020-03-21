@@ -14,13 +14,12 @@ const store = createStore()
 
 class App extends Component {
   state = {
-    isLoading: true
+    isLoading: true,
   }
 
-  componentDidMount () {
-    // AsyncStorage.clear()
-    AsyncStorage.getItem(Constants.TOKEN)
-    .then(token => {
+  componentDidMount() {
+    AsyncStorage.clear()
+    AsyncStorage.getItem(Constants.TOKEN).then(token => {
       console.log('TOKEN', token)
       ApiClient.setToken(token)
     })
@@ -30,11 +29,11 @@ class App extends Component {
   loadFonts = () => {
     Font.loadAsync({
       'GothamRounded-Book': require('../../assets/fonts/Gotham-Rounded-Book.otf'),
-      'GothamRounded-Medium': require('../../assets/fonts/Gotham-Rounded-Medium.otf')
-    }).then(() => this.setState({isLoading: false}))
+      'GothamRounded-Medium': require('../../assets/fonts/Gotham-Rounded-Medium.otf'),
+    }).then(() => this.setState({ isLoading: false }))
   }
 
-  render () {
+  render() {
     const { isLoading } = this.state
 
     if (isLoading) {

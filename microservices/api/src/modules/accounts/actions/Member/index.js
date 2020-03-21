@@ -17,10 +17,8 @@ load({
         return MemberService.addMemberDetails({ email, details });
       },
 
-      addMemberCategories(_, { categories }, { userId }) {
-        SecurityService.checkRole(userId, RolesEnum.MEMBER);
-
-        return MemberService.addMemberCategories(userId, categories);
+      addMemberCategories(_, { email, categories }) {
+        return MemberService.addMemberCategories(email, categories);
       },
 
       loginMember(_, { loginInput }) {

@@ -3,6 +3,7 @@ import { Roles } from 'meteor/alanning:roles';
 
 import { UserService } from './index';
 import RolesEnum from '../db/users/enums/RolesEnum';
+import { ValidationService } from '../../core/services';
 
 export default class MemberService {
   constructor(injection) {
@@ -44,9 +45,19 @@ export default class MemberService {
     return true;
   }
 
-  addMemberCategories(userId, categories) {
+  addMemberCategories(email, categories) {
     const { db } = this;
-    return db.users.update(userId, {
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail.length) {
+      throw new Error('email-expected');
+    }
+
+    const user = Accounts.findUserByEmail(email);
+    if (!user) {
+      throw new Error('Email not used');
+    }
+
+    return db.users.update(user._id, {
       $set: {
         'profile.categoryIds': [...categories],
       },
@@ -55,7 +66,14 @@ export default class MemberService {
 
   loginMember(input) {
     const { db } = this;
-    const { email, password } = input;
+    const email = input.email.trim();
+    const password = input.password.trim();
+
+    if (!email.length) {
+      throw new Error('email-expected');
+    }
+
+    ValidationService.validateEmailFormat(email);
 
     const user = Accounts.findUserByEmail(email);
 

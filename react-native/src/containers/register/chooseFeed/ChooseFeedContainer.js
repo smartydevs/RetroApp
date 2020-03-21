@@ -1,46 +1,64 @@
 import React, { Component } from 'react'
 import { ChooseFeedComponent } from '.'
 
-import { cards } from '../../../fixtures/ChooseFeedData';
-import { ScreenEnum } from '../../../lib/enums';
+import { cards } from '../../../fixtures/ChooseFeedData'
+import { ScreenEnum } from '../../../lib/enums'
+import { getCategories, addMemberCategories } from '../../../api'
+import { Notification } from '../../../components'
+import { strings } from '../../../lib/stringEnums'
 
 class ChooseFeedContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props)
     this.state = {
       numberOfCards: 0,
-      cardsChosen: []
+      cardsChosen: [],
+      categoriesCards: [],
+      isLoading: true,
     }
   }
 
-  onCardPress = (id) => {
-    const { cardsChosen } = this.state
-    // const existingCard = cardsChosen.filter(cardId => cardId === id)
-    // console.log('existingCard', existingCard)
+  componentDidMount() {
+    this.getCategories()
+  }
 
-    // let newCardsChosen = []
-
-    // if (existingCard.length) {
-    //   newCardsChosen = cardsChosen.filter(cardId => cardId !== id)
-    //   console.log('newCardsChosen 1', newCardsChosen)
-    // } else {
-    //   newCardsChosen = cardsChosen.push(id)
-    //   console.log('newCardsChosen 2', newCardsChosen)
-    // }
-
-    // this.setState({
-    //   numberOfCards: this.state.numberOfCards + 1,
-    //   cardsChosen: newCardsChosen 
-    // }, () => {
-    //   console.log('state', this.state)
-    // })
-
-    this.setState({
-      numberOfCards: this.state.numberOfCards + 1,
-      // cardsChosen: this.state.cardsChosen.push(id) 
-    }, () => {
-      console.log('state', this.state)
+  async getCategories() {
+    getCategories().then(({ data, isOk }) => {
+      if (isOk) {
+        const { getCategories = [] } = data
+        const categories = getCategories.map(cat => {
+          return {
+            _id: cat._id,
+            name: cat.name,
+            imageSource: 'https://picsum.photos/1920/1080',
+          }
+        })
+        this.setState({
+          isLoading: false,
+          categoriesCards: categories,
+        })
+      } else {
+        this.setState({ isLoading: false })
+        return Notification.error(strings.error)
+      }
     })
+  }
+
+  onCardPress = _id => {
+    const { cardsChosen } = this.state
+    const existingCard = cardsChosen.find(cardId => cardId === _id)
+    let newCardsChosen = []
+
+    if (existingCard) {
+      newCardsChosen = cardsChosen.filter(cardId => cardId !== _id)
+    } else {
+      newCardsChosen = [...cardsChosen, _id]
+    }
+
+    this.setState(prevState => ({
+      numberOfCards: prevState + 1,
+      cardsChosen: newCardsChosen,
+    }))
   }
 
   onSkipButtonPress = () => {
@@ -48,17 +66,30 @@ class ChooseFeedContainer extends Component {
   }
 
   onCompleteFeed = () => {
-    this.props.navigation.push(ScreenEnum.MAIN)
+    const { cardsChosen } = this.state
+    const { email } = this.props.navigation.state.params
+
+    if (cardsChosen.length < 1) {
+      return Notification.error('Select at least one category')
+    }
+
+    addMemberCategories({ email, categories: cardsChosen }).then(({ isOk }) => {
+      if (isOk) {
+        this.props.navigation.push(ScreenEnum.MAIN)
+      } else {
+        return Notification.error(strings.error)
+      }
+    })
   }
 
   render() {
-    const { numberOfCards, cardsChosen } = this.state
+    const { numberOfCards, cardsChosen, categoriesCards } = this.state
 
     return (
       <ChooseFeedComponent
         onCardPress={this.onCardPress}
         onSkipButtonPress={this.onSkipButtonPress}
-        cards={cards}
+        cards={categoriesCards}
         numberOfCards={numberOfCards}
         cardsChosen={cardsChosen}
         onCompleteFeed={this.onCompleteFeed}
