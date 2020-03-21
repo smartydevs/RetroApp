@@ -5,14 +5,12 @@ const { currentInstance } = ApiClient
 
 const registerMember = async input => {
   try {
-    const { data } = await (
-      currentInstance().mutate({
-        mutation: REGISTER_MEMBER,
-        variables: {
-          input,
-        },
-      })
-    )
+    const { data } = await currentInstance().mutate({
+      mutation: REGISTER_MEMBER,
+      variables: {
+        input,
+      },
+    })
 
     return {
       data,

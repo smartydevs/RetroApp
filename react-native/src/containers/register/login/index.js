@@ -1,4 +1,4 @@
-import LoginComponent from "./LoginComponent";
-import LoginContainer from "./LoginContainer";
+import LoginComponent from './LoginComponent'
+import LoginContainer from './LoginContainer'
 
-export {LoginComponent, LoginContainer}
+export { LoginComponent, LoginContainer }
