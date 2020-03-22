@@ -20,8 +20,8 @@ export const OS = {
 }
 
 export const ApiUrls = {
-  [EnvironmentEnum.LOCAL]: 'http://localhost:19002/',
-  [EnvironmentEnum.DEVELOPMENT]: 'http://localhost:3000/graphql',
+  [EnvironmentEnum.LOCAL]: 'http://localhost:3000/graphql',
+  [EnvironmentEnum.DEVELOPMENT]: 'http://134.122.68.158:3000/graphql',
 }
 
 export const ScreenEnum = {

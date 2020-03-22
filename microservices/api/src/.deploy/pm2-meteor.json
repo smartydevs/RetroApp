@@ -1,0 +1,25 @@
+{
+  "appName": "novomed-api",
+  "appLocation": {
+    "local": "../.."
+  },
+  "meteorSettingsLocation": "settings.json",
+  "meteorSettingsInRepo": false,
+  "prebuildScript": "",
+  "meteorBuildFlags": "--architecture os.linux.x86_64",
+  "env": {
+    "ROOT_URL": "http://104.248.25.41",
+    "PORT": 3000,
+    "MONGO_URL": "mongodb://userNovomed:J7zUCf2MXu6KdE@157.230.99.68:27017/novomed"
+  },
+  "server": {
+    "host": "104.248.25.41",
+    "username": "root",
+    "password": "4SfsGtWRgJFFDU",
+    "deploymentDir": "/opt/meteor-apps",
+    "loadProfile": "",
+    "interpreter": "",
+    "exec_mode": "cluster_mode",
+    "instances": 1
+  }
+}
