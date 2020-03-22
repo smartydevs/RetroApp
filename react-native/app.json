@@ -1,13 +1,12 @@
 {
   "expo": {
-    "name": "Blank Template",
-    "slug": "react-native",
+    "name": "Retro App",
+    "slug": "retro_app",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,7 +23,31 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "buildNumber": "1.0.0",
+      "supportsTablet": true,
+      "bundleIdentifier": "client.trage-ma.ro",
+      "config": {
+        "googleMapsApiKey": "AIzaSyDsdsINY4bDUMQ6wQI0sKnmKJwnQXE5LlY"
+      },
+      "infoPlist": {
+        "NSPhotoLibraryAddUsageDescription": "Retro App folosește librăria pentru a stoca imaginea până in momentul în care mașina este adăugată sau editată.",
+        "NSPhotoLibraryUsageDescription": "Retro App folosește librăria pentru a stoca imaginea până in momentul în care mașina este adăugată sau editată.",
+        "NSCameraUsageDescription": "Retro App folosește camera pentru a captura poze ce surprind locul unde tractarea este dorită.",
+        "NSLocationAlwaysUsageDescription": "Retro App folosește locația pentru a trimite coordonatele exacte șoferilor.",
+        "NSLocationWhenInUseUsageDescription": "Retro App folosește locația pentru a trimite coordonatele exacte șoferilor.",
+        "NSLocationUsageDescription": "Retro App folosește locația pentru a trimite coordonatele exacte șoferilor."
+      }
+    },
+    "android": {
+      "versionCode": 100,
+      "package": "client.trage_ma.ro",
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "entryPoint": "./src/containers/App.js"
   }
