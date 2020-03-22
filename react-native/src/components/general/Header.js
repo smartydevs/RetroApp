@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const { largeBoldTitle, grayText } = Fonts.style
+const { largeBoldTitle, whiteText } = Fonts.style
 const { amountText, amountIcon, alignCenter, padding } = ApplicationStyles
 
 const Header = ({ icon, iconStyle, text, style, textStyle, onPress, amount }) => {
@@ -46,7 +46,7 @@ const Header = ({ icon, iconStyle, text, style, textStyle, onPress, amount }) =>
       <View style={[styles.leftContainer, { alignItems: 'flex-start' }, padding]}>
         {leftButton}
       </View>
-      <Text style={[grayText, { alignSelf: 'center' }, textStyle]}>{text}</Text>
+      <Text style={[largeBoldTitle, whiteText, { alignSelf: 'center' }, textStyle]}>{text}</Text>
       <Row style={[styles.rightContainer, alignCenter, padding]}>
         <Text style={amountText}>{amount}</Text>
         <Image

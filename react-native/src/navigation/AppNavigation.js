@@ -12,7 +12,7 @@ import EnterDetailsContainer from '../containers/register/enterDetails/EnterDeta
 
 const { SIGN_UP, LOADING, LOG_IN, ENTER_DETAILS, MAIN, CHOOSE_FEED } = ScreenEnum
 
-const animator = (toTransitionProps) => {
+const animator = toTransitionProps => {
   const { routeName } = toTransitionProps.scene.route
   if (routeName === CREATE_BET) {
     return fromBottom()
@@ -20,20 +20,23 @@ const animator = (toTransitionProps) => {
   return fromRight()
 }
 
-const PrimaryNav = createStackNavigator({
-  [LOADING]: { screen: LoadingContainer },
-  [LOG_IN]: { screen: LoginContainer },
-  [SIGN_UP]: { screen: SignupContainer },
-  [ENTER_DETAILS]: { screen: EnterDetailsContainer },
-  [CHOOSE_FEED]: { screen: ChooseFeedContainer },
-  [MAIN]: { screen: BottomNavigatorContainer },
-}, {
-  headerMode: 'none',
-  initialRouteName: LOADING,
-  navigationOptions: {
-    headerStyle: styles.header
+const PrimaryNav = createStackNavigator(
+  {
+    [LOADING]: { screen: LoadingContainer },
+    [LOG_IN]: { screen: LoginContainer },
+    [SIGN_UP]: { screen: SignupContainer },
+    [ENTER_DETAILS]: { screen: EnterDetailsContainer },
+    [CHOOSE_FEED]: { screen: ChooseFeedContainer },
+    [MAIN]: { screen: BottomNavigatorContainer },
   },
-  transitionConfig: animator
-})
+  {
+    headerMode: 'none',
+    initialRouteName: LOADING,
+    navigationOptions: {
+      headerStyle: styles.header,
+    },
+    transitionConfig: animator,
+  }
+)
 
 export default createAppContainer(PrimaryNav)

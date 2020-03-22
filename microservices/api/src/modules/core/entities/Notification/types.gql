@@ -1,7 +1,9 @@
 type Notification {
+    _id: ID!
     receiverId: String
     receiver: User
+    eventId: String
+    event: Event
     createdAt: Date
-    type: String
     ##data: Object
 }

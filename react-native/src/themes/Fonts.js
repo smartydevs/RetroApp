@@ -83,6 +83,12 @@ const style = {
   },
   centeredText: {
     textAlign: 'center'
+  },
+  primaryLightText: {
+    color: Colors.primaryLight
+  },
+  primaryDarkText: {
+    color: Colors.primaryDark
   }
 }
 

@@ -1,80 +1,66 @@
 import React from 'react'
-import { View, Text, SafeAreaView, StatusBar, Image, TextInput, TouchableOpacity } from 'react-native'
-import { ApplicationStyles, Colors, Fonts } from '../../../themes'
-import { Header, Separator } from '../../../components/general/'
+import { View, SafeAreaView, TouchableOpacity } from 'react-native'
+import { ApplicationStyles } from '../../../themes'
+import { Header, SearchBar } from '../../../components/general/'
 import strings from '../../../lib/stringEnums'
 import styles from './styles'
-import Metrics, { normalizeHeight, normalizeWidth } from '../../../themes/Metrics'
-import { FontAwesome as Icon } from '@expo/vector-icons'
 import EventCard from '../../../components/eventcard/EventCard'
-import { participants } from '../../../fixtures/ParticipantsData'
-import { SearchBar } from '../../../components/searchbar'
+import Metrics, { normalizeWidth } from '../../../themes/Metrics'
+import { FlatList } from 'react-native-gesture-handler'
+// import { events } from '../../../fixtures/EventsData'
 
-const { container } = ApplicationStyles
+const { container, shadow } = ApplicationStyles
 
-const SearchComponent = ({ onChangeText }) => {
+const SearchComponent = ({ onChangeText, showEvent, events }) => {
+  const renderEvents = ({
+    users = [],
+    title,
+    location = {},
+    startDate,
+    photo = {},
+    _id,
+  }) => (
+    <TouchableOpacity
+      onPress={() => showEvent(_id)}
+      style={{ paddingHorizontal: normalizeWidth(5) }}
+      key={_id}
+    >
+      <EventCard
+        containerStyle={[styles.eventCardStyle, shadow]}
+        participants={users}
+        title={title}
+        location={location.addressName}
+        date={startDate}
+        eventImage={photo ? photo.fullPath : 'https://picsum.photos/1920/1080'}
+      />
+    </TouchableOpacity>
+  )
+
   return (
     <SafeAreaView style={[container, styles.container]}>
       <View style={styles.headerContainer}>
-        <Header style={styles.header}
+        <Header
+          style={styles.header}
           iconStyle={styles.icon}
           text={strings.search}
           textStyle={styles.headerTitle}
-          icon={require("../../../../assets/icon.png")} />
+          icon={require('../../../../assets/icon.png')}
+        />
       </View>
       <View style={styles.content}>
-        <Text style={[Fonts.style.largeBoldTitle, styles.title]}>{strings.whatToSearchFor}</Text>
-        <Separator
-          style={styles.separator}
-        />
         <SearchBar
-          containerStyle={styles.searchBarContainerStyle}
-          inputContainerStyle={styles.searchBarInputContainerStyle}
-          inputStyle={styles.searchBarInputStyle}
-          placeholder={strings.searchPlaceholder}
-          buttonContainerStyle={styles.searchBarButtonContainerStyle}
-          buttonStyle={styles.searchBarButtonStyle}
-          iconName="search"
-          iconSize={styles.searchBarIconSize}
           onChangeText={onChangeText}
+          placeholder={strings.searchPlaceholder}
+          style={{ marginVertical: Metrics.margin * 2 }}
         />
-        <EventCard
-          style={styles.eventCardStyle}
-          imageContainerStyle={styles.eventCardImageContainerStyle}
-          imageStyle={styles.eventCardImageStyle}
-          contentStyle={styles.eventCardContentStyle}
-          sectionOneStyle={styles.eventCardSectionOneStyle}
-          sectionTwoStyle={styles.eventCardSectionTwoStyle}
-          sectionThreeStyle={styles.eventCardSectionThreeStyle}
-          titleStyle={styles.eventCardTitleStyle}
-          subtitleStyle={styles.eventCardSubtitleStyle}
-          textStyle={styles.eventCardTextStyle}
-          participantImageStyle={styles.eventCardParticipantImageStyle}
-          participants={participants}
-          left={styles.eventCardLeft}
-          title="Retro Night"
-          subTitle="Retro Bar"
-        />
-
-        <EventCard
-          style={styles.eventCardStyle}
-          imageContainerStyle={styles.eventCardImageContainerStyle}
-          imageStyle={styles.eventCardImageStyle}
-          contentStyle={styles.eventCardContentStyle}
-          sectionOneStyle={styles.eventCardSectionOneStyle}
-          sectionTwoStyle={styles.eventCardSectionTwoStyle}
-          sectionThreeStyle={styles.eventCardSectionThreeStyle}
-          titleStyle={styles.eventCardTitleStyle}
-          subtitleStyle={styles.eventCardSubtitleStyle}
-          textStyle={styles.eventCardTextStyle}
-          participantImageStyle={styles.eventCardParticipantImageStyle}
-          participants={participants}
-          left={styles.eventCardLeft}
-          title="Retro Night"
-          subTitle="Retro Bar"
+        <FlatList
+          bounces={false}
+          keyExtractor={({ _id }) => _id}
+          data={events}
+          renderItem={({ item }) => renderEvents(item)}
+          style={{ marginBottom: Metrics.margin }}
         />
       </View>
-
     </SafeAreaView>
   )
 }

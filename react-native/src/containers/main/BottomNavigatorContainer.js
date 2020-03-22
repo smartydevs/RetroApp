@@ -1,11 +1,14 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
+
 import { HomeContainer } from './home'
 import { SearchContainer } from './search'
 import { NotificationContainer } from './notification'
 import { ProfileContainer } from './profile'
-import { normalizeHeight } from '../../themes/Metrics'
+import { CreateEventContainer } from './createEvent'
+
+import { normalizeHeight, normalizeWidth } from '../../themes/Metrics'
 import { Colors } from '../../themes'
 
 
@@ -15,7 +18,7 @@ const BottomNavigatorContainer = createBottomTabNavigator(
   {
     [MAIN]: {screen: HomeContainer},
     [SEARCH]: {screen: SearchContainer},
-    // [CREATE]: {screen: ''},
+    [CREATE]: {screen: CreateEventContainer},
     [NOTIFICATION]: {screen: NotificationContainer},
     [PROFILE]: {screen: ProfileContainer}
   },
@@ -32,7 +35,7 @@ const BottomNavigatorContainer = createBottomTabNavigator(
       tabStyle: {
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.dark,
         height: '100%'
       },
       safeAreaInset: {
@@ -50,14 +53,12 @@ const BottomNavigatorContainer = createBottomTabNavigator(
           const { routeName } = navigation.state
 
           const iconConfig = icons[routeName]
-          const iconStyle = icons[routeName].style
-          const icon = iconConfig[routeName]
+          const icon = iconConfig.icon
+
+          const color = focused ? Colors.primaryAqua : Colors.white
 
           return (
-            //will be replaced with icons
-            <Text style={[iconStyle, {color: 'white'}]}>
-              {routeName}
-            </Text>
+            <Ionicons style={{color}} name={icon} size={30} />
           )
         }
       }
@@ -67,19 +68,19 @@ const BottomNavigatorContainer = createBottomTabNavigator(
 
 const icons = {
   [MAIN]: {
-    style: {}
+    icon: 'md-home'
   },
   [SEARCH]: {
-    style: {}
+    icon: 'md-search'
   },
   [CREATE]: {
-    style: {}
+    icon: 'md-create'
   },
   [NOTIFICATION]: {
-    style: {}
+    icon: 'md-notifications-outline'
   },
   [PROFILE]: {
-    style: {}
+    icon: 'md-person'
   }
 }
 export default BottomNavigatorContainer

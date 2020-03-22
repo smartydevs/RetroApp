@@ -7,6 +7,71 @@ export default class EventService {
     Object.assign(this, injection);
   }
 
+  getEventsOnDate(date) {
+    const { db } = this;
+
+    return db.events
+      .createQuery({
+        $filters: {
+          startDate: date,
+        },
+        _id: 1,
+        title: 1,
+        startDate: 1,
+        users: {
+          _id: 1,
+          profile: {
+            pushToken: 1,
+          },
+        },
+      })
+      .fetch();
+  }
+
+  searchEvents({ userId, searchInput }) {
+    const { db } = this;
+    const user = db.users.findOne(userId);
+    const { categoryIds = [] } = user.profile;
+    const finalSearchInput = searchInput ? searchInput.trim() : '';
+
+    const events = finalSearchInput.length
+      ? this.searchEventsByInput(finalSearchInput)
+      : this.searchEventsByCategories(categoryIds);
+
+    return events;
+  }
+
+  searchEventsByInput(searchInput) {
+    const { db } = this;
+
+    return db.events
+      .find({
+        title: {
+          $regex: searchInput,
+          $options: 'i',
+        },
+        startDate: {
+          $gte: new Date(),
+        },
+      })
+      .fetch();
+  }
+
+  searchEventsByCategories(categoryIds) {
+    const { db } = this;
+
+    return db.events
+      .find({
+        categoriesId: {
+          $in: categoryIds,
+        },
+        startDate: {
+          $gte: new Date(),
+        },
+      })
+      .fetch();
+  }
+
   validateEventDetails(eventDetails) {
     const { startDate, endDate } = eventDetails;
     const title = eventDetails.title.trim();

@@ -1,37 +1,51 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet, TextInput, Image } from 'react-native'
-import { ApplicationStyles, Colors, Fonts, Metrics, Images } from '../../themes'
-import Row from './Row'
+import { StyleSheet, TextInput, View } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
+
+import { ApplicationStyles, Colors, Fonts, Metrics,  } from '../../themes'
 import { normalizeWidth } from '../../themes/Metrics'
-import { ImageButton } from '../buttons'
+import Row from './Row'
 
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    paddingVertical: 5,
     height: Metrics.list.itemHeight,
-    ...ApplicationStyles.screen.container,
-    backgroundColor: Colors.primaryLightGray
+    backgroundColor: Colors.lightGray,
+    borderRadius: normalizeWidth(10),
+    marginVertical: Metrics.margin
   },
   text: {
     ...Fonts.style.caption,
-    margin: 0,
+    color: Colors.gray,
+    paddingLeft: Metrics.margin,
     padding: 0,
     borderWidth: 0,
-    flex: 1
+    flex: 1,
+    backgroundColor: Colors.lightGray,
+    borderTopLeftRadius: normalizeWidth(10),
+    borderBottomLeftRadius: normalizeWidth(10)
   },
   icon: {
-    ...Metrics.forms.imageSize,
-    marginRight: normalizeWidth(12)
+    color: Colors.lightGray
+  },
+  iconContainer: {
+    flex: 1,
+    backgroundColor: Colors.primaryPink,
+    height: '100%',
+    borderTopRightRadius: normalizeWidth(10),
+    borderBottomRightRadius: normalizeWidth(10)
+  },
+  inputContainer: {
+    flex: 3
   }
 })
 
-const { alignCenter } = ApplicationStyles
+const { alignCenter, shadow, center } = ApplicationStyles
 
 const SearchBar = (props) => {
   let inputRef = null
-  const { style, textStyle, placeholder, onChangeText, onDeleteSearch } = props
+  const { style, textStyle, placeholder, onChangeText } = props
   const [value, setValue] = useState('')
 
   const onSearch = (value) => {
@@ -40,44 +54,30 @@ const SearchBar = (props) => {
     onChangeText(value)
   }
 
-  const onDelete = () => {
-    setValue('')
-    onDeleteSearch()
-  }
-
   return (
-    <Row style={[styles.container, style, alignCenter]}>
-      <Image
-        source={Images.icons.search}
-        style={styles.icon}
-        resizeMode='contain'
-      />
-      <TextInput
-        ref={input => { inputRef = input }}
-        onChangeText={value => onSearch(value)}
-        placeholderTextColor={Colors.dark}
-        placeholder={placeholder}
-        style={[styles.text, textStyle]}
-        autoCapitalize='none'
-        value={value}
-        returnKeyType={'done'}
-      />
-      {value ? (
-        <ImageButton
-          source={Images.icons.close}
-          style={styles.icon}
-          onPress={onDelete}
+    <Row style={[styles.container, style, alignCenter, shadow]}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          ref={input => { inputRef = input }}
+          onChangeText={value => onSearch(value)}
+          placeholderTextColor={Colors.primaryLight}
+          placeholder={placeholder}
+          style={[styles.text, textStyle]}
+          autoCapitalize='none'
+          value={value}
+          returnKeyType={'done'}
         />
-      ) : null}
+      </View>
+      <View style={[styles.iconContainer, center]}>
+        <Ionicons style={styles.icon} name={'md-search'} size={30} />
+      </View>
     </Row>
   )
 }
 
 SearchBar.propTypes = {
   onChangeText: PropTypes.func.isRequired,
-  icon: PropTypes.number.isRequired,
   placeholder: PropTypes.string.isRequired,
-  onDeleteSearch: PropTypes.func.isRequired,
   textStyle: PropTypes.oneOfType([PropTypes.instanceOf(Object), PropTypes.instanceOf(Array)]),
   style: PropTypes.oneOfType([PropTypes.instanceOf(Object), PropTypes.instanceOf(Array)])
 }

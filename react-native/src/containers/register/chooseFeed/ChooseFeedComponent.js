@@ -4,52 +4,69 @@ import PropTypes from 'prop-types'
 
 import Card from '../../../components/card/Card'
 import { ApplicationStyles, Fonts, Colors } from '../../../themes'
-import styles from './styles';
-import strings from '../../../lib/stringEnums';
-import TextButton from '../../../components/buttons/TextButton';
+import styles from './styles'
+import strings from '../../../lib/stringEnums'
+import { TextButton } from '../../../components'
 import { Ionicons } from '@expo/vector-icons'
 
-const { container, center, } = ApplicationStyles
-const { bigBoldTitle } = Fonts.style
+const { container, center } = ApplicationStyles
+const { bigBoldTitle, button } = Fonts.style
 
-const ChooseFeedComponent = ({ onCardPress, onSkipButtonPress, cards, numberOfCards, onCompleteFeed }) => {
-  const onRenderCard = ({ title, imageSource }) => (
-    <Card
-      onPress={onCardPress}
-      title={title}
-      titleStyle={[Fonts.style.bigBoldTitle, styles.cardTitle]}
-      cardStyle={styles.card}
-      containerStyle={styles.container}
-      imageSource={imageSource}
-    />
-  )
+const ChooseFeedComponent = ({
+  onCardPress,
+  onSkipButtonPress,
+  cards,
+  numberOfCards,
+  onCompleteFeed,
+  cardsChosen,
+}) => {
+  const onRenderCard = ({ _id, name, imageSource }) => {
+    const existingCard = cardsChosen.find(cardId => cardId === _id)
+    const cardStyle = [styles.card]
+    if (existingCard) cardStyle.push(styles.highlight)
+    return (
+      <Card
+        onPress={() => onCardPress(_id)}
+        title={name}
+        titleStyle={[Fonts.style.bigBoldTitle, styles.cardTitle]}
+        cardStyle={cardStyle}
+        containerStyle={styles.container}
+        imageSource={imageSource}
+      />
+    )
+  }
 
   const onComplete = () => {
-    if (numberOfCards < 5) {
-      return 
+    if (numberOfCards < 1) {
+      return
     }
 
     return (
-      <TouchableOpacity onPress={onCompleteFeed}>
+      <TextButton 
+        onPress={onCompleteFeed}
+        style={[styles.saveButton, center]}
+        hasChildren
+      >
         <Ionicons
-          name={'ios-checkmark-circle-outline'}
-          size={40}
-          style={styles.completeFeed}
+          name={'md-checkmark-circle-outline'}
+          size={24}
+          style={styles.saveLogo}
         />
-      </TouchableOpacity>
+        <Text style={[button]}>
+          {strings.save}
+        </Text>
+      </TextButton>
     )
   }
 
   return (
     <View style={[container, center]}>
-      <Text style={[bigBoldTitle, styles.title]}>
-        {strings.chooseFeedComponent}
-      </Text>
+      <Text style={[bigBoldTitle, styles.title]}>{strings.chooseFeedComponent}</Text>
       {onComplete()}
       <FlatList
         numColumns={2}
         data={cards}
-        keyExtractor={(item, i) => `${i}`}
+        keyExtractor={({ _id }) => _id}
         renderItem={({ item }) => onRenderCard(item)}
       />
       <TextButton
@@ -67,7 +84,12 @@ ChooseFeedComponent.propTypes = {
   onSkipButtonPress: PropTypes.func.isRequired,
   cards: PropTypes.instanceOf(Array).isRequired,
   numberOfCards: PropTypes.number.isRequired,
-  onCompleteFeed: PropTypes.func.isRequired
+  onCompleteFeed: PropTypes.func.isRequired,
+  cardsChosen: PropTypes.instanceOf(Array),
+}
+
+ChooseFeedComponent.defaultProps = {
+  cardsChosen: [],
 }
 
 export default ChooseFeedComponent

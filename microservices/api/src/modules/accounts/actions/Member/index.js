@@ -17,10 +17,18 @@ load({
         return MemberService.addMemberDetails({ email, details });
       },
 
-      addMemberCategories(_, { categories }, { userId }) {
-        SecurityService.checkRole(userId, RolesEnum.MEMBER);
+      addMemberCategories(_, { email, categories }) {
+        return MemberService.addMemberCategories(email, categories);
+      },
 
-        return MemberService.addMemberCategories(userId, categories);
+      loginMember(_, { loginInput }) {
+        return MemberService.loginMember(loginInput);
+      },
+
+      addPushToken(_, { token }, { userId }) {
+        SecurityService.checkLoggedIn({ userId });
+
+        return MemberService.addPushToken(userId, token);
       },
     },
   },

@@ -8,9 +8,14 @@ load({
   typeDefs,
   resolvers: {
     Query: {
-      getUserEvents(_, v, { userId }) {
+      getUserEvents(_, args, { userId }) {
         SecurityService.checkLoggedIn({ userId });
         return EventService.getUserEvents(userId);
+      },
+      searchEvents(_, { searchInput }, { userId }) {
+        SecurityService.checkLoggedIn({ userId });
+
+        return EventService.searchEvents({ userId, searchInput });
       },
     },
     Mutation: {

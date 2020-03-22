@@ -11,14 +11,14 @@ const styles = StyleSheet.create({
         marginBottom: normalizeWidth(10)
     },
     headerContainer: {
-        backgroundColor: Colors.gray,
+        backgroundColor: Colors.dark,
         paddingTop: StatusBar.currentHeight
     },
     container: {
         backgroundColor: Colors.light
     },
     header: {
-        backgroundColor: Colors.gray,
+        backgroundColor: Colors.dark,
         height: normalizeHeight(66)
     },
     icon: {
@@ -31,7 +31,36 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-        marginHorizontal: normalizeWidth(40)
+        marginHorizontal: normalizeWidth(40),
+    },
+    profilePicture: {
+        width: normalizeWidth(70),
+        height: normalizeWidth(70),
+        borderRadius: normalizeWidth(35),
+        top: -normalizeWidth(35),
+        backgroundColor: Colors.gray
+    },
+    profilePictureTextStyle: {
+        fontSize: normalizeWidth(20),
+        fontWeight: "700"
+    },
+    nameTextStyle: {
+        fontSize: normalizeWidth(20),
+        fontWeight: "700",
+        left: normalizeWidth(20)
+    },
+    coverImageStyle: {
+        width: "100%",
+        height: "100%"
+    },
+    sectionsTextStyle: {
+        fontSize: normalizeWidth(17),
+        marginBottom: normalizeHeight(20)
+    },
+    coverContainerStyle: {
+        flex: 1,
+        maxHeight: normalizeHeight(150),
+        backgroundColor: Colors.gray
     },
     separator: {
         height: 3,
@@ -43,6 +72,45 @@ const styles = StyleSheet.create({
         shadowColor: Colors.black,
         shadowOffset: { height: 0, width: 0 }
     },
+    eventCardStyle: {
+        height: normalizeHeight(100),
+        maxHeight: normalizeHeight(100),
+        borderRadius: normalizeWidth(10),
+        backgroundColor: Colors.lightGray,
+        marginBottom: normalizeHeight(20)
+    },
+    searchBarContainerStyle: {
+        height: normalizeHeight(60),
+        flexDirection: "row",
+        marginTop: 10
+    },
+    searchBarInputContainerStyle: {
+        flex: 3,
+        paddingRight: 10,
+        backgroundColor: "white",
+        borderTopLeftRadius: 15,
+        borderBottomLeftRadius: 15
+    },
+    searchBarButtonContainerStyle: {
+        flex: 1
+    },
+    searchBarInputStyle: {
+        height: normalizeHeight(60),
+        borderTopLeftRadius: 15,
+        borderBottomLeftRadius: 15,
+        backgroundColor: "white",
+        fontSize: normalizeWidth(20),
+        paddingLeft: normalizeWidth(20)
+    },
+    searchBarButtonStyle: {
+        backgroundColor: Colors.primaryPink,
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        borderTopRightRadius: 15,
+        borderBottomRightRadius: 15
+    },
+    searchBarIconSize: normalizeWidth(20)
 })
 
 export default styles;
