@@ -6,6 +6,7 @@ const Constants = {
   TOKEN: 'token',
   USER_ID: 'userId',
   PROFILE_PICURE: 'profilePicture',
+  CAMERA_PERMISSIONS: 'cameraPermissions'
 }
 
 export const EnvironmentEnum = {

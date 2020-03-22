@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, Text, SafeAreaView, Image, FlatList } from 'react-native'
+import { View, Text, SafeAreaView, Image, TouchableWithoutFeedback } from 'react-native'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler'
 
-import { ProfilePicture, TextButton, TextCard, EventCard, Header, Row } from '../../../components'
+import { ProfilePicture, TextButton, TextCard, EventCard, Header, Row, Button } from '../../../components'
 import { ApplicationStyles, Fonts } from '../../../themes'
 import Metrics, { normalizeWidth } from '../../../themes/Metrics'
 import { LoadMoreEnum, BottomStackScreensEnum } from '../../../lib/enums'
@@ -13,8 +13,8 @@ const { container, shadow, center } = ApplicationStyles
 const { bigBoldTitle, primaryDarkText, boldTitle, grayText } = Fonts.style
 const { ON_GOING_EVENTS, CREATED_EVENTS } = LoadMoreEnum
 
-const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore,
-    goingEvents, totalGoingEvents, createdEvents, totalCreatedEvents, navigate }) => {
+const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore, goingEvents, totalGoingEvents,
+    createdEvents, totalCreatedEvents, navigate, takeProfilePicture }) => {
 
     const renderGoingEvents = ({_id, title, location, date, eventImage}) => (
         <TouchableOpacity
@@ -119,11 +119,13 @@ const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore,
                     source={coverUrl && {uri: coverUrl}}
                 />
                 <Row style={styles.infoContainer}>
-                    <ProfilePicture
-                        firstName={firstName}
-                        lastName={lastName}
-                        style={styles.profilePicture}
-                    />
+                    <Button onPress={takeProfilePicture}>
+                        <ProfilePicture
+                            firstName={firstName}
+                            lastName={lastName}
+                            style={styles.profilePicture}
+                        />
+                    </Button>
                     <Text style={[bigBoldTitle, primaryDarkText]}>
                         {firstName}
                         {' '}

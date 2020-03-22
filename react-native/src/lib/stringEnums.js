@@ -28,7 +28,8 @@ const strings = {
   noGoingEvents: 'You are not going to any event yet. Start exploring the events!',
   noCreatedEvents: 'You haven\'t created an event yet. When you\'ll have something to share, feel free to create an event!',
   save: 'Save',
-  loadMore: 'Load more'
+  loadMore: 'Load more',
+  noCameraAccess: 'We don\'t have access to your camera. Please go to setting and change the permissions in order to take photos'
 }
 
 export default strings

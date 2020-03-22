@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         top: -normalizeWidth(37),
         borderWidth: normalizeWidth(2),
         borderColor: Colors.light,
-        marginRight: Metrics.margin * 2
+        marginRight: Metrics.margin * 2,
     },
     cover: {
         flex: 1,

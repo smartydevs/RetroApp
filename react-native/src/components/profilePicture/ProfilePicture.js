@@ -11,7 +11,7 @@ const { button, bigTitle, title, bigBoldTitle, boldTitle } = Fonts.style
 
 const backgroundColors = [green, blue, red, primaryAqua, primaryPink, white, cream, primaryLight, lightGray, gray, primaryDark]
 
-const DefaultProfilePicture = ({ firstName, lastName, style = null, textStyle, imageSource }) => {
+const ProfilePicture = ({ firstName, lastName, style = null, textStyle, imageSource, onPress }) => {
   const [colorNum] = useState(Math.floor(Math.random() * 9))
 
   const getBackgroundColor = () => {
@@ -22,6 +22,7 @@ const DefaultProfilePicture = ({ firstName, lastName, style = null, textStyle, i
   const onFormatLetter = (name) => {
     return name ? name.charAt(0).toUpperCase() : 'A'
   }
+
   if (!imageSource)
     return (
       <Row style={[center, getBackgroundColor(), style]}>
@@ -29,13 +30,14 @@ const DefaultProfilePicture = ({ firstName, lastName, style = null, textStyle, i
         <Text style={[bigBoldTitle, textStyle]}>{onFormatLetter(lastName)}</Text>
       </Row>
     )
+  
 }
 
-DefaultProfilePicture.propTypes = {
+ProfilePicture.propTypes = {
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   style: PropTypes.oneOf([Array, Object]),
   textStyle: PropTypes.oneOf([Array, Object])
 }
 
-export default DefaultProfilePicture
+export default ProfilePicture

@@ -81,8 +81,8 @@ export default class Notification extends Component {
     ref.show(text, type, duration)
   }
 
-  static error(text) {
-    ref.show(text, NotificationTypeEnum.ERROR)
+  static error(text, duration) {
+    ref.show(text, NotificationTypeEnum.ERROR, duration)
   }
 
   static close() {

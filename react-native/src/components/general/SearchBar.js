@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.lightGray,
     borderRadius: normalizeWidth(10),
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    padding: Metrics.margin
   },
   text: {
     ...Fonts.style.caption,
@@ -21,7 +22,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: Colors.primaryDark,
-    padding: Metrics.margin
   }
 })
 
