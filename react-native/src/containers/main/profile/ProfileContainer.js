@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Camera } from 'expo-camera'
+import { Camera } from 'expo-camera';
 
 import { ProfileComponent } from '.'
 import { events as Events } from '../../../fixtures/EventsData'
@@ -7,63 +7,53 @@ import { Notification } from '../../../components';
 import strings from '../../../lib/stringEnums';
 import Constants, { NotificationLength } from '../../../lib/enums';
 import { AsyncStorage } from 'react-native';
+import * as Permissions from "expo-permissions";
+import * as ImagePicker from 'expo-image-picker';
 
 class ProfileContainer extends Component {
     state = {
-        hasPermission: null
+        hasCameraPermission: null,
+        hasCameraRollPermission: null
     }
 
-    componentDidMount () {
+    componentDidMount() {
         this.cameraSetUp()
-        // this.requestPermission()
     }
 
     cameraSetUp = async () => {
-        const statusPermission = await AsyncStorage.getItem(Constants.CAMERA_PERMISSIONS)
-        console.log('statusPermission', statusPermission)
-
-        if (statusPermission === null) {
-            const status = this.requestPermission()
-            console.log('status', status)
-            this.setState({ hasPermission: status === 'granted' }, () => {
-                console.log(this.state.hasPermission)
-                this.setCameraToken(status)
-            })
-        } else if (statusPermission !== 'granted') {
-            const status = this.requestPermission()
-
-            if (status !== 'granted') {
-                return this.setState({ hasPermission: false })                
+        let initialStatus = await Permissions.getAsync(Permissions.CAMERA);
+        if (initialStatus.status !== "granted") {
+            let askAgainStatus = await Permissions.askAsync(Permissions.CAMERA);
+            if (askAgainStatus.status !== "granted") {
+                this.setState({ hasCameraPermission: false })
             }
-
-            this.setCameraToken(status)
-            this.setState({ hasPermission: true })
-        } else {
-            this.setState({ hasPermission: true})
+            else
+                this.setState({ hasCameraPermission: true })
         }
+        else
+            this.setState({ hasCameraPermission: true })
+
+        initialStatus = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+        if (initialStatus.status !== "granted") {
+            let askAgainStatus = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (askAgainStatus.status !== "granted") {
+                this.setState({ hasCameraRollPermission: false })
+            }
+            else
+                this.setState({ hasCameraRollPermission: true })
+        }
+        else
+            this.setState({ hasCameraRollPermission: true })
+
     }
 
-    requestPermission = async () => {
-        const { status } = await Camera.requestPermissionsAsync()
-        console.log('status func', status)
-        return status
-    }
-
-    setCameraToken = async (status) => {
-        try {
-            await AsyncStorage.removeItem(Constants.CAMERA_PERMISSIONS)
-            await AsyncStorage.setItem(Constants.CAMERA_PERMISSIONS, status)
-        } catch (e) {
-            console.log(e)
+    takeProfilePicture = async () => {
+        if (this.state.hasCameraPermission === false || this.state.hasCameraRollPermission === false) {
+            this.cameraSetUp()
         }
-    }
-
-    takeProfilePicture = () => {
-        if (this.state.hasPermission === false) {
-            this.requestPermission()
+        else {
+            let result = await ImagePicker.launchCameraAsync();
         }
-
-        console.log('doing photo ...')
     }
 
     showEvent = (_id) => {
@@ -75,7 +65,7 @@ class ProfileContainer extends Component {
     }
 
     render() {
-        const events = []
+        const events = Events
         const totalGoingEvents = events.length
         const totalCreatedEvents = events.length
 
@@ -86,8 +76,8 @@ class ProfileContainer extends Component {
                 lastName="romila"
                 goingEvents={events}
                 totalGoingEvents={totalGoingEvents}
-                createdEvents={events}
-                totalCreatedEvents={totalCreatedEvents}
+                createdEvents={[]}
+                totalCreatedEvents={0}
                 showEvent={this.showEvent}
                 loadMore={this.loadMore}
                 navigate={this.props.navigation.navigate}

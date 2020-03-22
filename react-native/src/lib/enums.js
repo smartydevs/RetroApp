@@ -31,6 +31,7 @@ export const ScreenEnum = {
   ENTER_DETAILS: 'EnterDetails',
   CHOOSE_FEED: 'ChooseFeed',
   MAIN: 'Main',
+  EVENT: 'Event'
 }
 
 export const BottomStackScreensEnum = {

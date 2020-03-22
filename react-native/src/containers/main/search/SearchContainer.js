@@ -3,6 +3,7 @@ import { SearchComponent } from '.'
 import { searchEvents } from '../../../api'
 import { Notification } from '../../../components'
 import strings from '../../../lib/stringEnums'
+import { ScreenEnum } from '../../../lib/enums'
 
 class SearchContainer extends Component {
   state = {
@@ -11,7 +12,9 @@ class SearchContainer extends Component {
   }
 
   showEvent = _id => {
-    // navigate to a new page where it is displayed a description of the event etc
+    this.props.navigation.navigate(ScreenEnum.EVENT, {
+      eventId: _id
+    })
   }
 
   componentDidMount() {

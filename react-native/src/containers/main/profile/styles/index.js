@@ -6,18 +6,6 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: Colors.light
     },
-    header: {
-        backgroundColor: Colors.dark,
-        height: normalizeHeight(66)
-    },
-    icon: {
-        width: normalizeWidth(55),
-        height: normalizeHeight(55)
-    },
-    headerTitle: {
-        color: Colors.white,
-        fontSize: normalizeWidth(25)
-    },
     content: {
         flex: 1,
         marginHorizontal: normalizeWidth(40),
@@ -49,7 +37,7 @@ const styles = StyleSheet.create({
         shadowOffset: { height: 0, width: 0 }
     },
     eventCard: {
-        height: normalizeHeight(80),
+        height: normalizeHeight(90),
         maxHeight: normalizeHeight(100),
         borderRadius: normalizeWidth(10),
         backgroundColor: Colors.lightGray,
@@ -60,7 +48,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: normalizeWidth(40),
         height: normalizeWidth(50),
         borderBottomWidth: normalizeHeight(2),
-        borderColor: Colors.lighCream
+        borderColor: Colors.lighCream,
+        padding: Metrics.margin
     },
     loadMore: {
         width: normalizeWidth(150),

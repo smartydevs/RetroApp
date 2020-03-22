@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text } from 'react-native'
+import { Text, Image } from 'react-native'
 import PropTypes from 'prop-types'
 import { ApplicationStyles, Colors, Fonts } from '../../themes'
 import { Row } from '..'
@@ -31,6 +31,13 @@ const ProfilePicture = ({ firstName, lastName, style = null, textStyle, imageSou
       </Row>
     )
   
+  return (
+    <Image
+      resizeMode='cover'
+      source={imageSource && {uri: imageSource}}
+      style={style}
+    />
+  )
 }
 
 ProfilePicture.propTypes = {

@@ -5,7 +5,7 @@ import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler'
 import { ProfilePicture, TextButton, TextCard, EventCard, Header, Row, Button } from '../../../components'
 import { ApplicationStyles, Fonts } from '../../../themes'
 import Metrics, { normalizeWidth } from '../../../themes/Metrics'
-import { LoadMoreEnum, BottomStackScreensEnum } from '../../../lib/enums'
+import { LoadMoreEnum, BottomStackScreensEnum, ScreenEnum } from '../../../lib/enums'
 import strings from '../../../lib/stringEnums'
 import styles from './styles'
 
@@ -18,7 +18,7 @@ const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore, 
 
     const renderGoingEvents = ({_id, title, location, date, eventImage}) => (
         <TouchableOpacity
-            onPress={() => showEvent(_id)}
+            onPress={() => navigate(ScreenEnum.EVENT, {eventId: _id})}
             style={{paddingHorizontal: normalizeWidth(5)}}
             key={_id}
         >
@@ -71,7 +71,7 @@ const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore, 
             <TextCard
                 message={strings.noGoingEvents}
                 icon={'md-search'}
-                containerStyle={{marginHorizontal: normalizeWidth(5)}}
+                containerStyle={{margin: normalizeWidth(5)}}
                 onPress={() => navigate(BottomStackScreensEnum.SEARCH)}
             />
         )
@@ -98,7 +98,7 @@ const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore, 
             <TextCard
                 message={strings.noCreatedEvents}
                 icon={'md-create'}
-                containerStyle={{marginHorizontal: normalizeWidth(5)}}
+                containerStyle={{margin: normalizeWidth(5)}}
                 onPress={() => navigate(BottomStackScreensEnum.CREATE)}
             />
         )
@@ -107,10 +107,8 @@ const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore, 
     return (
         <SafeAreaView style={[container, styles.container]}>
             <Header
-                style={styles.header}
-                iconStyle={styles.icon}
-                text={strings.userprofile}
                 icon={require("../../../../assets/icon.png")}
+                text={'Profile'}
             />
             <ScrollView>
                 <Image

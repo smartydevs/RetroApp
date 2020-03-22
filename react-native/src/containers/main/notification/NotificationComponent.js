@@ -22,14 +22,10 @@ const NotificationComponent = ({ showNotification }) => {
 
     return (
         <SafeAreaView style={[container, styles.container]}>
-            <View style={styles.headerContainer}>
-                <Header
-                    style={styles.header}
-                    iconStyle={styles.icon}
-                    text={strings.notifications}
-                    icon={require("../../../../assets/icon.png")}
-                />
-            </View>
+            <Header
+                icon={require("../../../../assets/icon.png")}
+                text={strings.notifications}
+            />
             <View style={styles.content}>
                 {notifications.length ? (
                     <FlatList
