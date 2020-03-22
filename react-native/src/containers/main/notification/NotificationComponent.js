@@ -1,10 +1,9 @@
 import React from 'react'
 import { View, SafeAreaView, FlatList } from 'react-native'
 import { ApplicationStyles } from '../../../themes'
-import { Header } from '../../../components/general/'
+import { Header, TextCard } from '../../../components'
 import strings from '../../../lib/stringEnums'
 import styles from './styles'
-import Card from './card'
 import { notifications } from '../../../fixtures/NotificationsData'
 import { normalizeWidth } from '../../../themes/Metrics'
 
@@ -12,7 +11,7 @@ const { container } = ApplicationStyles
 
 const NotificationComponent = ({ showNotification }) => {
     const renderNotification = ({ _id, message = '', imageSource = '' }) => (
-        <Card
+        <TextCard
             onPress={() => showNotification(_id)}
             containerStyle={{marginHorizontal: normalizeWidth(5)}}
             message={message}
@@ -39,7 +38,7 @@ const NotificationComponent = ({ showNotification }) => {
                         renderItem={({ item }) => renderNotification(item)}
                     />
                 ) : (
-                    <Card message={strings.noNotifications} icon={'md-search'} />
+                    <TextCard message={strings.noNotifications} icon={'md-search'} />
                 )}
             </View>
         </SafeAreaView>

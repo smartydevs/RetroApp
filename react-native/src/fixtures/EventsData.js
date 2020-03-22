@@ -1,6 +1,6 @@
 export const events = [
   {
-    id: '1',
+    _id: '1',
     title: 'retro night',
     location: 'bar caffe',
     date: '25 Jan 2029',
@@ -27,7 +27,7 @@ export const events = [
         profilePicture: 'https://picsum.photos/300/300',
       },
       {
-        name: 'Idiot',
+        name: '_idiot',
         profilePicture: 'https://picsum.photos/300/300',
       },
       {
@@ -49,7 +49,7 @@ export const events = [
     ],
   },
   {
-    id: '3',
+    _id: '3',
     title: 'retro night',
     location: 'bar caffe',
     date: '25 Jan 2029',
@@ -76,7 +76,7 @@ export const events = [
         profilePicture: 'https://picsum.photos/300/300',
       },
       {
-        name: 'Idiot',
+        name: '_idiot',
         profilePicture: 'https://picsum.photos/300/300',
       },
       {
@@ -98,7 +98,7 @@ export const events = [
     ],
   },
   {
-    id: '5',
+    _id: '5',
     title: 'retro night',
     location: 'bar caffe',
     date: '25 Jan 2029',
@@ -125,7 +125,7 @@ export const events = [
         profilePicture: 'https://picsum.photos/300/300',
       },
       {
-        name: 'Idiot',
+        name: '_idiot',
         profilePicture: 'https://picsum.photos/300/300',
       },
       {

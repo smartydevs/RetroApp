@@ -5,9 +5,10 @@ import ImageButton from '../buttons/ImageButton'
 import { Colors, Fonts, Metrics, Images } from '../../themes'
 import { normalizeWidth, normalizeHeight, responsiveWidth } from '../../themes/Metrics'
 import { NotificationTypeEnum, NotificationLength } from '../../lib/enums'
+import { Ionicons } from '@expo/vector-icons'
 
 export const DURATION = {
-  LENGTH_SHORT: 500,
+  LENGTH_SHORT: 1200,
   FOREVER: 0,
 }
 
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.lightGray,
     bottom: normalizeHeight(25),
     shadowColor: '#00000033',
     shadowOffset: {
@@ -29,23 +30,27 @@ const styles = StyleSheet.create({
     },
     shadowRadius: normalizeHeight(5),
     zIndex: 10,
+    borderRadius: 10
   },
   icon: {
     height: Metrics.icons.tiny,
     marginHorizontal: normalizeWidth(12),
+    color: Colors.primaryDark
   },
   message: {
-    color: Colors.dark,
+    color: Colors.primaryDark,
     flex: 1,
     marginHorizontal: normalizeWidth(16),
-    fontFamily: Fonts.type.thin,
-    fontSize: Fonts.size.subhead,
+    fontFamily: Fonts.type.base,
+    fontSize: Fonts.size.button,
     paddingVertical: normalizeHeight(10),
   },
   label: backgroundColor => ({
     backgroundColor,
     height: '100%',
     width: normalizeWidth(6),
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10
   }),
 })
 
@@ -143,12 +148,7 @@ export default class Notification extends Component {
       >
         <View style={styles.label(badges[type])} />
         <Text style={styles.message}>{text}</Text>
-        <ImageButton
-          source={Images.icons.close}
-          style={styles.icon}
-          resizeMode="cover"
-          onPress={this.onPressCancel}
-        />
+        <Ionicons name="md-close" style={styles.icon} size={16} onPress={this.onPressCancel} />
       </Animated.View>
     ) : null
   }

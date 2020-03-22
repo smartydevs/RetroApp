@@ -1,47 +1,31 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet, TextInput, View } from 'react-native'
+import { StyleSheet, TextInput } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
-import { ApplicationStyles, Colors, Fonts, Metrics,  } from '../../themes'
+import { ApplicationStyles, Colors, Fonts, Metrics  } from '../../themes'
 import { normalizeWidth } from '../../themes/Metrics'
 import Row from './Row'
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: Metrics.list.itemHeight,
+    height: Metrics.defaultSearchBarHeight,
     backgroundColor: Colors.lightGray,
     borderRadius: normalizeWidth(10),
-    marginVertical: Metrics.margin
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
   text: {
     ...Fonts.style.caption,
     color: Colors.gray,
-    paddingLeft: Metrics.margin,
-    padding: 0,
-    borderWidth: 0,
-    flex: 1,
-    backgroundColor: Colors.lightGray,
-    borderTopLeftRadius: normalizeWidth(10),
-    borderBottomLeftRadius: normalizeWidth(10)
   },
   icon: {
-    color: Colors.lightGray
-  },
-  iconContainer: {
-    flex: 1,
-    backgroundColor: Colors.primaryPink,
-    height: '100%',
-    borderTopRightRadius: normalizeWidth(10),
-    borderBottomRightRadius: normalizeWidth(10)
-  },
-  inputContainer: {
-    flex: 3
+    color: Colors.primaryDark,
+    padding: Metrics.margin
   }
 })
 
-const { alignCenter, shadow, center } = ApplicationStyles
+const { alignCenter, shadow } = ApplicationStyles
 
 const SearchBar = (props) => {
   let inputRef = null
@@ -55,22 +39,18 @@ const SearchBar = (props) => {
   }
 
   return (
-    <Row style={[styles.container, style, alignCenter, shadow]}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          ref={input => { inputRef = input }}
-          onChangeText={value => onSearch(value)}
-          placeholderTextColor={Colors.primaryLight}
-          placeholder={placeholder}
-          style={[styles.text, textStyle]}
-          autoCapitalize='none'
-          value={value}
-          returnKeyType={'done'}
-        />
-      </View>
-      <View style={[styles.iconContainer, center]}>
-        <Ionicons style={styles.icon} name={'md-search'} size={30} />
-      </View>
+    <Row style={[styles.container, alignCenter, shadow, style]}>
+      <TextInput
+        ref={input => { inputRef = input }}
+        onChangeText={value => onSearch(value)}
+        placeholderTextColor={Colors.primaryLight}
+        placeholder={placeholder}
+        style={[styles.text, textStyle]}
+        autoCapitalize='none'
+        value={value}
+        returnKeyType={'done'}
+      />
+      <Ionicons style={styles.icon} name={'md-search'} size={20} />
     </Row>
   )
 }

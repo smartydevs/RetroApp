@@ -3,9 +3,9 @@ import { View, Image, Text, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import PropTypes from 'prop-types'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { normalizeHeight, normalizeWidth } from '../../../../themes/Metrics';
-import { Fonts, Colors, ApplicationStyles } from '../../../../themes';
-import { Row } from '../../../../components/general';
+import { normalizeHeight, normalizeWidth } from '../../themes/Metrics';
+import { Fonts, Colors, ApplicationStyles } from '../../themes';
+import { Row } from '../general';
 
 const { shadow, center } = ApplicationStyles
 const { primaryDarkText, boldTitle } = Fonts.style
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const NotificationCard = ({ containerStyle, message, imageSource = null, icon, onPress }) => {
+const TextCard = ({ containerStyle, message, imageSource = null, icon, onPress }) => {
     const configureImage = () => {
         if (!imageSource || !imageSource.length) {
             return (
@@ -70,8 +70,8 @@ const NotificationCard = ({ containerStyle, message, imageSource = null, icon, o
     )
 }
 
-NotificationCard.defaultProps = {
+TextCard.defaultProps = {
     onPress: () => {}
 }
 
-export default NotificationCard
+export default TextCard

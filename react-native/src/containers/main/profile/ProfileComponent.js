@@ -1,15 +1,13 @@
 import React from 'react'
 import { View, Text, SafeAreaView, Image, FlatList } from 'react-native'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler'
+
+import { ProfilePicture, TextButton, TextCard, EventCard, Header, Row } from '../../../components'
 import { ApplicationStyles, Fonts } from '../../../themes'
-import { Header, Row } from '../../../components/general/'
+import Metrics, { normalizeWidth } from '../../../themes/Metrics'
+import { LoadMoreEnum, BottomStackScreensEnum } from '../../../lib/enums'
 import strings from '../../../lib/stringEnums'
 import styles from './styles'
-import EventCard from '../../../components/eventcard/EventCard'
-import { ProfilePicture, TextButton } from '../../../components'
-import Metrics, { normalizeWidth } from '../../../themes/Metrics'
-import { Card } from '../notification'
-import { LoadMoreEnum, BottomStackScreensEnum } from '../../../lib/enums'
 
 const { container, shadow, center } = ApplicationStyles
 const { bigBoldTitle, primaryDarkText, boldTitle, grayText } = Fonts.style
@@ -22,6 +20,7 @@ const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore,
         <TouchableOpacity
             onPress={() => showEvent(_id)}
             style={{paddingHorizontal: normalizeWidth(5)}}
+            key={_id}
         >
             <EventCard
                 containerStyle={[styles.eventCard, shadow]}
@@ -38,6 +37,7 @@ const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore,
         <TouchableOpacity
             onPress={() => showEvent(_id)}
             style={{paddingHorizontal: normalizeWidth(5)}}
+            key={_id}
         >
             <EventCard
                 containerStyle={[styles.eventCard, shadow]}
@@ -57,11 +57,7 @@ const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore,
                     <Text style={[boldTitle, grayText, {paddingVertical: Metrics.margin}]}>
                         {strings.going}
                     </Text>
-                    <FlatList
-                        bounces={false}
-                        data={goingEvents}
-                        renderItem={({item}) => renderGoingEvents(item)}
-                    />
+                    {goingEvents.map(event => renderGoingEvents(event))}
                     <TextButton
                         style={[styles.loadMore, center, {marginBottom: Metrics.margin}]}
                         onPress={() => loadMore(ON_GOING_EVENTS)}
@@ -72,7 +68,7 @@ const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore,
         }
 
         return (
-            <Card
+            <TextCard
                 message={strings.noGoingEvents}
                 icon={'md-search'}
                 containerStyle={{marginHorizontal: normalizeWidth(5)}}
@@ -88,11 +84,7 @@ const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore,
                     <Text style={[boldTitle, grayText, {paddingVertical: Metrics.margin}]}>
                         {strings.created}
                     </Text>
-                    <FlatList
-                        bounces={false}
-                        data={createdEvents}
-                        renderItem={({item}) => renderCreatedEvents(item)}
-                    />
+                    {createdEvents.map(event => renderCreatedEvents(event))}
                     <TextButton
                         style={[styles.loadMore]}
                         onPress={() => loadMore(CREATED_EVENTS)}
@@ -103,7 +95,7 @@ const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore,
         }
 
         return (
-            <Card
+            <TextCard
                 message={strings.noCreatedEvents}
                 icon={'md-create'}
                 containerStyle={{marginHorizontal: normalizeWidth(5)}}

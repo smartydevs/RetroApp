@@ -1,13 +1,12 @@
 import React from 'react'
 import { View, SafeAreaView, TouchableOpacity } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler'
+
 import { ApplicationStyles } from '../../../themes'
-import { Header, SearchBar } from '../../../components/general/'
+import Metrics, { normalizeWidth } from '../../../themes/Metrics'
+import { Header, SearchBar, EventCard } from '../../../components'
 import strings from '../../../lib/stringEnums'
 import styles from './styles'
-import EventCard from '../../../components/eventcard/EventCard'
-import Metrics, { normalizeWidth } from '../../../themes/Metrics'
-import { FlatList } from 'react-native-gesture-handler'
-// import { events } from '../../../fixtures/EventsData'
 
 const { container, shadow } = ApplicationStyles
 
@@ -23,7 +22,6 @@ const SearchComponent = ({ onChangeText, showEvent, events }) => {
     <TouchableOpacity
       onPress={() => showEvent(_id)}
       style={{ paddingHorizontal: normalizeWidth(5) }}
-      key={_id}
     >
       <EventCard
         containerStyle={[styles.eventCardStyle, shadow]}

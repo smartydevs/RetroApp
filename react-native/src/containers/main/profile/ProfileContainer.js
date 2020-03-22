@@ -13,8 +13,7 @@ class ProfileContainer extends Component {
     }
 
     render() {
-        console.log(this.props.navigation)
-        const events = Events
+        const events = []
         const totalGoingEvents = events.length
         const totalCreatedEvents = events.length
 

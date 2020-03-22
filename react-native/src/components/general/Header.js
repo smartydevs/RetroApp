@@ -75,7 +75,6 @@ Header.propTypes = {
   textStyle: PropTypes.instanceOf(Object),
   style: PropTypes.instanceOf(Object),
   onPress: PropTypes.func,
-  amount: PropTypes.number.isRequired
 }
 
 Header.defaultProps = {
