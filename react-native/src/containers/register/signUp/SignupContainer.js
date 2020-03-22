@@ -37,14 +37,13 @@ class SignupContainer extends Component {
       return Notification.show(strings.passwordsDontMatch, ERROR)
     }
 
-    registerMember({ password, email }).then(({ isOk }) => {
+    registerMember({ password, email }).then(({ isOk, data }) => {
       if (isOk) {
         return this.props.navigation.push(ScreenEnum.ENTER_DETAILS, { email })
       }
-
+      console.log('sing up error', data)
       Notification.show(strings.error, ERROR)
     })
-
   }
 
   onPressFacebook = () => {}
