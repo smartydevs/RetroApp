@@ -41,7 +41,7 @@ class SignupContainer extends Component {
       if (isOk) {
         return this.props.navigation.push(ScreenEnum.ENTER_DETAILS, { email })
       }
-      console.log('sign up error', data)
+      console.log('sing up error', data)
       Notification.show(strings.error, ERROR)
     })
   }

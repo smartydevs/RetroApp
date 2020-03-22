@@ -26,6 +26,10 @@ export default class MemberService {
   addPushToken(userId, token) {
     const { db } = this;
 
+    if (!token) {
+      throw new Error('token-null');
+    }
+
     db.users.update(
       {
         _id: userId,

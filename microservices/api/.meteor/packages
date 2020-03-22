@@ -1,9 +1,9 @@
 meteor-base@1.4.0             # Packages every Meteor app needs to have
-mongo@1.5.0                   # The database Meteor supports right now
-standard-minifier-js@2.3.4    # JS minifier run for production mode
+mongo@1.9.0                   # The database Meteor supports right now
+standard-minifier-js@2.6.0    # JS minifier run for production mode
 es5-shim@4.8.0                # ECMAScript 5 compatibility for older browsers
-ecmascript@0.11.1              # Enable ECMAScript2015+ syntax in app code
-shell-server@0.3.1            # Server-side component of the `meteor shell` command
+ecmascript@0.14.2              # Enable ECMAScript2015+ syntax in app code
+shell-server@0.5.0            # Server-side component of the `meteor shell` command
 
 cultofcoders:apollo
 swydo:graphql
@@ -11,7 +11,7 @@ aldeed:collection2
 hubroedu:mocha
 
 cultofcoders:apollo-accounts
-accounts-password
+accounts-password@1.6.0
 alanning:roles
 
 ujwal:accounts-phone
