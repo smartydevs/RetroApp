@@ -36,15 +36,7 @@ const SearchComponent = ({ onChangeText, showEvent, events }) => {
 
   return (
     <SafeAreaView style={[container, styles.container]}>
-      <View style={styles.headerContainer}>
-        <Header
-          style={styles.header}
-          iconStyle={styles.icon}
-          text={strings.search}
-          textStyle={styles.headerTitle}
-          icon={require('../../../../assets/icon.png')}
-        />
-      </View>
+      <Header icon={require('../../../../assets/icon.png')} text={strings.search} />
       <View style={styles.content}>
         <SearchBar
           onChangeText={onChangeText}

@@ -3,18 +3,19 @@ import * as Permissions from 'expo-permissions'
 import * as ImagePicker from 'expo-image-picker'
 import { Platform } from 'react-native-web'
 import { AsyncStorage } from 'react-native'
+import { Camera } from 'expo-camera'
 
 import { ProfileComponent } from '.'
 import { saveMemberAvatar } from '../../../api'
-import { Notification } from '../../../components'
 import { NotificationTypeEnum } from '../../../lib/enums'
+import { events as Events } from '../../../fixtures/EventsData'
+import { Notification } from '../../../components'
 import strings from '../../../lib/stringEnums'
+import Constants, { NotificationLength } from '../../../lib/enums'
 
 class ProfileContainer extends Component {
   state = {
-    hasCameraPermission: null,
-    hasCameraRollPermission: null,
-    avatarUrl: 'https://picsum.photos/300/300',
+    hasPermission: null,
   }
 
   componentDidMount() {

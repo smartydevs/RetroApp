@@ -1,8 +1,9 @@
 import React from 'react'
 import { View, Image, Text, StyleSheet } from 'react-native'
+import dayjs from 'dayjs'
 import { Colors, Fonts, ApplicationStyles } from '../../themes'
 import { Row } from '../general'
-import { normalizeWidth } from '../../themes/Metrics'
+import Metrics, { normalizeWidth, normalizeHeight } from '../../themes/Metrics'
 
 const {
   boldTitle,
@@ -21,15 +22,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     left: -6 * left,
   },
-  titleContainer: {
-    flex: 1,
-    borderTopRightRadius: 15,
-    justifyContent: 'center',
-    padding: normalizeWidth(10),
-  },
+  title: (isSmall) => ({
+    paddingHorizontal: normalizeHeight(10),
+    paddingVertical: isSmall ? normalizeHeight(5) : normalizeHeight(10)
+  }),
   informationContainer: {
-    padding: normalizeWidth(10),
-    justifyContent: 'space-between',
+    paddingHorizontal: normalizeWidth(10),
   },
   image: {
     width: '100%',
@@ -43,6 +41,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 8,
+    padding: Metrics.margin
   },
   participantImage: {
     width: normalizeWidth(30),
@@ -101,13 +100,17 @@ const EventCard = ({
         <Image resizeMode="cover" style={styles.image} source={{ uri: eventImage }} />
       </View>
       <View style={styles.content}>
-        <View style={styles.titleContainer}>
-          <Text style={[boldTitle, primaryDarkText]}>{title}</Text>
+        <Text style={[boldTitle, primaryDarkText, styles.title(isSmall)]}>
+          {title}
+        </Text>
+        <View style={styles.informationContainer}>
+          <Text style={[caption, primaryLightText, {marginBottom: Metrics.margin}]}>
+            {location}
+          </Text>
+          <Text style={[caption, primaryLightText]}>
+            {dayjs(date).format('DD MMM YYYY')}
+          </Text>
         </View>
-        <Row style={styles.informationContainer}>
-          <Text style={[caption, primaryLightText]}>{location}</Text>
-          <Text style={[caption, primaryLightText]}>{date}</Text>
-        </Row>
         {!isSmall ? (
           <View style={styles.detailsContainer}>
             <Text style={[caption, primaryLightText]}>
