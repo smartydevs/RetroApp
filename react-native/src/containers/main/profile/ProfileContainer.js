@@ -1,100 +1,116 @@
 import React, { Component } from 'react'
-import { Camera } from 'expo-camera'
+import * as Permissions from 'expo-permissions'
+import * as ImagePicker from 'expo-image-picker'
+import { Platform } from 'react-native-web'
+import { AsyncStorage } from 'react-native'
 
 import { ProfileComponent } from '.'
-import { events as Events } from '../../../fixtures/EventsData'
-import { Notification } from '../../../components';
-import strings from '../../../lib/stringEnums';
-import Constants, { NotificationLength } from '../../../lib/enums';
-import { AsyncStorage } from 'react-native';
+import { saveMemberAvatar } from '../../../api'
+import { Notification } from '../../../components'
+import { NotificationTypeEnum } from '../../../lib/enums'
+import strings from '../../../lib/stringEnums'
 
 class ProfileContainer extends Component {
-    state = {
-        hasPermission: null
+  state = {
+    hasCameraPermission: null,
+    hasCameraRollPermission: null,
+    avatarUrl: 'https://picsum.photos/300/300',
+  }
+
+  componentDidMount() {
+    this.cameraSetUp()
+  }
+
+  cameraSetUp = async () => {
+    let initialStatus = await Permissions.getAsync(Permissions.CAMERA)
+    if (initialStatus.status !== 'granted') {
+      let askAgainStatus = await Permissions.askAsync(Permissions.CAMERA)
+      if (askAgainStatus.status !== 'granted') {
+        this.setState({ hasCameraPermission: false })
+      } else this.setState({ hasCameraPermission: true })
+    } else this.setState({ hasCameraPermission: true })
+
+    initialStatus = await Permissions.getAsync(Permissions.CAMERA_ROLL)
+    if (initialStatus.status !== 'granted') {
+      let askAgainStatus = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+      if (askAgainStatus.status !== 'granted') {
+        this.setState({ hasCameraRollPermission: false })
+      } else this.setState({ hasCameraRollPermission: true })
+    } else this.setState({ hasCameraRollPermission: true })
+  }
+
+  takeProfilePicture = async () => {
+    if (
+      this.state.hasCameraPermission === false ||
+      this.state.hasCameraRollPermission === false
+    ) {
+    } else {
+      let result = await ImagePicker.launchCameraAsync()
+      const userId = await AsyncStorage.getItem('userId')
+      const photoData = this.createFormData(result, userId)
+      this.saveAvatar(photoData)
     }
+  }
 
-    componentDidMount () {
-        this.cameraSetUp()
-        // this.requestPermission()
-    }
+  saveAvatar(photoData) {
+    fetch('http://16a0e090.ngrok.io/uploadAvatar', {
+      method: 'POST',
+      body: photoData,
+    })
+      .then(response => response.json())
+      .then(response => {
+        this.setState({
+          avatarUrl: response.path,
+        })
+      })
+      .catch(error => {
+        console.log('upload error', error)
+      })
+  }
 
-    cameraSetUp = async () => {
-        const statusPermission = await AsyncStorage.getItem(Constants.CAMERA_PERMISSIONS)
-        console.log('statusPermission', statusPermission)
+  createFormData = (photo, userId) => {
+    const data = new FormData()
+    data.append('photo', {
+      name: 'Image',
+      type: photo.type,
+      uri: Platform.OS === 'android' ? photo.uri : photo.uri.replace('file://', ''),
+    })
 
-        if (statusPermission === null) {
-            const status = this.requestPermission()
-            console.log('status', status)
-            this.setState({ hasPermission: status === 'granted' }, () => {
-                console.log(this.state.hasPermission)
-                this.setCameraToken(status)
-            })
-        } else if (statusPermission !== 'granted') {
-            const status = this.requestPermission()
+    data.append('userId', userId)
 
-            if (status !== 'granted') {
-                return this.setState({ hasPermission: false })                
-            }
+    return data
+  }
 
-            this.setCameraToken(status)
-            this.setState({ hasPermission: true })
-        } else {
-            this.setState({ hasPermission: true})
-        }
-    }
+  showEvent = _id => {
+    console.log(_id)
+  }
 
-    requestPermission = async () => {
-        const { status } = await Camera.requestPermissionsAsync()
-        console.log('status func', status)
-        return status
-    }
+  loadMore = listType => {
+    console.log(listType)
+  }
 
-    setCameraToken = async (status) => {
-        try {
-            await AsyncStorage.removeItem(Constants.CAMERA_PERMISSIONS)
-            await AsyncStorage.setItem(Constants.CAMERA_PERMISSIONS, status)
-        } catch (e) {
-            console.log(e)
-        }
-    }
+  render() {
+    const events = []
+    const totalGoingEvents = events.length
+    const totalCreatedEvents = events.length
 
-    takeProfilePicture = () => {
-        if (this.state.hasPermission === false) {
-            this.requestPermission()
-        }
-
-        console.log('doing photo ...')
-    }
-
-    showEvent = (_id) => {
-        console.log(_id)
-    }
-
-    loadMore = (listType) => {
-        console.log(listType)
-    }
-
-    render() {
-        const events = []
-        const totalGoingEvents = events.length
-        const totalCreatedEvents = events.length
-
-        return (
-            <ProfileComponent
-                coverUrl={'https://picsum.photos/300/300'}
-                firstName="vlad"
-                lastName="romila"
-                goingEvents={events}
-                totalGoingEvents={totalGoingEvents}
-                createdEvents={events}
-                totalCreatedEvents={totalCreatedEvents}
-                showEvent={this.showEvent}
-                loadMore={this.loadMore}
-                navigate={this.props.navigation.navigate}
-                takeProfilePicture={this.takeProfilePicture}
-            />
-        )
-    }
+    return (
+      <ProfileComponent
+        coverUrl={'https://picsum.photos/300/300'}
+        avatarUrl={this.state.avatarUrl}
+        firstName="vlad"
+        lastName="romila"
+        goingEvents={events}
+        totalGoingEvents={totalGoingEvents}
+        createdEvents={events}
+        totalCreatedEvents={totalCreatedEvents}
+        showEvent={this.showEvent}
+        loadMore={this.loadMore}
+        navigate={this.props.navigation.navigate}
+        takeProfilePicture={this.takeProfilePicture}
+      />
+    )
+  }
 }
 
 export default ProfileContainer

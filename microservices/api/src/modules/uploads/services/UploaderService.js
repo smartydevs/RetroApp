@@ -21,15 +21,15 @@ class Uploader {
    * Handles the file upload and returns the object inserted in database
    */
   async handleFileUpload(file, userId) {
-    const { createReadStream, filename, mimetype } = await file;
-    const stream = createReadStream();
+    const { path, filename, mimetype } = await file;
+    // const stream = createReadStream();
 
     if (!filename) {
       throw new Error("Can't find filename");
     }
-    const { filepath } = await storeFS({ stream, filename });
+    // const { filepath } = await storeFS({ stream, filename });
 
-    const uploadedFile = await this.upload(filepath, null, mimetype);
+    const uploadedFile = await this.upload(path, null, mimetype);
     const appUploadId = uploadedFile.save({ userId });
 
     return AppUploads.findOne(appUploadId);

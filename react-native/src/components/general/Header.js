@@ -26,17 +26,17 @@ const styles = StyleSheet.create({
   rightContainer: {
     height: '100%',
     minWidth: '20%',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   icon: {
     height: Metrics.icons.medium,
-    width: Metrics.icons.medium
+    width: Metrics.icons.medium,
   },
   leftContainer: {
     height: '100%',
     minWidth: '20%',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 })
 
 const { largeBoldTitle, whiteText } = Fonts.style
@@ -44,18 +44,16 @@ const { amountText, amountIcon, alignCenter, padding } = ApplicationStyles
 
 const Header = ({ icon, iconStyle, text, style, textStyle, onPress, amount }) => {
   const leftButton = icon ? (
-    <ImageButton
-      source={icon}
-      style={[styles.icon, iconStyle]}
-      onPress={onPress}
-    />
+    <ImageButton source={icon} style={[styles.icon, iconStyle]} onPress={onPress} />
   ) : null
   return (
     <Row style={[styles.container, style]}>
       <View style={[styles.leftContainer, { alignItems: 'flex-start' }, padding]}>
         {leftButton}
       </View>
-      <Text style={[largeBoldTitle, whiteText, { alignSelf: 'center' }, textStyle]}>{text}</Text>
+      <Text style={[largeBoldTitle, whiteText, { alignSelf: 'center' }, textStyle]}>
+        {text}
+      </Text>
       <Row style={[styles.rightContainer, alignCenter, padding]}>
         <Text style={amountText}>{amount}</Text>
       </Row>
@@ -63,8 +61,8 @@ const Header = ({ icon, iconStyle, text, style, textStyle, onPress, amount }) =>
   )
 }
 
-const mapStateToProps = (state) => ({
-  amount: state.profile.money
+const mapStateToProps = state => ({
+  amount: state.profile.money,
 })
 
 export default connect(mapStateToProps, null)(Header)
@@ -81,5 +79,5 @@ Header.defaultProps = {
   icon: undefined,
   style: {},
   textStyle: {},
-  onPress: () => { }
+  onPress: () => {},
 }
