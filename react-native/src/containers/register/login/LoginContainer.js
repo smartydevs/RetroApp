@@ -40,31 +40,30 @@ class LoginContainer extends Component {
       return Notification.show('Please fill in all inputs', NotificationTypeEnum.ERROR)
     }
 
-    login(state)
-      .then(async ({ data, isOk }) => {
-        if (isOk) {
-          const { loginMember } = data
-          await this.storeToken(loginMember.token)
-          await this.storeUserId(loginMember.userId)
-          this.props.navigation.push(ScreenEnum.MAIN)
-        } else {
-          const { message } = data
-          if (message.indexOf('email-expected') >= 0) {
-            return Notification.show('Email is expected', NotificationTypeEnum.ERROR)
-          }
-          if (message.indexOf('email-invalid') >= 0) {
-            return Notification.show(
-              'Please enter a valid email',
-              NotificationTypeEnum.ERROR
-            )
-          }
-          if (message.indexOf('Email not used') >= 0) {
-            return Notification.show('Email or password wrong')
-          }
-          return Notification.show(strings.error, NotificationTypeEnum.ERROR)
+    login(state).then(async ({ data, isOk }) => {
+      if (isOk) {
+        const { loginMember } = data
+        await this.storeToken(loginMember.token)
+        await this.storeUserId(loginMember.userId)
+        this.props.navigation.push(ScreenEnum.MAIN)
+      } else {
+        const { message } = data
+        if (message.indexOf('email-expected') >= 0) {
+          return Notification.show('Email is expected', NotificationTypeEnum.ERROR)
         }
-      })
-      .catch(e => console.log(e))
+        if (message.indexOf('email-invalid') >= 0) {
+          return Notification.show(
+            'Please enter a valid email',
+            NotificationTypeEnum.ERROR
+          )
+        }
+        if (message.indexOf('Email not used') >= 0) {
+          return Notification.show('Email or password wrong')
+        }
+        console.log('login data', data)
+        return Notification.show(strings.error, NotificationTypeEnum.ERROR)
+      }
+    })
   }
 
   storeToken = async token => {

@@ -2,7 +2,15 @@ import React from 'react'
 import { View, Text, SafeAreaView, Image, TouchableWithoutFeedback } from 'react-native'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler'
 
-import { ProfilePicture, TextButton, TextCard, EventCard, Header, Row, Button } from '../../../components'
+import {
+  ProfilePicture,
+  TextButton,
+  TextCard,
+  EventCard,
+  Header,
+  Row,
+  Button,
+} from '../../../components'
 import { ApplicationStyles, Fonts } from '../../../themes'
 import Metrics, { normalizeWidth } from '../../../themes/Metrics'
 import { LoadMoreEnum, BottomStackScreensEnum, ScreenEnum } from '../../../lib/enums'
@@ -33,39 +41,39 @@ const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore, 
         </TouchableOpacity>
     )
 
-    const renderCreatedEvents = ({_id, title, location, date, eventImage}) => (
-        <TouchableOpacity
-            onPress={() => showEvent(_id)}
-            style={{paddingHorizontal: normalizeWidth(5)}}
-            key={_id}
-        >
-            <EventCard
-                containerStyle={[styles.eventCard, shadow]}
-                title={title}
-                location={location}
-                date={date}
-                eventImage={eventImage}
-                isSmall
-            />
-        </TouchableOpacity>
-    )
+  const renderCreatedEvents = ({ _id, title, location, date, eventImage }) => (
+    <TouchableOpacity
+      onPress={() => showEvent(_id)}
+      style={{ paddingHorizontal: normalizeWidth(5) }}
+      key={_id}
+    >
+      <EventCard
+        containerStyle={[styles.eventCard, shadow]}
+        title={title}
+        location={location}
+        date={date}
+        eventImage={eventImage}
+        isSmall
+      />
+    </TouchableOpacity>
+  )
 
-    const getGoingEvents = () => {
-        if (totalGoingEvents) {
-            return (
-                <View>
-                    <Text style={[boldTitle, grayText, {paddingVertical: Metrics.margin}]}>
-                        {strings.going}
-                    </Text>
-                    {goingEvents.map(event => renderGoingEvents(event))}
-                    <TextButton
-                        style={[styles.loadMore, center, {marginBottom: Metrics.margin}]}
-                        onPress={() => loadMore(ON_GOING_EVENTS)}
-                        text={strings.loadMore}
-                    />
-                </View>
-            )
-        }
+  const getGoingEvents = () => {
+    if (totalGoingEvents) {
+      return (
+        <View>
+          <Text style={[boldTitle, grayText, { paddingVertical: Metrics.margin }]}>
+            {strings.going}
+          </Text>
+          {goingEvents.map(event => renderGoingEvents(event))}
+          <TextButton
+            style={[styles.loadMore, center, { marginBottom: Metrics.margin }]}
+            onPress={() => loadMore(ON_GOING_EVENTS)}
+            text={strings.loadMore}
+          />
+        </View>
+      )
+    }
 
         return (
             <TextCard
@@ -77,22 +85,22 @@ const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore, 
         )
     }
 
-    const getCreatedEvents = () => {
-        if (totalCreatedEvents) {
-            return (
-                <View>
-                    <Text style={[boldTitle, grayText, {paddingVertical: Metrics.margin}]}>
-                        {strings.created}
-                    </Text>
-                    {createdEvents.map(event => renderCreatedEvents(event))}
-                    <TextButton
-                        style={[styles.loadMore]}
-                        onPress={() => loadMore(CREATED_EVENTS)}
-                        text={strings.loadMore}
-                    />
-                </View>
-            )
-        }
+  const getCreatedEvents = () => {
+    if (totalCreatedEvents) {
+      return (
+        <View>
+          <Text style={[boldTitle, grayText, { paddingVertical: Metrics.margin }]}>
+            {strings.created}
+          </Text>
+          {createdEvents.map(event => renderCreatedEvents(event))}
+          <TextButton
+            style={[styles.loadMore]}
+            onPress={() => loadMore(CREATED_EVENTS)}
+            text={strings.loadMore}
+          />
+        </View>
+      )
+    }
 
         return (
             <TextCard

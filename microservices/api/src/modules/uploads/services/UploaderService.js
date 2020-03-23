@@ -21,32 +21,15 @@ class Uploader {
    * Handles the file upload and returns the object inserted in database
    */
   async handleFileUpload(file, userId) {
-    const { createReadStream, filename, mimetype } = await file;
-    const stream = createReadStream();
+    const { path, filename, mimetype } = await file;
+    // const stream = createReadStream();
 
     if (!filename) {
       throw new Error("Can't find filename");
     }
-    const { filepath } = await storeFS({ stream, filename });
-    let imageThumbs = [];
-    if (ImageService.isImage(mimetype)) {
-      await ImageService.optimizeImages([filepath]);
-      imageThumbs = await ImageService.getImageThumbs(filepath, mimetype);
-      for (let i = 0; i < imageThumbs.length; i++) {
-        const fileName = filepath.replace(`${os.tmpdir()}/`, '');
-        const fileKey = this.generateKey(
-          fileName,
-          `${imageThumbs[i].width}x${imageThumbs[i].height}`
-        );
-        imageThumbs[i].path = fileKey;
-        await this.putObject(fileKey, mimetype, imageThumbs[i].buffer);
-      }
-    }
+    // const { filepath } = await storeFS({ stream, filename });
 
-    const uploadedFile = await this.upload(filepath, null, mimetype);
-    imageThumbs.forEach((imageThumb = {}) => {
-      uploadedFile.addThumb(imageThumb.width, imageThumb.height, imageThumb.path);
-    });
+    const uploadedFile = await this.upload(path, null, mimetype);
     const appUploadId = uploadedFile.save({ userId });
 
     return AppUploads.findOne(appUploadId);

@@ -4,6 +4,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { UserService } from './index';
 import RolesEnum from '../db/users/enums/RolesEnum';
 import { ValidationService } from '../../core/services';
+import { UploaderService } from '../../uploads/services';
 
 export default class MemberService {
   constructor(injection) {
@@ -23,8 +24,22 @@ export default class MemberService {
     return true;
   }
 
+  saveMemberAvatar(userId, avatarId) {
+    const { db } = this;
+
+    db.users.update(userId, {
+      $set: {
+        'profile.avatarId': avatarId,
+      },
+    });
+  }
+
   addPushToken(userId, token) {
     const { db } = this;
+
+    if (!token) {
+      throw new Error('token-null');
+    }
 
     db.users.update(
       {

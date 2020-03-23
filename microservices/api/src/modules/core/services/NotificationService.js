@@ -101,7 +101,7 @@ export default class NotificationService {
       .millisecond(0)
       .toDate();
 
-    const events = EventService.getEventsOnDate(now);
+    const events = EventService.getEventsOnDate(now);gi
     let messages = [];
 
     events.forEach(event => {
@@ -122,7 +122,9 @@ export default class NotificationService {
           pushToken,
         });
 
-        messages.push(message);
+        if (message) {
+          messages.push(message);
+        }
       });
     });
 
@@ -141,7 +143,7 @@ export default class NotificationService {
 
     const notificationId = db.notifications.insert(notificationObject);
 
-    return this.createPushNotification(pushToken, data.message);
+    return pushToken ? this.createPushNotification(pushToken, data.message) : null;
   }
 
   createPushNotification(pushToken, notificationMessage) {

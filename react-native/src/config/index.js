@@ -8,7 +8,8 @@ if (__DEV__) {
 const config = {
   APPLICATION_ID: 'RetroApp',
   resetCache: false,
-  environment: EnvironmentEnum.DEVELOPMENT
+  // environment: EnvironmentEnum.LOCAL,
+  environment: EnvironmentEnum.DEVELOPMENT,
 }
 
 export default config

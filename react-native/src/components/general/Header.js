@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   rightContainer: {
     height: '100%',
     minWidth: '20%',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   icon: {
     height: Metrics.icons.large,
@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
   leftContainer: {
     height: '100%',
     minWidth: '20%',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 })
 
 const { bigBoldTitle, whiteText } = Fonts.style
@@ -70,8 +70,8 @@ const Header = ({ icon, iconStyle, text, style, textStyle, onPress, amount }) =>
   )
 }
 
-const mapStateToProps = (state) => ({
-  amount: state.profile.money
+const mapStateToProps = state => ({
+  amount: state.profile.money,
 })
 
 export default connect(mapStateToProps, null)(Header)
@@ -88,5 +88,5 @@ Header.defaultProps = {
   icon: undefined,
   style: {},
   textStyle: {},
-  onPress: () => { }
+  onPress: () => {},
 }

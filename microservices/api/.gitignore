@@ -1,2 +1,4 @@
 node_modules/
 settings.json
+.idea
+src/.deploy/settings.json
