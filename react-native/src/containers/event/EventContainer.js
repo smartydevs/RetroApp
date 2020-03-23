@@ -5,13 +5,14 @@ import { events } from '../../fixtures/EventsData'
 
 class EventContainer extends Component {
   state = {
-    eventData: {}
+    eventData: {},
+    loading: true
   }
 
   componentDidMount () {
     const { eventId } = this.props.navigation.state.params
     const eventData = events.find(({_id}) => _id === eventId)
-    this.setState({ eventData })
+    this.setState({ eventData, loading: false })
   }
 
   onGoBack = () => {
