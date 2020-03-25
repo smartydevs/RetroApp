@@ -53,6 +53,11 @@ const styles = StyleSheet.create({
     marginVertical: normalizeHeight(10),
     alignItems: 'center',
     width: normalizeHeight(160)
+  },
+  organiser: {
+    width: normalizeWidth(50),
+    height: normalizeWidth(50),
+    borderRadius: normalizeHeight(25)
   }
 })
 
@@ -84,7 +89,7 @@ const EventComponent = ({ onGoBack, onGoToUserPage, eventData: {
     </TouchableOpacity>
   )
 
-  console.log(organiser)
+  console.log('organiser', organiser)
 
   return (
     <SafeAreaView style={[container, styles.container]}>
@@ -134,22 +139,29 @@ const EventComponent = ({ onGoBack, onGoToUserPage, eventData: {
             numColumns={2}
           />
         </View>
-        <TouchableOpacity onPress={() => onGoToUserPage(organiser._id)}>
-          <Row style={[styles.participant, styles.padding]}>
+        {organiser && (
+          <TouchableOpacity onPress={() => onGoToUserPage(organiser._id)}>
+          <Row style={[styles.padding, {alignItems: 'center'}]}>
             <ProfilePicture
               imageSource={organiser.profilePicture}
               firstName={organiser.firstName}
               lastName={organiser.lastName}
-              style={styles.profilePicture}
+              style={[styles.profilePicture, styles.organiser]}
               textStyle={button}
             />
-            <Text>
-              {organiser.firstName}
-              {' '}
-              {organiser.lastName}
-            </Text>
+            <View>
+              <Text style={[button, grayText, {marginBottom: normalizeHeight(5)}]}>
+                Organiser of this event
+              </Text>
+              <Text style={[caption, primaryDarkText]}>
+                {organiser.firstName}
+                {' '}
+                {organiser.lastName}
+              </Text>
+            </View>
           </Row>
         </TouchableOpacity>
+        )}
       </ScrollView>
     </SafeAreaView>
   )
