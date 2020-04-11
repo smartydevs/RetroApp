@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Metrics, Colors, ApplicationStyles } from '../../themes'
 import { Row } from '..'
-import { normalizeWidth } from '../../themes/Metrics'
+import { normalizeWidth, normalizeHeight } from '../../themes/Metrics'
 
 const {white, black, primaryGray} = Colors
 const {imageSize, input} = Metrics.forms
@@ -11,31 +11,31 @@ const {imageSize, input} = Metrics.forms
 const styles = StyleSheet.create({
   container: {
     height: input.height,
-    borderWidth: Metrics.border.base,
+    // borderWidth: Metrics.border.base,
     backgroundColor: white,
-    paddingLeft: normalizeWidth(20),
-    borderRadius: normalizeWidth(10)
+    paddingHorizontal: normalizeWidth(20),
+    borderRadius: normalizeWidth(10),
+    justifyContent: 'flex-start'
   },
   textStyle: {
     margin: 0,
     textAlignVertical: 'center',
     flex: 1,
     padding: 0,
-    color: black
+    color: black,
   },
   image: {
     ...imageSize
   }
 })
 
-const {alignCenter} = ApplicationStyles
+const {alignCenter, shadow} = ApplicationStyles
 
 const Input = (props) => {
   const {containerStyle, textStyle, iconSource} = props
   let textInputRef
 
   let {color} = props
-  const [borderColor, setBorderColor] = useState(color || primaryGray)
 
   const onPressInput = (textRef) => {
     textRef.focus()
@@ -43,7 +43,7 @@ const Input = (props) => {
 
   return (
     <TouchableWithoutFeedback onPress={() => onPressInput(textInputRef)}>
-      <Row style={[styles.container, alignCenter, containerStyle, {borderColor}]}>
+      <Row style={[styles.container, alignCenter, containerStyle, shadow]}>
         <TextInput
           autoCapitalize='none'
           ref={textRef => {

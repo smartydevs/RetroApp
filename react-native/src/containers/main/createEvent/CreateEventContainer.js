@@ -2,9 +2,20 @@ import React, { Component } from 'react'
 import { CreateEventComponent } from '.'
 
 class CreateEventContainer extends Component {
+  state = {
+    photoExisting: false
+  }
+
+  onAddPhoto = () => {}
+
   render() {
+    const { photoExisting } = this.state
+
     return (
-      <CreateEventComponent />
+      <CreateEventComponent
+        onAddPhoto={this.onAddPhoto}
+        photoExisting={photoExisting}
+      />
     )
   }
 }
