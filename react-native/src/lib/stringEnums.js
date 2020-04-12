@@ -1,5 +1,5 @@
 const strings = {
-  welcome: 'Welcome to Retro App',
+  welcome: 'Welcome to RetrUp',
   chooseFeedComponent: 'Choose some of your interests',
   email: 'Email',
   password: 'Password',
@@ -8,7 +8,7 @@ const strings = {
   login: 'Log in',
   or: 'or',
   facebookLogin: 'Continue with Facebook',
-  notOnApp: 'Not on Retro App yet? Sign up',
+  notOnApp: 'Not on RetrUp yet? Sign up',
   signup: 'Sign up',
   providePassword: 'Please provide a password of at least 6 characters',
   passwordsDontMatch: 'The passwords provided don\'t match',

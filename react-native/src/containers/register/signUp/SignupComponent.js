@@ -17,7 +17,7 @@ const SignupComponent = ({onChangeEmail, onChangePassword, onChangeRepeatPasswor
   <KeyboardAvoidingView
     behavior={OS.IOS === Platform.OS ? 'position' : 'height'}
     contentContainerStyle={[container, center, styles.screen]}
-    style={container}
+    style={[container, center, styles.screen]}
     enabled
   >
     <Image
