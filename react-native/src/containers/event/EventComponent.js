@@ -30,17 +30,16 @@ const EventComponent = ({
   onPressToggleJoinButton,
   userJoined,
   eventData: {
-    _id : eventId,
     eventImage = null,
     title,
     location: { addressName },
     date,
     description,
-    participants,
+    users,
     organiser,
   }
 }) => {
-  const renderParticipants = ({ firstName, lastName, profilePicture = null, _id }) => (
+  const renderParticipants = ({ profile: { firstName, lastName, profilePicture = null, _id }}) => (
     <TouchableOpacity onPress={() => onGoToUserPage(_id)}>
       <Row style={styles.participant}>
         <ProfilePicture
@@ -94,13 +93,13 @@ const EventComponent = ({
         </Row>
         <View style={[styles.lightGrayContainer, styles.padding]}>
           <Text style={[button, grayText, { marginBottom: normalizeHeight(5) }]}>
-            {participants && participants.length > 0 ? 'People going to this event' : 'Be the first one to go to this event !'}
+            {users && users.length > 0 ? 'People going to this event' : 'Be the first one to go to this event !'}
           </Text>
           <FlatList
             contentContainerStyle={{ alignItems: 'center' }}
             bounces={false}
             keyExtractor={({ _id }) => _id}
-            data={participants}
+            data={users}
             renderItem={({ item }) => renderParticipants(item)}
             numColumns={2}
           />

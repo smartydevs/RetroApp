@@ -6,6 +6,7 @@ import { getEvent, joinEvent, leaveEvent } from '../../api/event'
 import { events } from '../../fixtures/EventsData'
 import { Notification, Loading } from '../../components'
 import Constants, { NotificationTypeEnum } from '../../lib/enums'
+import strings from '../../lib/stringEnums'
 
 class EventContainer extends Component {
   state = {
@@ -21,7 +22,6 @@ class EventContainer extends Component {
 
     getEvent(eventId).then(({ data, isOk }) => {
       if (isOk) {
-        console.log('data', data)
         this.setState({ eventData: data.getEvent }, this.setUserJoined)
       } else {
         this.setState({ loading: false })
@@ -32,7 +32,6 @@ class EventContainer extends Component {
 
   getUserId = () => {
     AsyncStorage.getItem(Constants.USER_ID).then(userId => {
-      console.log('USER ID', userId)
       this.setState({ userId })
     })
   }
@@ -40,7 +39,6 @@ class EventContainer extends Component {
   setUserJoined = () => {
     const { eventData: { users }, userId } = this.state
 
-    console.log(users)
     if (!users || users.length === 0) {
       return this.setState({ userJoined: false, loading: false })
     }
@@ -73,19 +71,28 @@ class EventContainer extends Component {
   }
 
   joinEvent = async (eventId) => {
-    console.log('join event')
-    console.log('ids', eventId, this.props.navigation.state.params.eventId)
     const { data, isOk } = await joinEvent(eventId)
-    console.log(isOk, data)
+
+    if (isOk) {
+      this.setState({ userJoined: true})
+    } else {
+      Notification.error(strings.error)
+    }
   }
 
   leaveEvent = async (eventId) => {
-    console.log('leave event')
     const { data, isOk } = await leaveEvent(eventId)
-    console.log(isOk, data)
+    console.log(data, isOk)
+
+    if (isOk) {
+      this.setState({ userJoined: false})
+    } else {
+      Notification.error(strings.error)
+    }
   }
 
   render() {
+    console.log(this.state)
     const { loading, userJoined, eventData } = this.state
     if (loading) {
       return <Loading show={loading} />
