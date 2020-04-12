@@ -16,11 +16,10 @@ input EventInput {
     startDate: Date!
     endDate: Date
     categoriesId: [String]
-    uploadPhoto: Upload
 }
 
 input LocationInput {
-    latitude: String!
-    longitude: String!
+    latitude: String
+    longitude: String
     addressName: String
 }
