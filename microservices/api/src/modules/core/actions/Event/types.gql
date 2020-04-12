@@ -7,6 +7,7 @@ type Mutation {
 type Query {
     getUserEvents: [Event]
     searchEvents(searchInput: String): [Event]
+    getEvent(eventId: String!): Event
 }
 
 input EventInput {

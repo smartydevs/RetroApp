@@ -1,5 +1,12 @@
 import React from 'react'
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, ImageBackground } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  ImageBackground,
+} from 'react-native'
 import { ApplicationStyles, Colors, Fonts } from '../../themes'
 import { Header, Row, ProfilePicture } from '../../components'
 import Metrics, { normalizeWidth, normalizeHeight } from '../../themes/Metrics'
@@ -7,12 +14,19 @@ import { Ionicons } from '@expo/vector-icons'
 import dayjs from 'dayjs'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 
-const {container, center} = ApplicationStyles
-const {bigBoldTitle, whiteText, caption, button, grayText, primaryDarkText} = Fonts.style
+const { container, center } = ApplicationStyles
+const {
+  bigBoldTitle,
+  whiteText,
+  caption,
+  button,
+  grayText,
+  primaryDarkText,
+} = Fonts.style
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.light
+    backgroundColor: Colors.light,
   },
   lightGrayContainer: {
     backgroundColor: Colors.lightGray,
@@ -24,12 +38,12 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     backgroundColor: `${Colors.primaryDark}80`,
-    padding: normalizeWidth(24)
+    padding: normalizeWidth(24),
   },
   separator: {
     width: '100%',
     borderBottomColor: Colors.gray,
-    borderBottomWidth: normalizeHeight(4)
+    borderBottomWidth: normalizeHeight(4),
   },
   padding: {
     padding: normalizeHeight(24),
@@ -39,7 +53,7 @@ const styles = StyleSheet.create({
     height: normalizeHeight(40),
     width: normalizeHeight(40),
     borderRadius: normalizeHeight(20),
-    marginRight: normalizeHeight(20)
+    marginRight: normalizeHeight(20),
   },
   profilePicture: {
     width: normalizeWidth(40),
@@ -52,19 +66,23 @@ const styles = StyleSheet.create({
   participant: {
     marginVertical: normalizeHeight(10),
     alignItems: 'center',
-    width: normalizeHeight(160)
-  }
+    width: normalizeHeight(160),
+  },
 })
 
-const EventComponent = ({ onGoBack, onGoToUserPage, eventData: {
-  eventImage = null,
-  title,
-  location,
-  date,
-  description,
-  participants,
-  organiser
-}}) => {
+const EventComponent = ({
+  onGoBack,
+  onGoToUserPage,
+  eventData: {
+    eventImage = null,
+    title,
+    location: { addressName },
+    date,
+    description,
+    participants,
+    organiser,
+  },
+}) => {
   const renderParticipants = ({ firstName, lastName, profilePicture = null, _id }) => (
     <TouchableOpacity onPress={() => onGoToUserPage(_id)}>
       <Row style={styles.participant}>
@@ -76,9 +94,7 @@ const EventComponent = ({ onGoBack, onGoToUserPage, eventData: {
           textStyle={button}
         />
         <Text>
-          {firstName}
-          {' '}
-          {lastName}
+          {firstName} {lastName}
         </Text>
       </Row>
     </TouchableOpacity>
@@ -91,23 +107,25 @@ const EventComponent = ({ onGoBack, onGoToUserPage, eventData: {
       <Header onPress={onGoBack} />
       <ScrollView>
         <ImageBackground
-          source={eventImage && {uri: eventImage}}
+          source={eventImage && { uri: eventImage }}
           style={styles.eventImage}
-          resizeMode='contain'
+          resizeMode="contain"
         >
           <View style={styles.overlay}>
-            <Text style={[bigBoldTitle, whiteText]}>
-              {title}
-            </Text>
+            <Text style={[bigBoldTitle, whiteText]}>{title}</Text>
           </View>
         </ImageBackground>
         <View style={styles.separator} />
-        <Row style={[styles.lightGrayContainer, styles.padding, {alignItems: 'center'}]}>
+        <Row
+          style={[styles.lightGrayContainer, styles.padding, { alignItems: 'center' }]}
+        >
           <View style={[styles.icon, center]}>
-            <Ionicons size={20} name='md-map' style={{color: Colors.lightGray}} />
+            <Ionicons size={20} name="md-map" style={{ color: Colors.lightGray }} />
           </View>
           <View>
-            <Text style={[button, grayText, {marginBottom: normalizeHeight(5)}]}>{location}</Text>
+            <Text style={[button, grayText, { marginBottom: normalizeHeight(5) }]}>
+              {addressName}
+            </Text>
             <Text style={[caption, primaryDarkText]}>
               {dayjs(date).format('DD MMMM YYYY, HH:mm')}
             </Text>
@@ -115,22 +133,20 @@ const EventComponent = ({ onGoBack, onGoToUserPage, eventData: {
         </Row>
         <Row style={[styles.padding]}>
           <View style={[styles.icon, center]}>
-            <Ionicons size={20} name='md-help' style={{color: Colors.lightGray}} />
+            <Ionicons size={20} name="md-help" style={{ color: Colors.lightGray }} />
           </View>
-          <Text style={[caption, primaryDarkText, {flex: 1}]}>
-            {description}
-          </Text>
+          <Text style={[caption, primaryDarkText, { flex: 1 }]}>{description}</Text>
         </Row>
         <View style={[styles.lightGrayContainer, styles.padding]}>
-          <Text style={[button, grayText, {marginBottom: normalizeHeight(5)}]}>
+          <Text style={[button, grayText, { marginBottom: normalizeHeight(5) }]}>
             People going to this event
           </Text>
           <FlatList
-            contentContainerStyle={{alignItems: 'center'}}
+            contentContainerStyle={{ alignItems: 'center' }}
             bounces={false}
-            keyExtractor={({_id}) => _id}
+            keyExtractor={({ _id }) => _id}
             data={participants}
-            renderItem={({item}) => renderParticipants(item)}
+            renderItem={({ item }) => renderParticipants(item)}
             numColumns={2}
           />
         </View>
@@ -144,9 +160,7 @@ const EventComponent = ({ onGoBack, onGoToUserPage, eventData: {
               textStyle={button}
             />
             <Text>
-              {organiser.firstName}
-              {' '}
-              {organiser.lastName}
+              {organiser.firstName} {organiser.lastName}
             </Text>
           </Row>
         </TouchableOpacity>
