@@ -53,7 +53,6 @@ const Input = (props) => {
           placeholderTextColor={primaryGray}
           style={[styles.textStyle, textStyle]}
           onSubmitEditing={Keyboard.dismiss}
-          onEndEditing={() => setBorderColor(color || primaryGray)}
         />
         {
           iconSource && <Image style={styles.image} source={iconSource} resizeMode='contain' />
