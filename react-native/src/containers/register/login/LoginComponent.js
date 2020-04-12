@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text, Image, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { View, Text, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView,Platform, } from 'react-native'
+import { OS } from '../../../lib/enums'
 import PropTypes from 'prop-types'
 import { Ionicons } from '@expo/vector-icons'
 import { ApplicationStyles, Images, Fonts, Colors } from '../../../themes'
@@ -17,7 +18,12 @@ const LoginComponent = ({ onPressLogin, onPressForgotPassword, onPressFacebook,
     <TouchableWithoutFeedback onPress={() => {
       Keyboard.dismiss();
     }}>
-      <View style={[container, center, styles.screen]}>
+      <KeyboardAvoidingView
+        behavior={OS.IOS === Platform.OS ? 'position' : 'height'}
+        contentContainerStyle={[container, center, styles.screen]}
+        style={OS.IOS === Platform.OS ? container : [container, center, styles.screen]}
+        enabled
+      >
         <Image
           source={Images.logo}
           style={styles.logo}
@@ -54,9 +60,12 @@ const LoginComponent = ({ onPressLogin, onPressForgotPassword, onPressFacebook,
         <Separator width={'80%'} style={styles.separator} />
         <TextButton
           text={strings.notOnApp}
-          onPress={onPressSignUp}
+          onPress={() => {
+            Keyboard.dismiss()
+            onPressSignUp()
+          }}
         />
-      </View>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   )
 }
