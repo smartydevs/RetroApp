@@ -53,13 +53,6 @@ const SignupComponent = ({ onChangeEmail, onChangePassword, onChangeRepeatPasswo
         />
       </View>
       <TextButton style={[styles.signup]} onPress={onPressSignUp} text={strings.signup} />
-      <Text style={[bigBoldTitle, creamText, marginVertical]}>
-        {strings.or.toUpperCase()}
-      </Text>
-      <TextButton style={[styles.facebook]} onPress={onPressFacebook} hasChildren>
-        <Ionicons name={'logo-facebook'} size={28} style={styles.facebookLogo} />
-        <Text style={[button, creamText]}>{strings.facebookLogin}</Text>
-      </TextButton>
     </KeyboardAvoidingView>
   )
 

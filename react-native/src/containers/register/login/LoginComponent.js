@@ -51,21 +51,6 @@ const LoginComponent = ({ onPressLogin, onPressForgotPassword, onPressFacebook,
           onPress={onPressLogin}
           text={strings.login}
         />
-        <Text style={[bigBoldTitle, creamText, marginVertical]}>
-          {strings.or.toUpperCase()}
-        </Text>
-        <TextButton
-          style={[styles.facebook]}
-          onPress={onPressFacebook}
-          hasChildren
-        >
-          <Ionicons
-            name={'logo-facebook'}
-            size={28}
-            style={styles.facebookLogo}
-          />
-          <Text style={[button, creamText]}>{strings.facebookLogin}</Text>
-        </TextButton>
         <Separator width={'80%'} style={styles.separator} />
         <TextButton
           text={strings.notOnApp}
