@@ -4,7 +4,7 @@ import { FlatList } from 'react-native-gesture-handler'
 
 import { ApplicationStyles } from '../../../themes'
 import Metrics, { normalizeWidth } from '../../../themes/Metrics'
-import { Header, SearchBar, EventCard } from '../../../components'
+import { Header, SearchBar, EventCard, Card, TextCard } from '../../../components'
 import strings from '../../../lib/stringEnums'
 import styles from './styles'
 
@@ -43,13 +43,17 @@ const SearchComponent = ({ onChangeText, showEvent, events }) => {
           placeholder={strings.searchPlaceholder}
           style={{ marginVertical: Metrics.margin * 2 }}
         />
-        <FlatList
-          bounces={false}
-          keyExtractor={({ _id }) => _id}
-          data={events}
-          renderItem={({ item }) => renderEvents(item)}
-          style={{ marginBottom: Metrics.margin }}
-        />
+        {events && events.length > 0 ? (
+          <FlatList
+            bounces={false}
+            keyExtractor={({ _id }) => _id}
+            data={events}
+            renderItem={({ item }) => renderEvents(item)}
+            style={{ marginBottom: Metrics.margin }}
+          />
+        ) : (
+          <TextCard message='uiadskj' icon={'md-search'} />
+        )}
       </View>
     </SafeAreaView>
   )

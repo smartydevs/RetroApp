@@ -27,7 +27,7 @@ const NotificationComponent = ({ showNotification }) => {
                 text={strings.notifications}
             />
             <View style={styles.content}>
-                {notifications.length ? (
+                {notifications && notifications.length ? (
                     <FlatList
                         data={notifications}
                         keyExtractor={({_id}) => _id}

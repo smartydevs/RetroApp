@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         height: normalizeWidth(70),
         borderRadius: normalizeWidth(35),
         top: -normalizeWidth(37),
-        borderWidth: normalizeWidth(2),
+        borderWidth: normalizeWidth(4),
         borderColor: Colors.light,
         marginRight: Metrics.margin * 2,
     },
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         marginTop: Metrics.margin,
         paddingHorizontal: normalizeWidth(40),
         height: normalizeWidth(50),
-        borderBottomWidth: normalizeHeight(2),
+        borderBottomWidth: normalizeHeight(4),
         borderColor: Colors.lighCream,
         padding: Metrics.margin
     },
@@ -58,4 +58,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default styles;
+export default styles

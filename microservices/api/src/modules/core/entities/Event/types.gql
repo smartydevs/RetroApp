@@ -1,6 +1,7 @@
 type Event {
     _id: ID!
     organiserId: String
+    organiser: User
     location: Location
     title: String
     description: String
