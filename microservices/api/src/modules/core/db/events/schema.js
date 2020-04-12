@@ -3,12 +3,9 @@ import SimpleSchema from 'simpl-schema';
 import Events from './collection';
 
 const LocationSchema = new SimpleSchema({
-  latitude: String,
-  longitude: String,
-  addressName: {
-    type: String,
-    optional: true,
-  },
+  latitude: { type: String, optional: true },
+  longitude: { type: String, optional: true },
+  addressName: { type: String, optional: true },
 });
 
 const EventsSchema = new SimpleSchema({
