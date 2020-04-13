@@ -174,8 +174,7 @@ export default class EventService {
     if (!event) {
       throw new Error('Something went wrong');
     }
-
-    const user = event.usersId.find(userId);
+    const user = event.usersId.find(u => u === userId);
     if (!user) {
       throw new Error('user-notJoined');
     }
