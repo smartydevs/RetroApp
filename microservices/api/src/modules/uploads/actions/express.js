@@ -30,8 +30,6 @@ app.post('/uploadAvatar', upload.single('photo'), async (req, res) => {
   const file = req.file;
   const userId = req.body.userId;
 
-  console.log('userId', req.body.userId);
-
   const uploadedFile = await UploaderService.handleFileUpload(file);
 
   MemberService.saveMemberAvatar(userId, uploadedFile._id);

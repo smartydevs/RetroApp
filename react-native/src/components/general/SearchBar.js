@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
   text: {
     ...Fonts.style.caption,
     color: Colors.gray,
+    flex: 1
   },
   icon: {
     color: Colors.primaryDark,

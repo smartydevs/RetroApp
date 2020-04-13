@@ -32,14 +32,14 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         marginHorizontal: normalizeWidth(30),
-        paddingHorizontal: normalizeWidth(10)
+        paddingHorizontal: normalizeWidth(10),
     },
     eventCardStyle: {
         height: normalizeHeight(140),
         borderRadius: 15,
         top: 15,
         backgroundColor: Colors.lightGray,
-        marginBottom: normalizeHeight(20),
+        marginBottom: normalizeHeight(20)
     }
 })
 

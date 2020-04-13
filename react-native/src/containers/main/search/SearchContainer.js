@@ -39,7 +39,6 @@ class SearchContainer extends Component {
   }
 
   render() {
-    console.log('events', this.state.events)
     return (
       <SearchComponent
         events={this.state.events}

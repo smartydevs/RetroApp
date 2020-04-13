@@ -7,6 +7,43 @@ export default class EventService {
     Object.assign(this, injection);
   }
 
+  getEvent(eventId) {
+    const { db } = this;
+
+    const events = db.events
+      .createQuery({
+        $filters: {
+          _id: eventId,
+        },
+        _id: 1,
+        title: 1,
+        location: {
+          addressName: 1,
+        },
+        description: 1,
+        startDate: 1,
+        endData: 1,
+        organiser: {
+          _id: 1,
+          profile: {
+            firstName: 1,
+            lastName: 1,
+            avatar: 1,
+          },
+        },
+        users: {
+          _id: 1,
+          profile: {
+            firstName: 1,
+            lastName: 1,
+            avatar: 1,
+          },
+        },
+      })
+      .fetch();
+    return events.length ? events[0] : {};
+  }
+
   getEventsOnDate(date) {
     const { db } = this;
 
@@ -113,12 +150,12 @@ export default class EventService {
   joinEvent(userId, eventId) {
     const { db } = this;
 
-    const event = db.event.findOne(eventId);
+    const event = db.events.findOne(eventId);
     if (!event) {
       throw new Error('Something went wrong');
     }
 
-    const user = event.usersId.find(userId);
+    const user = event.usersId.find(_id => _id === userId);
     if (user) {
       throw new Error('user-alreadyJoined');
     }
@@ -133,12 +170,11 @@ export default class EventService {
   leaveEvent(userId, eventId) {
     const { db } = this;
 
-    const event = db.event.findOne(eventId);
+    const event = db.events.findOne(eventId);
     if (!event) {
       throw new Error('Something went wrong');
     }
-
-    const user = event.usersId.find(userId);
+    const user = event.usersId.find(u => u === userId);
     if (!user) {
       throw new Error('user-notJoined');
     }
