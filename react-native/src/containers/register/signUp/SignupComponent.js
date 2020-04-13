@@ -9,8 +9,8 @@ import { Input, TextButton } from '../../../components'
 import { Ionicons } from '@expo/vector-icons'
 import { OS } from '../../../lib/enums'
 
-const { container, center, marginVertical } = ApplicationStyles
-const { bigBoldTitle, creamText, button } = Fonts.style
+const { container, center } = ApplicationStyles
+const { bigBoldTitle, creamText, primaryPinkText } = Fonts.style
 
 const SignupComponent = ({ onChangeEmail, onChangePassword, onChangeRepeatPassword, email,
   password, repeatPassword, onPressFacebook, onPressSignUp }) => (
@@ -29,7 +29,11 @@ const SignupComponent = ({ onChangeEmail, onChangePassword, onChangeRepeatPasswo
           resizeMode={'contain'}
         />
         <Text style={[styles.welcome, bigBoldTitle, creamText]}>
-          {strings.welcome}
+          Welcome to{' '}
+          <Text style={primaryPinkText}>
+            Retr
+          </Text>
+          Up
         </Text>
         <View style={styles.maxWidth}>
           <Input

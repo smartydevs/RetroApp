@@ -92,6 +92,9 @@ const style = {
   },
   grayText: {
     color: Colors.gray
+  },
+  primaryPinkText: {
+    color: Colors.primaryPink
   }
 }
 
