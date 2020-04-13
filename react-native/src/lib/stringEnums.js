@@ -21,6 +21,7 @@ const strings = {
   lastName: 'Last Name',
   error: 'Something went wrong! Please try again',
   notifications: 'Notifications',
+  home: 'Home',
   userprofile: "Profile",
   going: "Going events",
   created: "Created events",
