@@ -10,7 +10,7 @@ import strings from '../../../lib/stringEnums'
 import styles from './styles'
 
 const { container, center, marginVertical } = ApplicationStyles
-const { bigBoldTitle, creamText, boldTitle, button } = Fonts.style
+const { bigBoldTitle, creamText, boldTitle, button, primaryPinkText } = Fonts.style
 
 const LoginComponent = ({ onPressLogin, onPressForgotPassword, onPressFacebook,
   onPressSignUp, onChangePassword, onChangeEmail, email, password }) => {
@@ -30,7 +30,11 @@ const LoginComponent = ({ onPressLogin, onPressForgotPassword, onPressFacebook,
           resizeMode={'contain'}
         />
         <Text style={[styles.welcome, bigBoldTitle, creamText]}>
-          {strings.welcome}
+          Welcome to{' '}
+          <Text style={primaryPinkText}>
+            Retr
+          </Text>
+          Up
         </Text>
         <View style={styles.maxWidth}>
           <Input
@@ -48,9 +52,10 @@ const LoginComponent = ({ onPressLogin, onPressForgotPassword, onPressFacebook,
           />
         </View>
         <TextButton
-          textStyle={[boldTitle, creamText, marginVertical]}
+          textStyle={[boldTitle, creamText]}
           text={strings.forgotPassword}
           onPress={onPressForgotPassword}
+          style={marginVertical}
         />
         <TextButton
           style={[styles.login]}

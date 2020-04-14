@@ -188,17 +188,34 @@ export default class EventService {
     });
   }
 
-  getUserEvents(userId) {
+  getUserEvents(userId, offset = 5) {
     const { db } = this;
 
+    const filters = {
+      usersId: {
+        $in: [userId],
+      },
+      startDate: {
+        $gte: new Date(),
+      },
+    };
+
     const events = db.events
-      .find({
-        usersId: {
-          $in: [userId],
+      .find(
+        {
+          ...filters,
         },
-      })
+        {
+          limit: offset,
+        }
+      )
       .fetch();
 
-    return events;
+    const eventNr = db.events.find({ ...filters }).count();
+
+    return {
+      events,
+      hasMore: eventNr - offset > 0,
+    };
   }
 }

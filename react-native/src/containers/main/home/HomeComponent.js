@@ -4,12 +4,11 @@ import { ApplicationStyles, Fonts } from '../../../themes'
 import { Header, EventCard, TextButton } from '../../../components'
 import styles from './styles/index'
 import strings from '../../../lib/stringEnums'
-import { events } from '../../../fixtures/EventsData'
 import Metrics, { normalizeWidth } from '../../../themes/Metrics'
 
 const { container, shadow, center } = ApplicationStyles
 const { style } = Fonts
-const HomeComponent = () => {
+const HomeComponent = ({ hasMore, events }) => {
   const renderEvent = ({ _id, title, location, date, eventImage }) => (
     <TouchableOpacity
       onPress={() => showEvent(_id)}
@@ -49,11 +48,13 @@ const HomeComponent = () => {
           keyExtractor={({ _id }) => _id}
           renderItem={({ item }) => renderEvent(item)}
         />
-        <TextButton
-          style={[styles.loadMore, center, { marginBottom: Metrics.margin }]}
-          onPress={() => loadMore()}
-          text={strings.loadMore}
-        />
+        {hasMore && (
+          <TextButton
+            style={[styles.loadMore, center, { marginBottom: Metrics.margin }]}
+            onPress={() => loadMore()}
+            text={strings.loadMore}
+          />
+        )}
       </View>
     </SafeAreaView>
   )

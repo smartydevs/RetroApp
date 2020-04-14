@@ -5,9 +5,14 @@ type Mutation {
 }
 
 type Query {
-    getUserEvents: [Event]
+    getUserEvents(offset: Int): UserEventsResponse
     searchEvents(searchInput: String): [Event]
     getEvent(eventId: String!): Event
+}
+
+type UserEventsResponse {
+    events: [Event]
+    hasMore: Boolean
 }
 
 input EventInput {

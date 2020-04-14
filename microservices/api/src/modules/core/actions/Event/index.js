@@ -8,9 +8,9 @@ load({
   typeDefs,
   resolvers: {
     Query: {
-      getUserEvents(_, args, { userId }) {
+      getUserEvents(_, { offset }, { userId }) {
         SecurityService.checkLoggedIn({ userId });
-        return EventService.getUserEvents(userId);
+        return EventService.getUserEvents(userId, offset);
       },
       searchEvents(_, { searchInput }, { userId }) {
         SecurityService.checkLoggedIn({ userId });
