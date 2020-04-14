@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+
+import { forgotPassword } from '../../../api/register/forgotPassword'
 import { ForgotPasswordComponent } from '.'
 import { Notification } from '../../../components'
 import strings from '../../../lib/stringEnums'
@@ -31,6 +33,11 @@ class ForgotPasswordContainer extends Component {
 
     if (password !== repeatPassword) {
       return Notification.error(strings.passwordsDontMatch)
+    }
+
+    const { isOk, data } = await forgotPassword(email, password)
+    if (!isOk) {
+      return Notification.error('Something went wrong')
     }
 
     this.props.navigation.goBack()
