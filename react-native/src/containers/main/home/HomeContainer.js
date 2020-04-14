@@ -19,6 +19,7 @@ class HomeContainer extends Component {
       loading: true,
     }
   }
+
   saveToken = async () => {
     try {
       let token = await Notifications.getExpoPushTokenAsync()
@@ -53,9 +54,9 @@ class HomeContainer extends Component {
 
   getEvents = async () => {
     const { offset } = this.state
-    console.log('get events')
+
     const { isOk, data } = await getUserEvents(offset)
-    console.log('getuserevents', data)
+
     if (!isOk) {
       this.setState({
         loading: false,
@@ -67,11 +68,13 @@ class HomeContainer extends Component {
     }
 
     const { events, hasMore } = data.getUserEvents
+
     this.setState({
       events,
       hasMore,
       loading: false,
     })
+
   }
 
   onGetMoreClick = async () => {

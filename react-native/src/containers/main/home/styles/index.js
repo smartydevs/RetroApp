@@ -24,8 +24,7 @@ const styles = StyleSheet.create({
         marginTop: normalizeHeight(15)
     },
     eventCard: {
-        height: normalizeHeight(90),
-        maxHeight: normalizeHeight(100),
+        height: normalizeHeight(140),
         borderRadius: normalizeWidth(10),
         backgroundColor: Colors.lightGray,
         marginBottom: normalizeHeight(20)
