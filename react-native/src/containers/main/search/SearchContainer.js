@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { SearchComponent } from '.'
 import { searchEvents } from '../../../api'
-import { Notification } from '../../../components'
+import { Notification, Loading } from '../../../components'
 import strings from '../../../lib/stringEnums'
 import { ScreenEnum } from '../../../lib/enums'
 
@@ -39,6 +39,12 @@ class SearchContainer extends Component {
   }
 
   render() {
+    const { events, loading } = this.state
+
+    if (loading) {
+      return <Loading show={loading} />
+    }
+
     return (
       <SearchComponent
         events={this.state.events}
