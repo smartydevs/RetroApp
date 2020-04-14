@@ -5,6 +5,10 @@ const GET_CATEGORIES = gql`
     getCategories {
       _id
       name
+      photo {
+        path
+        fullPath
+      }
     }
   }
 `

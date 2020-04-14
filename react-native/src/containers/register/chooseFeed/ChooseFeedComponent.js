@@ -42,7 +42,7 @@ const ChooseFeedComponent = ({
     }
 
     return (
-      <TextButton 
+      <TextButton
         onPress={onCompleteFeed}
         style={[styles.saveButton, center]}
         hasChildren
@@ -52,9 +52,7 @@ const ChooseFeedComponent = ({
           size={24}
           style={styles.saveLogo}
         />
-        <Text style={[button]}>
-          {strings.save}
-        </Text>
+        <Text style={[button]}>{strings.save}</Text>
       </TextButton>
     )
   }
