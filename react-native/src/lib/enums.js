@@ -6,7 +6,7 @@ const Constants = {
   TOKEN: 'token',
   USER_ID: 'userId',
   PROFILE_PICURE: 'profilePicture',
-  CAMERA_PERMISSIONS: 'cameraPermissions'
+  CAMERA_PERMISSIONS: 'cameraPermissions',
 }
 
 export const EnvironmentEnum = {
@@ -19,8 +19,10 @@ export const OS = {
   ANDROID: 'android',
 }
 
+export const SERVER_URL = 'http://134.122.68.158:3000'
+
 export const ApiUrls = {
-  [EnvironmentEnum.LOCAL]: 'http://22f33a55.ngrok.io',
+  [EnvironmentEnum.LOCAL]: 'http://02d58ab6.ngrok.io',
   [EnvironmentEnum.DEVELOPMENT]: 'http://134.122.68.158:3000/graphql',
 }
 
@@ -31,7 +33,7 @@ export const ScreenEnum = {
   ENTER_DETAILS: 'EnterDetails',
   CHOOSE_FEED: 'ChooseFeed',
   MAIN: 'Main',
-  EVENT: 'Event'
+  EVENT: 'Event',
 }
 
 export const BottomStackScreensEnum = {
@@ -39,7 +41,7 @@ export const BottomStackScreensEnum = {
   NOTIFICATION: 'Notification',
   SEARCH: 'Search',
   PROFILE: 'Profile',
-  CREATE: 'Create'
+  CREATE: 'Create',
 }
 
 export const NotificationTypeEnum = {
@@ -55,7 +57,7 @@ export const NotificationLength = {
 
 export const LoadMoreEnum = {
   ON_GOING_EVENTS: 'onGoingEvents',
-  CREATED_EVENTS: 'creaedEvents'
+  CREATED_EVENTS: 'creaedEvents',
 }
 
 export default Constants

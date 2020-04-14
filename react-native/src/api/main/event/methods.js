@@ -2,7 +2,7 @@ import { Platform } from 'react-native-web'
 
 import { CREATE_EVENT } from './mutations'
 import ApiClient from '../../client'
-import { ApiUrls } from '../../../lib/enums'
+import { SERVER_URL } from '../../../lib/enums'
 import config from '../../../config'
 
 const { environment } = config
@@ -28,7 +28,7 @@ export const createEvent = async eventDetails => {
 }
 
 export const saveEventPhoto = async (photo, eventId) => {
-  const apiUrl = ApiUrls[environment]
+  const apiUrl = SERVER_URL
   const formData = createEventPhotoData(photo, eventId)
   try {
     const data = await fetch(`${apiUrl}/event/image`, {

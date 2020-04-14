@@ -46,7 +46,7 @@ export default class UserService {
 
     return db.user
       .createQuery({
-        $filter: {
+        $filters: {
           _id: userId,
         },
         roles: 1,

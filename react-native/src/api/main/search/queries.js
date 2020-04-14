@@ -10,6 +10,7 @@ const SEARCH_EVENTS = gql`
       }
       startDate
       photo {
+        path
         fullPath
       }
       users {

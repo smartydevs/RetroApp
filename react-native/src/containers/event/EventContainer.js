@@ -13,7 +13,7 @@ class EventContainer extends Component {
     eventData: {},
     loading: true,
     userJoined: false,
-    userId: null
+    userId: null,
   }
 
   componentDidMount() {
@@ -29,20 +29,22 @@ class EventContainer extends Component {
   }
 
   setUserJoined = () => {
-    const { eventData: { users }, userId } = this.state
+    const {
+      eventData: { users },
+      userId,
+    } = this.state
 
     if (!users || users.length === 0) {
       return this.setState({ userJoined: false, loading: false })
     }
 
     const userJoined = users.find(user => user._id === userId)
-  
-    if (userJoined) {
-      this.setState({ userJoined: true, loading: false})
-    } else {
-      this.setState({ userJoined: false, loading: false})
-    }
 
+    if (userJoined) {
+      this.setState({ userJoined: true, loading: false })
+    } else {
+      this.setState({ userJoined: false, loading: false })
+    }
   }
 
   getEvent = eventId => {
@@ -65,7 +67,10 @@ class EventContainer extends Component {
   }
 
   onPressToggleJoinButton = () => {
-    const { userJoined, eventData: { _id : eventId} } = this.state
+    const {
+      userJoined,
+      eventData: { _id: eventId },
+    } = this.state
 
     if (!userJoined) {
       return this.joinEvent(eventId)
@@ -73,7 +78,7 @@ class EventContainer extends Component {
     return this.leaveEvent(eventId)
   }
 
-  joinEvent = async (eventId) => {
+  joinEvent = async eventId => {
     const { data, isOk } = await joinEvent(eventId)
 
     if (isOk) {
@@ -83,7 +88,7 @@ class EventContainer extends Component {
     }
   }
 
-  leaveEvent = async (eventId) => {
+  leaveEvent = async eventId => {
     const { data, isOk } = await leaveEvent(eventId)
     console.log(data, isOk)
 
