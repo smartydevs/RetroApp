@@ -8,6 +8,10 @@ const CategoriesSchema = new SimpleSchema({
     type: Date,
     optional: true,
   },
+  photoId: {
+    type: String,
+    optional: true,
+  },
   updatedAt: {
     type: Date,
     optional: true,

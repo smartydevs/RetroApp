@@ -46,10 +46,8 @@ load({
 
         return MemberService.updateUserInfo(userId, userInfo);
       },
-      setUserPassword(_, { newPassword }, { userId }) {
-        SecurityService.checkLoggedIn({ userId });
-
-        return MemberService.setUserPassword(userId, newPassword);
+      setUserPassword(_, { newPassword, email }) {
+        return MemberService.setUserPassword(email, newPassword);
       },
     },
   },

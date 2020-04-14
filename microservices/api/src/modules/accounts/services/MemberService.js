@@ -26,8 +26,10 @@ export default class MemberService {
     return { token, userId };
   }
 
-  setUserPassword(userId, newPassword) {
-    return Accounts.setPassword(userId, newPassword, { logout: false });
+  setUserPassword(email, newPassword) {
+    const user = Accounts.findUserByEmail(email);
+
+    return Accounts.setPassword(user._id, newPassword, { logout: false });
   }
 
   _changeUserEmail(user, newEmail) {
