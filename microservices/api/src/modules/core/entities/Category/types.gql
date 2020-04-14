@@ -3,6 +3,6 @@ type Category {
     name: String!
     createdAt: Date
     updatedAt: Date
-    photoId: String!
+    photoId: String
     photo: AppUpload
 }
