@@ -50,12 +50,13 @@ const BottomNavigatorContainer = createBottomTabNavigator(
       safeAreaInset: {
         bottom: 'never',
         top: 'never'
-      }
+      },
     },
 
     defaultNavigationOptions: ({ navigation }) => {
       return {
         tabBarOnPress: ({navigation, defaultHandler}) => {
+          console.log(navigation, defaultHandler())
           defaultHandler()
         },
         tabBarIcon: ({ focused }) => {

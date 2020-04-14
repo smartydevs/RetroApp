@@ -33,7 +33,7 @@ const EventComponent = ({
     eventImage = null,
     title,
     location: { addressName },
-    date,
+    startDate,
     description,
     users,
     organiser,
@@ -81,7 +81,7 @@ const EventComponent = ({
               {addressName}
             </Text>
             <Text style={[caption, primaryDarkText]}>
-              {dayjs(date).format('DD MMMM YYYY, HH:mm')}
+              {dayjs(startDate).format('DD MMMM YYYY, HH:mm')}
             </Text>
           </View>
         </Row>
@@ -128,7 +128,7 @@ const EventComponent = ({
         <View style={[styles.lightGrayContainer, styles.padding]}>
           <TextButton
             text={userJoined ? 'Leave Event' : 'Join Event'}
-            style={{backgroundColor: Colors.primaryDark}}
+            style={{backgroundColor: userJoined ? Colors.red : Colors.primaryDark}}
             onPress={onPressToggleJoinButton}
           />
         </View>

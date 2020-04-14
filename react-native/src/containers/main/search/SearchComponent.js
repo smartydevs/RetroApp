@@ -29,7 +29,7 @@ const SearchComponent = ({ onChangeText, showEvent, events }) => {
         title={title}
         location={location.addressName}
         date={startDate}
-        eventImage={photo ? photo.fullPath : 'https://picsum.photos/1920/1080'}
+        eventImage={photo && photo.fullPath}
       />
     </TouchableOpacity>
   )
