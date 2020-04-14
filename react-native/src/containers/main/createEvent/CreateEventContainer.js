@@ -5,7 +5,7 @@ import * as ImagePicker from 'expo-image-picker'
 import { CreateEventComponent } from '.'
 import { createEvent, saveEventPhoto } from '../../../api/main/event'
 import { Notification } from '../../../components'
-import { NotificationTypeEnum } from '../../../lib/enums'
+import { NotificationTypeEnum, BottomStackScreensEnum } from '../../../lib/enums'
 import { AsyncStorage } from 'react-native'
 
 class CreateEventContainer extends Component {
@@ -73,6 +73,8 @@ class CreateEventContainer extends Component {
         NotificationTypeEnum.ERROR
       )
     }
+
+    this.props.navigation.navigate(BottomStackScreensEnum.MAIN)
   }
 
   render() {
