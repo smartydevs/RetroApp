@@ -42,7 +42,6 @@ const ProfilePicture = ({
   style = null,
   textStyle,
   imageSource,
-  onPress,
 }) => {
   const [colorNum] = useState(Math.floor(Math.random() * 9))
 

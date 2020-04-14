@@ -7,7 +7,7 @@ import { Camera } from 'expo-camera'
 
 import { ProfileComponent } from '.'
 import { saveMemberAvatar } from '../../../api'
-import { NotificationTypeEnum } from '../../../lib/enums'
+import { NotificationTypeEnum, EnvironmentEnum, OS } from '../../../lib/enums'
 import { events as Events } from '../../../fixtures/EventsData'
 import { Notification } from '../../../components'
 import strings from '../../../lib/stringEnums'
@@ -60,12 +60,14 @@ class ProfileContainer extends Component {
     })
       .then(response => response.json())
       .then(response => {
+        console.log(response)
         this.setState({
           avatarUrl: response.path,
         })
       })
       .catch(error => {
         console.log('upload error', error)
+        Notification.error('Something went wrong while uploading the picture')
       })
   }
 
@@ -74,7 +76,7 @@ class ProfileContainer extends Component {
     data.append('photo', {
       name: 'Image',
       type: photo.type,
-      uri: Platform.OS === 'android' ? photo.uri : photo.uri.replace('file://', ''),
+      uri: Platform.OS === OS.ANDROID ? photo.uri : photo.uri.replace('file://', ''),
     })
 
     data.append('userId', userId)
@@ -97,7 +99,7 @@ class ProfileContainer extends Component {
 
     return (
       <ProfileComponent
-        coverUrl={'https://picsum.photos/300/300'}
+        coverUrl={''}
         avatarUrl={this.state.avatarUrl}
         firstName="vlad"
         lastName="romila"

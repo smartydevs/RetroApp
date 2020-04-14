@@ -19,15 +19,7 @@ class EventContainer extends Component {
   componentDidMount() {
     const { eventId } = this.props.navigation.state.params
     this.getUserId()
-
-    getEvent(eventId).then(({ data, isOk }) => {
-      if (isOk) {
-        this.setState({ eventData: data.getEvent }, this.setUserJoined)
-      } else {
-        this.setState({ loading: false })
-        return Notification.show('Something went wrong', NotificationTypeEnum.ERROR)
-      }
-    })
+    this.getEvent(eventId)
   }
 
   getUserId = () => {
@@ -53,6 +45,17 @@ class EventContainer extends Component {
 
   }
 
+  getEvent = eventId => {
+    getEvent(eventId).then(({ data, isOk }) => {
+      if (isOk) {
+        this.setState({ eventData: data.getEvent }, this.setUserJoined)
+      } else {
+        this.setState({ loading: false })
+        return Notification.show('Something went wrong', NotificationTypeEnum.ERROR)
+      }
+    })
+  }
+
   onGoBack = () => {
     this.props.navigation.goBack()
   }
@@ -74,7 +77,7 @@ class EventContainer extends Component {
     const { data, isOk } = await joinEvent(eventId)
 
     if (isOk) {
-      this.setState({ userJoined: true})
+      this.setState({ userJoined: true, loading: true }, () => this.getEvent(eventId))
     } else {
       Notification.error(strings.error)
     }
@@ -85,7 +88,7 @@ class EventContainer extends Component {
     console.log(data, isOk)
 
     if (isOk) {
-      this.setState({ userJoined: false})
+      this.setState({ userJoined: false, loading: true }, () => this.getEvent(eventId))
     } else {
       Notification.error(strings.error)
     }

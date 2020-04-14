@@ -33,6 +33,7 @@ const ProfileComponent = ({
   totalCreatedEvents,
   navigate,
   takeProfilePicture,
+  avatarUrl
 }) => {
   const renderGoingEvents = ({ _id, title, location, date, eventImage }) => (
     <TouchableOpacity
@@ -113,37 +114,12 @@ const ProfileComponent = ({
     }
 
     return (
-        <SafeAreaView style={[container, styles.container]}>
-            <Header
-                icon={require("../../../../assets/icon.png")}
-                text={'Profile'}
-            />
-            <ScrollView bounces={false}>
-                <Image
-                    style={styles.cover}
-                    resizeMode="cover"
-                    source={coverUrl && {uri: coverUrl}}
-                />
-                <Row style={styles.infoContainer}>
-                    <Button onPress={takeProfilePicture}>
-                        <ProfilePicture
-                            firstName={firstName}
-                            lastName={lastName}
-                            style={styles.profilePicture}
-                        />
-                    </Button>
-                    <Text style={[bigBoldTitle, primaryDarkText]}>
-                        {firstName}
-                        {' '}
-                        {lastName}
-                    </Text>
-                </Row>
-                <View style={[styles.content]}>
-                    {getGoingEvents()}
-                    {getCreatedEvents()}
-                </View>
-            </ScrollView>
-        </SafeAreaView>
+      <TextCard
+        message={strings.noCreatedEvents}
+        icon={'md-create'}
+        containerStyle={{ margin: normalizeWidth(5) }}
+        onPress={() => navigate(BottomStackScreensEnum.CREATE)}
+      />
     )
   }
 
@@ -162,6 +138,7 @@ const ProfileComponent = ({
               firstName={firstName}
               lastName={lastName}
               style={styles.profilePicture}
+              imageSource={avatarUrl}
             />
           </Button>
           <Text style={[bigBoldTitle, primaryDarkText]}>

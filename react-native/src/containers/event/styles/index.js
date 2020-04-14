@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   participant: {
     marginVertical: normalizeHeight(10),
     alignItems: 'center',
-    width: normalizeHeight(160),
+    width: normalizeWidth(150),
   },
 })
 

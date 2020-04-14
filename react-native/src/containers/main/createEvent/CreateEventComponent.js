@@ -19,7 +19,7 @@ import { OS } from '../../../lib/enums'
 import styles from './styles'
 import { initialState, reducer } from './reducer'
 
-const { container, center } = ApplicationStyles
+const { container } = ApplicationStyles
 const { bigBoldTitle, button, grayText, centeredText } = Fonts.style
 
 const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo }) => {
@@ -46,7 +46,7 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo 
       <Header icon={require('../../../../assets/icon.png')} text={'Create an event'} />
       <ScrollView bounces={false}>
         <ImageBackground
-          source={{ uri: photoExisting ? photo.uri : null }}
+          source={{ uri: photoExisting ? photo.uri : '' }}
           style={styles.image}
           resizeMode="contain"
         >
@@ -54,7 +54,7 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo 
             <TextButton
               text="Add a photo"
               style={{ flex: 1 }}
-              textStyle={[bigBoldTitle, grayText]}
+              textStyle={[bigBoldTitle]}
               onPress={onAddPhoto}
             />
           </View>
@@ -141,7 +141,7 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo 
             <TextButton
               text={'Create Event'}
               onPress={handleCreateEvent}
-              style={styles.button}
+              style={styles.createEventButton}
             />
           </View>
         </KeyboardAvoidingView>
