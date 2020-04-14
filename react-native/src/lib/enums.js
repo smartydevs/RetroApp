@@ -34,6 +34,7 @@ export const ScreenEnum = {
   CHOOSE_FEED: 'ChooseFeed',
   MAIN: 'Main',
   EVENT: 'Event',
+  FORGOT_PASSWORD: 'ForgotPassword'
 }
 
 export const BottomStackScreensEnum = {

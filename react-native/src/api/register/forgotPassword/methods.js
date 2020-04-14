@@ -3,12 +3,13 @@ import { SET_USER_PASSWORD } from './mutations'
 
 const { currentInstance } = ApiClient
 
-export const forgotPassword = async newPassword => {
+export const forgotPassword = async (email, newPassword) => {
   try {
     const { data } = await currentInstance().mutate({
       mutation: SET_USER_PASSWORD,
       variables: {
         newPassword,
+        email,
       },
     })
 

@@ -2,11 +2,11 @@ import { createAppContainer } from 'react-navigation'
 import styles from './Styles/NavigationStyles'
 import { ScreenEnum } from '../lib/enums'
 import { createStackNavigator } from 'react-navigation-stack'
-import { fromRight, fromBottom } from 'react-navigation-transitions'
+import { fromRight } from 'react-navigation-transitions'
 import { EventContainer, EnterDetailsContainer, ChooseFeedContainer, SignupContainer,
-  LoginContainer, LoadingContainer, BottomNavigationContainer } from '../containers'
+  LoginContainer, LoadingContainer, BottomNavigationContainer, ForgotPasswordContainer } from '../containers'
 
-const { SIGN_UP, LOADING, LOG_IN, ENTER_DETAILS, MAIN, CHOOSE_FEED, EVENT } = ScreenEnum
+const { SIGN_UP, LOADING, LOG_IN, ENTER_DETAILS, MAIN, CHOOSE_FEED, EVENT, FORGOT_PASSWORD } = ScreenEnum
 
 const PrimaryNav = createStackNavigator(
   {
@@ -16,7 +16,8 @@ const PrimaryNav = createStackNavigator(
     [ENTER_DETAILS]: { screen: EnterDetailsContainer },
     [CHOOSE_FEED]: { screen: ChooseFeedContainer },
     [MAIN]: { screen: BottomNavigationContainer },
-    [EVENT]: { screen: EventContainer }
+    [EVENT]: { screen: EventContainer },
+    [FORGOT_PASSWORD]: { screen: ForgotPasswordContainer }
   },
   {
     headerMode: 'none',
