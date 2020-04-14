@@ -52,7 +52,13 @@ const SearchComponent = ({ onChangeText, showEvent, events }) => {
             style={{ marginBottom: Metrics.margin }}
           />
         ) : (
-          <TextCard message='uiadskj' icon={'md-search'} />
+          <TextCard
+            message='The event that you are searching for could not be found'
+            icon={'md-search'}
+            containerStyle={styles.eventNotFound}
+            style={{ marginBottom: Metrics.margin }}
+            onPress={null}
+          />
         )}
       </View>
     </SafeAreaView>

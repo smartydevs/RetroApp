@@ -56,7 +56,6 @@ const BottomNavigatorContainer = createBottomTabNavigator(
     defaultNavigationOptions: ({ navigation }) => {
       return {
         tabBarOnPress: ({navigation, defaultHandler}) => {
-          console.log(navigation, defaultHandler())
           defaultHandler()
         },
         tabBarIcon: ({ focused }) => {
