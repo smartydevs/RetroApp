@@ -6,9 +6,11 @@
     flex-direction: row;
     padding: 0 24px;
     justify-content: space-between;
+    position: fixed;
     align-items: center;
     height: 10vh;
     width: 100%;
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.4);
 
     &--logo {
         height: 80%;

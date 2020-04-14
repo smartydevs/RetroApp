@@ -1,10 +1,10 @@
 import React from 'react'
 import { View, Text, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView,Platform, } from 'react-native'
-import { OS } from '../../../lib/enums'
 import PropTypes from 'prop-types'
-import { Ionicons } from '@expo/vector-icons'
-import { ApplicationStyles, Images, Fonts, Colors } from '../../../themes'
-import { Input, TextButton, Separator } from '../../../components'
+
+import { ApplicationStyles, Images, Fonts } from '../../../themes'
+import { Input, TextButton } from '../../../components'
+import { OS } from '../../../lib/enums'
 
 import strings from '../../../lib/stringEnums'
 import styles from './styles'
@@ -48,9 +48,10 @@ const LoginComponent = ({ onPressLogin, onPressForgotPassword, onPressFacebook,
           />
         </View>
         <TextButton
-          textStyle={[boldTitle, creamText, marginVertical]}
+          textStyle={[boldTitle, creamText]}
           text={strings.forgotPassword}
           onPress={onPressForgotPassword}
+          style={[marginVertical]}
         />
         <TextButton
           style={[styles.login]}
@@ -59,6 +60,7 @@ const LoginComponent = ({ onPressLogin, onPressForgotPassword, onPressFacebook,
         />
         <TextButton
           text={strings.notOnApp}
+          style={[marginVertical]}
           onPress={() => {
             Keyboard.dismiss()
             onPressSignUp()

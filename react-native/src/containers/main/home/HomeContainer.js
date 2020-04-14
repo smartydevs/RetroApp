@@ -42,6 +42,7 @@ class HomeContainer extends Component {
     componentDidMount() {
         this.checkPushToken()
     }
+
     render() {
         return <HomeComponent />
     }
