@@ -14,12 +14,20 @@ import dayjs from 'dayjs'
 
 import { ApplicationStyles, Colors, Fonts } from '../../../themes'
 import { Header, TextButton, Input } from '../../../components'
+<<<<<<< HEAD
 import { normalizeHeight } from '../../../themes/Metrics'
+=======
+import Metrics, { normalizeWidth, normalizeHeight } from '../../../themes/Metrics'
+>>>>>>> a3112992f61c9588ea55ab6aa78638bdef889d1c
 import { OS } from '../../../lib/enums'
 import styles from './styles'
 import { initialState, reducer } from './reducer'
 
+<<<<<<< HEAD
 const { container } = ApplicationStyles
+=======
+const { container, center } = ApplicationStyles
+>>>>>>> a3112992f61c9588ea55ab6aa78638bdef889d1c
 const { bigBoldTitle, button, grayText, centeredText } = Fonts.style
 
 const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo }) => {
@@ -46,7 +54,11 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo 
       <Header icon={require('../../../../assets/icon.png')} text={'Create an event'} />
       <ScrollView bounces={false}>
         <ImageBackground
+<<<<<<< HEAD
           source={{ uri: photoExisting ? photo.uri : '' }}
+=======
+          source={{ uri: photoExisting ? photo.uri : 'https://picsum.photos/1920/1080' }}
+>>>>>>> a3112992f61c9588ea55ab6aa78638bdef889d1c
           style={styles.image}
           resizeMode="contain"
         >
@@ -54,7 +66,11 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo 
             <TextButton
               text="Add a photo"
               style={{ flex: 1 }}
+<<<<<<< HEAD
               textStyle={[bigBoldTitle]}
+=======
+              textStyle={[bigBoldTitle, grayText]}
+>>>>>>> a3112992f61c9588ea55ab6aa78638bdef889d1c
               onPress={onAddPhoto}
             />
           </View>
@@ -141,7 +157,11 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo 
             <TextButton
               text={'Create Event'}
               onPress={handleCreateEvent}
+<<<<<<< HEAD
               style={styles.createEventButton}
+=======
+              style={styles.button}
+>>>>>>> a3112992f61c9588ea55ab6aa78638bdef889d1c
             />
           </View>
         </KeyboardAvoidingView>
