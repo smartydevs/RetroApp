@@ -5,7 +5,7 @@ type Mutation {
     addPushToken(token: String!): Boolean
     loginMember(loginInput: LoginInput!): AuthResponse
     updateUserInfo(userInfo: UserInfoInput!): Boolean
-    setUserPassword(newPassword: String!): Boolean
+    setUserPassword(email: String!, newPassword: String!): Boolean
 }
 
 type Query {
