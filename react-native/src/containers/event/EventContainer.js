@@ -100,11 +100,13 @@ class EventContainer extends Component {
   }
 
   render() {
-    console.log(this.state)
     const { loading, userJoined, eventData } = this.state
+    console.log(eventData)
+
     if (loading) {
       return <Loading show={loading} />
     }
+
     return (
       <EventComponent
         onGoBack={this.onGoBack}

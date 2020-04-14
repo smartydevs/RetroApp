@@ -8,6 +8,16 @@ export const GET_EVENT = gql`
       description
       startDate
       endDate
+      categoriesId
+      categories {
+        _id
+        name
+        photoId
+        photo {
+          path
+          fullPath
+        }
+      }
       photoId
       photo {
         path
