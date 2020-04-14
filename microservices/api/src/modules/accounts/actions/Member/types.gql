@@ -1,13 +1,21 @@
 type Mutation {
-    registerMember(input: ProfileInput!): Boolean
+    registerMember(input: ProfileInput!): AuthResponse
     addMemberDetails(email: String!, details: DetailsInput!): Boolean
     addMemberCategories(email: String!, categories: [String]!): Boolean
     addPushToken(token: String!): Boolean
-    loginMember(loginInput: LoginInput!): LoginResponse
+    loginMember(loginInput: LoginInput!): AuthResponse
+    updateUserInfo(userInfo: UserInfoInput!): Boolean
+    setUserPassword(newPassword: String!) Boolean
 }
 
 type Query {
     getUserInfo(userId: String): User
+}
+
+input UserInfoInput {
+    firstName: String!
+    lastName: String!
+    email: String!
 }
 
 input ProfileInput {
@@ -30,7 +38,7 @@ input LoginInput {
     password: String!
 }
 
-type LoginResponse {
+type AuthResponse {
     token: String!
     userId: String!
 }

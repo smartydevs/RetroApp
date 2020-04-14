@@ -12,6 +12,7 @@ type Query {
 
 type UserEventsResponse {
     events: [Event]
+    eventsNumber: Int
     hasMore: Boolean
 }
 

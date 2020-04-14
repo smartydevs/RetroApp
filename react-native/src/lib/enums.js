@@ -20,7 +20,7 @@ export const OS = {
 }
 
 export const ApiUrls = {
-  [EnvironmentEnum.LOCAL]: 'http://40761b0d.ngrok.io',
+  [EnvironmentEnum.LOCAL]: 'http://22f33a55.ngrok.io',
   [EnvironmentEnum.DEVELOPMENT]: 'http://134.122.68.158:3000/graphql',
 }
 
