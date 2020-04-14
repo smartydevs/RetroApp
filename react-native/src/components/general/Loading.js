@@ -12,7 +12,7 @@ const Loading = ({ show, style }) => {
     >
       <ActivityIndicator
         size='large'
-        color={Colors.yellow}
+        color={Colors.primaryAqua}
       />
     </View>
   ) : null

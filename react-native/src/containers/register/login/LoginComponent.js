@@ -62,7 +62,6 @@ const LoginComponent = ({ onPressLogin, onPressForgotPassword, onPressFacebook,
           onPress={onPressLogin}
           text={strings.login}
         />
-        <Separator width={'80%'} style={styles.separator} />
         <TextButton
           text={strings.notOnApp}
           onPress={() => {

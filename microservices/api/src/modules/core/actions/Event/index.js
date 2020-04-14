@@ -17,11 +17,15 @@ load({
 
         return EventService.searchEvents({ userId, searchInput });
       },
+      getEvent(_, { eventId }, { userId }) {
+        SecurityService.checkLoggedIn({ userId });
+
+        return EventService.getEvent(eventId);
+      },
     },
     Mutation: {
       createEvent(_, { eventDetails }, { userId }) {
         SecurityService.checkRole(userId, RolesEnum.MEMBER);
-
         return EventService.createEvent(userId, eventDetails);
       },
       joinEvent(_, { eventId }, { userId }) {
