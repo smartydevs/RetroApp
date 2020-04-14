@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { Ionicons } from '@expo/vector-icons'
 import { ApplicationStyles, Images, Fonts, Colors } from '../../../themes'
 import { Input, TextButton, Separator } from '../../../components'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import strings from '../../../lib/stringEnums'
 import styles from './styles'
