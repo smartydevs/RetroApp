@@ -29,7 +29,7 @@ const SearchComponent = ({ onChangeText, showEvent, events }) => {
         title={title}
         location={location.addressName}
         date={startDate}
-        eventImage={photo ? photo.fullPath : 'https://picsum.photos/1920/1080'}
+        eventImage={photo && photo.fullPath}
       />
     </TouchableOpacity>
   )
@@ -52,7 +52,13 @@ const SearchComponent = ({ onChangeText, showEvent, events }) => {
             style={{ marginBottom: Metrics.margin }}
           />
         ) : (
-          <TextCard message='uiadskj' icon={'md-search'} />
+          <TextCard
+            message='The event that you are searching for could not be found'
+            icon={'md-search'}
+            containerStyle={styles.eventNotFound}
+            style={{ marginBottom: Metrics.margin }}
+            onPress={null}
+          />
         )}
       </View>
     </SafeAreaView>

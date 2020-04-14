@@ -118,7 +118,7 @@ const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore, 
                 icon={require("../../../../assets/icon.png")}
                 text={'Profile'}
             />
-            <ScrollView>
+            <ScrollView bounces={false}>
                 <Image
                     style={styles.cover}
                     resizeMode="cover"
