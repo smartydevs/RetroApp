@@ -1,3 +1,8 @@
 type Query {
     getUserNotifications: [Notification]
 }
+
+type Mutation {
+    readAllUserNotifications: Boolean
+    readUserNotification: Boolean
+}

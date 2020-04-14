@@ -215,6 +215,7 @@ export default class EventService {
 
     return {
       events,
+      eventsNumber: eventNr,
       hasMore: eventNr - offset > 0,
     };
   }
