@@ -1,13 +1,24 @@
 import { load } from 'graphql-load';
 
 import typeDefs from './types.gql';
-import { MemberService } from '../../services';
+import { MemberService, UserService } from '../../services';
 import { SecurityService } from '../../../core/services';
-import RolesEnum from '../../db/users/enums/RolesEnum';
 
 load({
   typeDefs,
   resolvers: {
+    Query: {
+      getUserInfo(_, args, { userId }) {
+        SecurityService.checkLoggedIn({ userId });
+
+        //If we get an argument called userId then we return info about that user
+        if (args.userId) {
+          return UserService.getUserInfo(args.userId);
+        }
+        //if we don't get the argument we return info about the logged in user
+        return UserService.getUserInfo(userId);
+      },
+    },
     Mutation: {
       registerMember(_, { input }) {
         return MemberService.registerMember(input);
