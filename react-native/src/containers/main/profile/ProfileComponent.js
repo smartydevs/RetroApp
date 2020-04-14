@@ -33,8 +33,9 @@ const ProfileComponent = ({
   totalCreatedEvents,
   navigate,
   takeProfilePicture,
-  avatarUrl
+  avatarUrl = null
 }) => {
+  console.log(avatarUrl)
   const renderGoingEvents = ({ _id, title, location, date, eventImage }) => (
     <TouchableOpacity
       onPress={() => navigate(ScreenEnum.EVENT, { eventId: _id })}

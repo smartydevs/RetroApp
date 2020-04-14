@@ -54,13 +54,12 @@ class ProfileContainer extends Component {
   }
 
   saveAvatar(photoData) {
-    fetch('http://16a0e090.ngrok.io/uploadAvatar', {
+    fetch('http://134.122.68.158:3000/uploadAvatar', {
       method: 'POST',
       body: photoData,
     })
       .then(response => response.json())
       .then(response => {
-        console.log(response)
         this.setState({
           avatarUrl: response.path,
         })
