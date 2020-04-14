@@ -55,6 +55,10 @@ export default class UserService {
           firstName: 1,
           lastName: 1,
           fullName: 1,
+          avatar: {
+            path: 1,
+            fullPath: 1,
+          },
         },
         news: {
           type: 1,

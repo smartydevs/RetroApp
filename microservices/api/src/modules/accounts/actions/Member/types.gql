@@ -6,6 +6,10 @@ type Mutation {
     loginMember(loginInput: LoginInput!): LoginResponse
 }
 
+type Query {
+    getUserInfo(userId: String): User
+}
+
 input ProfileInput {
     email: String!
     password: String!
