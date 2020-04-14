@@ -6,7 +6,7 @@ import { CreateEventComponent } from '.'
 import { createEvent, saveEventPhoto } from '../../../api/main/event'
 import { Notification } from '../../../components'
 import { NotificationTypeEnum } from '../../../lib/enums'
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, Alert } from 'react-native'
 
 class CreateEventContainer extends Component {
   state = {
@@ -38,15 +38,34 @@ class CreateEventContainer extends Component {
   }
 
   onAddPhoto = async () => {
-    const havePermissionForPhoto =
-      this.state.hasCameraPermission && this.state.hasCameraRollPermission
-    if (havePermissionForPhoto) {
-      let result = await ImagePicker.launchCameraAsync()
-      await this.setState({
-        photo: result,
-        photoExisting: true,
-      })
-    }
+    Alert.alert("Add photo", "Choose a photo or create one and upload it.", [{
+      text: "Camera", onPress: async () => {
+        const havePermissionForPhoto =
+          this.state.hasCameraPermission && this.state.hasCameraRollPermission
+        if (havePermissionForPhoto) {
+          let result = await ImagePicker.launchCameraAsync()
+          await this.setState({
+            photo: result,
+            photoExisting: true,
+          })
+        }
+      }
+    }, {
+      text: "Library", onPress: async () => {
+        const havePermissionForPhoto =
+          this.state.hasCameraRollPermission
+        if (havePermissionForPhoto) {
+          let result = await ImagePicker.launchImageLibraryAsync()
+          await this.setState({
+            photo: result,
+            photoExisting: true,
+          })
+        }
+      }
+    }, {
+      text: "Cancel"
+    }])
+
   }
 
   onCreateEvent = async eventDetails => {
