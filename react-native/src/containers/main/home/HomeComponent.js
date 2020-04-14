@@ -42,7 +42,11 @@ const HomeComponent = ({ hasMore, events, showEvent, loadMore, refreshPage }) =>
         </View>
         <View style={styles.content}>
           <Text style={[boldTitle, styles.title]}>
-            You have {events.length} ongoing events
+            You have
+            {' '}
+            {events.length ? events.length : 'no'}
+            {' '}
+            ongoing events
           </Text>
 
           <TextButton 

@@ -6,4 +6,10 @@ const SAVE_MEMBER_AVATAR = gql`
   }
 `
 
-export { SAVE_MEMBER_AVATAR }
+const UPDATE_USER_INFO = gql`
+  mutation updateUserInfo($userInfo: UserInfoInput!) {
+    updateUserInfo(userInfo: $userInfo)
+  }
+`
+
+export { SAVE_MEMBER_AVATAR, UPDATE_USER_INFO }

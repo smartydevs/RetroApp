@@ -7,7 +7,9 @@ import CategoryServiceModel from './CategoryService';
 import NotificationServiceModel from './NotificationService';
 
 export const ValidationService = new ValidationServiceModel();
-export const SecurityService = new SecurityServiceModel();
+export const SecurityService = new SecurityServiceModel({
+  db,
+});
 export const EventService = new EventServiceModel({
   db,
 });

@@ -17,4 +17,13 @@ export default class SecurityService {
   hasRole(userId, role) {
     return Roles.userIsInRole(userId, role);
   }
+
+  notificationBelongsToUser(userId, notificationId) {
+    const { db } = this;
+
+    this.checkLoggedIn({ userId });
+    const notification = db.notifications.findOne(notificationId);
+
+    return notification.receiverId === userId;
+  }
 }
