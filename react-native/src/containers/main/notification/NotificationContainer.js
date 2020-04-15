@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import { Text } from 'react-native'
-
 import {
   getUserNotifications,
   readUserNotification,
   readAllUserNotifications,
-} from '../../../api/main/notification'
+} from '../../../api'
 import { NotificationComponent } from '.'
-import { Notification } from '../../../components'
-import { ScreenEnum } from '../../../lib/enums'
+import { Notification, Loading } from '../../../components'
+import { ScreenEnum, BottomStackScreensEnum } from '../../../lib/enums'
+
+const TIMEOUT = 60000
 
 class NotificationContainer extends Component {
   constructor(props) {
@@ -22,9 +22,22 @@ class NotificationContainer extends Component {
 
   componentDidMount() {
     this.getNotifications()
+    this.setInterval()
   }
 
-  readAllNotifications = async () => {
+  componentWillUnmount () {
+    this.clearInterval()
+  }
+
+  setInterval = () => {
+    this.notification = setInterval(this.getNotifications, TIMEOUT)
+  }
+
+  clearInterval = () => {
+    clearInterval(this.setInterval)
+  }
+
+  markAllAsRead = async () => {
     const { isOk, data } = await readAllUserNotifications()
 
     if (!isOk) {
@@ -39,6 +52,8 @@ class NotificationContainer extends Component {
       return Notification.error('Something went wrong')
     }
 
+    this.markAsRead(notificationId)
+
     this.props.navigation.navigate(ScreenEnum.EVENT, {
       eventId,
     })
@@ -46,7 +61,6 @@ class NotificationContainer extends Component {
 
   getNotifications = async () => {
     const { data, isOk } = await getUserNotifications()
-    console.log('data', data)
     if (!isOk) {
       this.setState({
         loading: false,
@@ -69,17 +83,20 @@ class NotificationContainer extends Component {
     })
   }
 
+  onSearchEvents = () => this.props.navigation.navigate(BottomStackScreensEnum.SEARCH)
+
   render() {
     const { notifications, loading } = this.state
-    console.log('notifications', notifications)
     if (loading) {
-      return <Text>Loading ...</Text>
+      return <Loading show={loading} />
     }
 
     return (
       <NotificationComponent
         notifications={notifications}
         showNotification={this.showNotification}
+        onSearchEvents={this.onSearchEvents}
+        markAllAsRead={this.markAllAsRead}
       />
     )
   }

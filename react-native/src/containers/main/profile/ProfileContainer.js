@@ -3,23 +3,30 @@ import * as Permissions from 'expo-permissions'
 import * as ImagePicker from 'expo-image-picker'
 import { Platform } from 'react-native-web'
 import { AsyncStorage } from 'react-native'
-import { Camera } from 'expo-camera'
 
 import { ProfileComponent } from '.'
 import { saveMemberAvatar } from '../../../api'
-import { NotificationTypeEnum, EnvironmentEnum, OS } from '../../../lib/enums'
-import { events as Events } from '../../../fixtures/EventsData'
+import { OS } from '../../../lib/enums'
 import { Notification } from '../../../components'
-import strings from '../../../lib/stringEnums'
-import Constants, { NotificationLength } from '../../../lib/enums'
 
 class ProfileContainer extends Component {
   state = {
     hasPermission: null,
+    editable: true,
+    userId: null
   }
 
   componentDidMount() {
-    this.cameraSetUp()
+    const {params} = this.props.navigation.state
+
+    if (params) {
+      this.setState({
+        editable: false,
+        userId: params.userId
+      })
+    } else {
+      this.cameraSetUp()
+    }
   }
 
   cameraSetUp = async () => {
@@ -91,7 +98,13 @@ class ProfileContainer extends Component {
     console.log(listType)
   }
 
+  onGoBack = () => {
+    this.props.navigation.goBack()
+  }
+
   render() {
+    const { editable } = this.state
+    console.log('editable', editable)
     const events = []
     const totalGoingEvents = events.length
     const totalCreatedEvents = events.length
@@ -110,6 +123,8 @@ class ProfileContainer extends Component {
         loadMore={this.loadMore}
         navigate={this.props.navigation.navigate}
         takeProfilePicture={this.takeProfilePicture}
+        editable={editable}
+        onGoBack={this.onGoBack}
       />
     )
   }

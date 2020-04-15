@@ -1,18 +1,18 @@
 import React from 'react'
 import { View, SafeAreaView, FlatList } from 'react-native'
-import { ApplicationStyles } from '../../../themes'
-import { Header, TextCard } from '../../../components'
+import { ApplicationStyles, Fonts } from '../../../themes'
+import { Header, TextCard, TextButton } from '../../../components'
 import strings from '../../../lib/stringEnums'
 import styles from './styles'
-import { normalizeWidth } from '../../../themes/Metrics'
 
-const { container } = ApplicationStyles
+const { container, shadow } = ApplicationStyles
+const { button } = Fonts.style
 
-const NotificationComponent = ({ showNotification, notifications }) => {
-  const renderNotification = ({ _id, message = '', imageSource = '', eventId }) => (
+const NotificationComponent = ({ showNotification, notifications, onSearchEvents, markAllAsRead }) => {
+  const renderNotification = ({ _id, message = '', imageSource = '', eventId, isViewed }) => (
     <TextCard
       onPress={() => showNotification(_id, eventId)}
-      containerStyle={{ marginHorizontal: normalizeWidth(5) }}
+      containerStyle={styles.cardContainer(isViewed)}
       message={message}
       imageSource={imageSource}
       icon={'md-search'}
@@ -26,6 +26,12 @@ const NotificationComponent = ({ showNotification, notifications }) => {
         text={strings.notifications}
       />
       <View style={styles.content}>
+        <TextButton
+          text={'Mark all as read'}
+          textStyle={[button]}
+          onPress={markAllAsRead}
+          style={[styles.markAllAsRead, shadow]}
+        />
         {notifications && notifications.length ? (
           <FlatList
             data={notifications}
@@ -33,7 +39,12 @@ const NotificationComponent = ({ showNotification, notifications }) => {
             renderItem={({ item }) => renderNotification(item)}
           />
         ) : (
-          <TextCard message={strings.noNotifications} icon={'md-search'} />
+          <TextCard
+            message={strings.noNotifications}
+            icon={'md-search'}
+            containerStyle={styles.noNotifications}
+            onPress={onSearchEvents}
+          />
         )}
       </View>
     </SafeAreaView>

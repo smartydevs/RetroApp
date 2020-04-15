@@ -4,9 +4,9 @@ import { ScreenEnum } from '../lib/enums'
 import { createStackNavigator } from 'react-navigation-stack'
 import { fromRight } from 'react-navigation-transitions'
 import { EventContainer, EnterDetailsContainer, ChooseFeedContainer, SignupContainer,
-  LoginContainer, LoadingContainer, BottomNavigationContainer, ForgotPasswordContainer } from '../containers'
+  LoginContainer, LoadingContainer, BottomNavigationContainer, ForgotPasswordContainer, ProfileContainer } from '../containers'
 
-const { SIGN_UP, LOADING, LOG_IN, ENTER_DETAILS, MAIN, CHOOSE_FEED, EVENT, FORGOT_PASSWORD } = ScreenEnum
+const { SIGN_UP, LOADING, LOG_IN, ENTER_DETAILS, MAIN, CHOOSE_FEED, EVENT, FORGOT_PASSWORD, USER_PROFILE } = ScreenEnum
 
 const PrimaryNav = createStackNavigator(
   {
@@ -17,7 +17,8 @@ const PrimaryNav = createStackNavigator(
     [CHOOSE_FEED]: { screen: ChooseFeedContainer },
     [MAIN]: { screen: BottomNavigationContainer },
     [EVENT]: { screen: EventContainer },
-    [FORGOT_PASSWORD]: { screen: ForgotPasswordContainer }
+    [FORGOT_PASSWORD]: { screen: ForgotPasswordContainer },
+    [USER_PROFILE]: { screen: ProfileContainer }
   },
   {
     headerMode: 'none',
