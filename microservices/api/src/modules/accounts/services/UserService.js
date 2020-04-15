@@ -49,13 +49,29 @@ export default class UserService {
         $filters: {
           _id: userId,
         },
-        roles: 1,
-        email: 1,
         profile: {
           firstName: 1,
           lastName: 1,
           fullName: 1,
           avatar: {
+            path: 1,
+            fullPath: 1,
+          },
+        },
+        ownedEvents: {
+          _id: 1,
+          title: 1,
+          startDate: 1,
+          photo: {
+            path: 1,
+            fullPath: 1,
+          },
+        },
+        participatingEvents: {
+          _id: 1,
+          title: 1,
+          startDate: 1,
+          photo: {
             path: 1,
             fullPath: 1,
           },

@@ -1,7 +1,27 @@
 import ApiClient from '../../client'
 import { SAVE_MEMBER_AVATAR, UPDATE_USER_INFO } from './mutations'
+import { GET_USER_INFO } from './queries'
 
 const { currentInstance } = ApiClient
+
+const getUserInfo = async userId => {
+  try {
+    const { data } = await currentInstance().query({
+      mutation: GET_USER_INFO,
+      variables: { userId },
+    })
+
+    return {
+      isOk: true,
+      data,
+    }
+  } catch (error) {
+    return {
+      isOk: false,
+      data: error,
+    }
+  }
+}
 
 const saveMemberAvatar = async input => {
   try {
@@ -43,4 +63,4 @@ const updateUserInfo = async userInfo => {
   }
 }
 
-export { saveMemberAvatar }
+export { saveMemberAvatar, updateUserInfo, getUserInfo }
