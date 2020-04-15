@@ -111,33 +111,39 @@ export default class EventService {
 
   validateEventDetails(eventDetails) {
     const { startDate, endDate } = eventDetails;
+
+    const validatedStartDate = moment(startDate)
+      .second(0)
+      .toDate();
     const title = eventDetails.title.trim();
     const description = eventDetails.description.trim();
     //Checks that the endDate is not earlier than the startDate
-    if (moment(endDate).diff(moment(startDate)) <= 0) {
+    if (endDate && moment(endDate).diff(moment(startDate)) <= 0) {
       throw new Error('startDate-after-endDate');
     }
 
     return {
       ...eventDetails,
+      startDate: validatedStartDate,
       title,
       description,
     };
   }
 
-  async uploadEventPhoto(uploadPhoto) {
-    return await UploaderService.upload(uploadPhoto, null);
+  async uploadEventPhoto(eventId, uploadPhoto) {
+    const { db } = this;
+    const uploadedPhoto = await UploaderService.handleFileUpload(uploadPhoto, null);
+    await db.events.update(eventId, {
+      $set: {
+        photoId: uploadedPhoto._id,
+      },
+    });
+    return uploadedPhoto;
   }
 
   async createEvent(organiserId, eventDetails) {
     const { db } = this;
     const details = this.validateEventDetails(eventDetails);
-
-    if (details.uploadPhoto) {
-      const photoId = await this.uploadEventPhoto(details.uploadPhoto.originFileObj);
-      delete details.uploadPhoto;
-      details.photoId = photoId;
-    }
 
     const eventId = db.events.insert({
       organiserId,
@@ -215,6 +221,7 @@ export default class EventService {
 
     return {
       events,
+      eventsNumber: eventNr,
       hasMore: eventNr - offset > 0,
     };
   }

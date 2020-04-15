@@ -12,6 +12,7 @@ type Query {
 
 type UserEventsResponse {
     events: [Event]
+    eventsNumber: Int
     hasMore: Boolean
 }
 
@@ -22,11 +23,10 @@ input EventInput {
     startDate: Date!
     endDate: Date
     categoriesId: [String]
-    uploadPhoto: Upload
 }
 
 input LocationInput {
-    latitude: String!
-    longitude: String!
+    latitude: String
+    longitude: String
     addressName: String
 }

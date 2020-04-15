@@ -21,6 +21,49 @@ export default class MemberService {
     });
     Roles.addUsersToRoles(userId, RolesEnum.MEMBER);
 
+    const token = this._generateAuthToken(userId);
+
+    return { token, userId };
+  }
+
+  setUserPassword(email, newPassword) {
+    const user = Accounts.findUserByEmail(email);
+
+    return Accounts.setPassword(user._id, newPassword, { logout: false });
+  }
+
+  _changeUserEmail(user, newEmail) {
+    UserService.validateEmail(newEmail);
+
+    const userId = user._id;
+    const oldEmail = user.emails[0].address;
+    if (!oldEmail) {
+      throw new Error('invalid-user');
+    }
+
+    Accounts.removeEmail(userId, oldEmail);
+    Accounts.addEmail(userId, newEmail);
+  }
+
+  updateUserInfo(user, userInfo) {
+    const { db } = this;
+
+    if (userInfo.email) {
+      this._changeUserEmail(user, userInfo.email);
+    }
+
+    const updateObj = {};
+
+    if (userInfo.firstName) {
+      updateObj['profile.firstName'] = userInfo.firstName.trim();
+    }
+
+    if (userInfo.lastName) {
+      updateObj['profile.lastName'] = userInfo.lastName.trim();
+    }
+
+    db.users.update(user._id, { $set: updateObj });
+
     return true;
   }
 
@@ -96,6 +139,15 @@ export default class MemberService {
     });
   }
 
+  _generateAuthToken(userId) {
+    const stampedLoginToken = Accounts._generateStampedLoginToken();
+    Accounts._insertLoginToken(userId, stampedLoginToken);
+
+    const { token } = stampedLoginToken;
+
+    return token;
+  }
+
   loginMember(input) {
     const { db } = this;
     const email = input.email.trim();
@@ -113,8 +165,6 @@ export default class MemberService {
       throw new Error('Email not used');
     }
 
-    // const user = db.users.findOne(userId);
-
     const userId = user._id;
 
     const response = Accounts._checkPassword(user, password);
@@ -124,10 +174,7 @@ export default class MemberService {
 
     Accounts._clearAllLoginTokens(userId);
 
-    const stampedLoginToken = Accounts._generateStampedLoginToken();
-    Accounts._insertLoginToken(userId, stampedLoginToken);
-
-    const { token } = stampedLoginToken;
+    const token = this._generateAuthToken(userId);
 
     return { token, userId };
   }

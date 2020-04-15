@@ -13,7 +13,7 @@ import styles from './styles'
 const { container, center, marginVertical } = ApplicationStyles
 const { bigBoldTitle, creamText, boldTitle, button, primaryPinkText } = Fonts.style
 
-const LoginComponent = ({ onPressLogin, onPressForgotPassword, onPressFacebook,
+const LoginComponent = ({ onPressLogin, onPressForgotPassword,
   onPressSignUp, onChangePassword, onChangeEmail, email, password }) => {
   return (
     <KeyboardAwareScrollView
@@ -71,7 +71,6 @@ const LoginComponent = ({ onPressLogin, onPressForgotPassword, onPressFacebook,
 }
 
 LoginComponent.propTypes = {
-  onPressFacebook: PropTypes.func.isRequired,
   onPressForgotPassword: PropTypes.func.isRequired,
   onPressLogin: PropTypes.func.isRequired,
   onPressSignUp: PropTypes.func.isRequired

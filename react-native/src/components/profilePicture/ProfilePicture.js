@@ -42,7 +42,6 @@ const ProfilePicture = ({
   style = null,
   textStyle,
   imageSource,
-  onPress,
 }) => {
   const [colorNum] = useState(Math.floor(Math.random() * 9))
 
@@ -66,7 +65,7 @@ const ProfilePicture = ({
   return (
     <Image
       source={imageSource && { uri: imageSource }}
-      resizeMode="contain"
+      resizeMode="cover"
       style={[style]}
     />
   )

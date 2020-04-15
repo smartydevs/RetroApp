@@ -11,18 +11,6 @@ const styles = StyleSheet.create({
         marginHorizontal: normalizeWidth(40),
         marginVertical: normalizeHeight(20)
     },
-    separator: {
-        height: 3,
-        width: "100%",
-        backgroundColor: Colors.primaryLight,
-        alignSelf: "center",
-        shadowOpacity: 0.2,
-        shadowRadius: normalizeWidth(5),
-        shadowColor: Colors.black,
-        shadowOffset: { height: 0, width: 0 },
-        marginBottom: normalizeHeight(15),
-        marginTop: normalizeHeight(15)
-    },
     eventCard: {
         height: normalizeHeight(140),
         borderRadius: normalizeWidth(10),
@@ -41,6 +29,19 @@ const styles = StyleSheet.create({
         width: normalizeWidth(150),
         backgroundColor: Colors.primaryPink,
         color: Colors.cream
+    },
+    title: {
+        textAlign: 'center',
+        marginVertical: normalizeHeight(20)
+    },
+    reloadButton: {
+        backgroundColor: Colors.primaryPink,
+        marginBottom: normalizeHeight(20),
+        width: normalizeWidth(40),
+        height: normalizeWidth(40)
+    },
+    reloadLogo: {
+        color: Colors.light
     }
 })
 

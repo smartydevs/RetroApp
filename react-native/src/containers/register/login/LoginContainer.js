@@ -7,8 +7,6 @@ import ApiClient from '../../../api/client'
 import { Notification } from '../../../components'
 import strings from '../../../lib/stringEnums'
 
-const { MAIN } = ScreenEnum
-
 class LoginContainer extends Component {
   state = {
     email: '',
@@ -23,9 +21,9 @@ class LoginContainer extends Component {
     this.setState({ password })
   }
 
-  onPressForgotPassword = () => {}
-
-  onPressFacebook = () => {}
+  onPressForgotPassword = () => {
+    this.props.navigation.push(ScreenEnum.FORGOT_PASSWORD)
+  }
 
   onPressLogin = () => {
     const { state } = this
@@ -60,7 +58,6 @@ class LoginContainer extends Component {
         if (message.indexOf('Email not used') >= 0) {
           return Notification.show('Email or password wrong')
         }
-        console.log('login data', data)
         return Notification.show(strings.error, NotificationTypeEnum.ERROR)
       }
     })
@@ -95,7 +92,6 @@ class LoginContainer extends Component {
       <LoginComponent
         onChangeEmail={this.onChangeEmail}
         onChangePassword={this.onChangePassword}
-        onPressFacebook={this.onPressFacebook}
         onPressLogin={this.onPressLogin}
         onPressForgotPassword={this.onPressForgotPassword}
         onPressSignUp={this.onPressSignUp}

@@ -1,44 +1,65 @@
 import React from 'react'
 import { View, SafeAreaView, FlatList } from 'react-native'
-import { ApplicationStyles } from '../../../themes'
-import { Header, TextCard } from '../../../components'
+import { ApplicationStyles, Fonts } from '../../../themes'
+import { Header, TextCard, TextButton } from '../../../components'
 import strings from '../../../lib/stringEnums'
 import styles from './styles'
-import { notifications } from '../../../fixtures/NotificationsData'
-import { normalizeWidth } from '../../../themes/Metrics'
 
-const { container } = ApplicationStyles
+const { container, shadow } = ApplicationStyles
+const { button } = Fonts.style
 
-const NotificationComponent = ({ showNotification }) => {
-    const renderNotification = ({ _id, message = '', imageSource = '' }) => (
-        <TextCard
-            onPress={() => showNotification(_id)}
-            containerStyle={{marginHorizontal: normalizeWidth(5)}}
-            message={message}
-            imageSource={imageSource}
-            icon={'md-search'}
+const NotificationComponent = ({
+  showNotification,
+  notifications,
+  onSearchEvents,
+  markAllAsRead,
+}) => {
+  const renderNotification = ({
+    _id,
+    message = '',
+    imageSource = '',
+    eventId,
+    isViewed,
+  }) => (
+    <TextCard
+      onPress={() => showNotification(_id, eventId)}
+      containerStyle={styles.cardContainer(isViewed)}
+      message={message}
+      imageSource={imageSource}
+      icon={'md-search'}
+    />
+  )
+
+  return (
+    <SafeAreaView style={[container, styles.container]}>
+      <Header
+        icon={require('../../../../assets/icon.png')}
+        text={strings.notifications}
+      />
+      <View style={styles.content}>
+        <TextButton
+          text={'Mark all as read'}
+          textStyle={[button]}
+          onPress={markAllAsRead}
+          style={[styles.markAllAsRead, shadow]}
         />
-    )
-
-    return (
-        <SafeAreaView style={[container, styles.container]}>
-            <Header
-                icon={require("../../../../assets/icon.png")}
-                text={strings.notifications}
-            />
-            <View style={styles.content}>
-                {notifications && notifications.length ? (
-                    <FlatList
-                        data={notifications}
-                        keyExtractor={({_id}) => _id}
-                        renderItem={({ item }) => renderNotification(item)}
-                    />
-                ) : (
-                    <TextCard message={strings.noNotifications} icon={'md-search'} />
-                )}
-            </View>
-        </SafeAreaView>
-    )
+        {notifications && notifications.length ? (
+          <FlatList
+            data={notifications}
+            keyExtractor={({ _id }) => _id}
+            renderItem={({ item }) => renderNotification(item)}
+          />
+        ) : (
+          <TextCard
+            message={strings.noNotifications}
+            icon={'md-search'}
+            containerStyle={styles.noNotifications}
+            onPress={onSearchEvents}
+          />
+        )}
+      </View>
+    </SafeAreaView>
+  )
 }
 
 export default NotificationComponent

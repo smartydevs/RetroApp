@@ -12,8 +12,12 @@ export const GET_USER_EVENTS = gql`
           path
           fullPath
         }
+        location {
+          addressName
+        }
       }
       hasMore
+      eventsNumber
     }
   }
 `

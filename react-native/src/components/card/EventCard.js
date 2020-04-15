@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 3,
-    borderRadius: 25,
   },
   content: {
     flex: 8,
@@ -64,7 +63,7 @@ const EventCard = ({
   participants = [],
   date,
   isSmall = false,
-  eventImage = 'https://picsum.photos/1920/1080',
+  eventImage = null,
   containerStyle,
 }) => {
   const userParticipants = participants ? participants : []
@@ -96,9 +95,11 @@ const EventCard = ({
 
   return (
     <Row style={containerStyle}>
-      <View style={styles.imageContainer}>
-        <Image resizeMode="cover" style={styles.image} source={{ uri: eventImage }} />
-      </View>
+      {eventImage && (
+        <View style={styles.imageContainer}>
+          <Image resizeMode="cover" style={styles.image} source={{ uri: eventImage }} />
+        </View>
+      )}
       <View style={styles.content}>
         <Text style={[boldTitle, primaryDarkText, styles.title(isSmall)]}>
           {title}

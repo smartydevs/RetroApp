@@ -5,8 +5,8 @@ import { Notifications } from 'expo'
 
 import { HomeComponent } from '.'
 import { addPushToken, getUserEvents } from '../../../api'
-import { Notification } from '../../../components'
-import { NotificationTypeEnum } from '../../../lib/enums'
+import { Notification, Loading } from '../../../components'
+import { NotificationTypeEnum, ScreenEnum } from '../../../lib/enums'
 
 class HomeContainer extends Component {
   constructor(props) {
@@ -17,7 +17,13 @@ class HomeContainer extends Component {
       events: [],
       hasMore: true,
       loading: true,
+      eventsNumber: 0
     }
+  }
+
+  componentDidMount() {
+    this.checkPushToken()
+    this.getEvents()
   }
 
   saveToken = async () => {
@@ -67,17 +73,18 @@ class HomeContainer extends Component {
       )
     }
 
-    const { events, hasMore } = data.getUserEvents
+    const { events, hasMore, eventsNumber } = data.getUserEvents
 
     this.setState({
       events,
       hasMore,
+      eventsNumber,
       loading: false,
     })
 
   }
 
-  onGetMoreClick = async () => {
+  loadMore = async () => {
     await this.setState(prevState => ({
       offset: prevState.offset + 5,
     }))
@@ -85,17 +92,33 @@ class HomeContainer extends Component {
     this.getEvents()
   }
 
-  componentDidMount() {
-    this.checkPushToken()
-    this.getEvents()
+  showEvent = _id => {
+    this.props.navigation.navigate(ScreenEnum.EVENT, {
+      eventId: _id
+    })
   }
+
+  refreshPage = () => {
+    this.setState({ offset: 5, loading: true }, this.getEvents)
+  }
+
   render() {
-    const { events, hasMore, loading } = this.state
-    console.log('this state', this.state)
+    const { events, hasMore, loading, eventsNumber } = this.state
     if (loading) {
-      return <Text>Loading</Text>
+      return (
+        <Loading show={loading} />
+      )
     }
-    return <HomeComponent events={events} hasMore={hasMore} />
+    return (
+        <HomeComponent
+            events={events}
+            eventsNumber={eventsNumber}
+            hasMore={hasMore}
+            showEvent={this.showEvent}
+            loadMore={this.loadMore}
+            refreshPage={this.refreshPage}
+        />
+    )
   }
 }
 

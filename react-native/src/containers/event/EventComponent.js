@@ -1,20 +1,14 @@
 import React, { useState } from 'react'
-import {
-  View,
-  Text,
-  SafeAreaView,
-  ScrollView,
-  ImageBackground,
-} from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, ImageBackground } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import dayjs from 'dayjs'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 import { ApplicationStyles, Colors, Fonts } from '../../themes'
-import { Header, Row, ProfilePicture, TextButton } from '../../components'
+import { Header, Row, ProfilePicture, TextButton, Card } from '../../components'
 import { normalizeHeight } from '../../themes/Metrics'
 import styles from './styles'
 
-const { container, center } = ApplicationStyles
+const { container, center, shadow } = ApplicationStyles
 const {
   bigBoldTitle,
   whiteText,
@@ -30,16 +24,22 @@ const EventComponent = ({
   onPressToggleJoinButton,
   userJoined,
   eventData: {
-    eventImage = null,
+    photo,
     title,
     location: { addressName },
-    date,
+    startDate,
     description,
     users,
     organiser,
-  }
+    categories,
+  },
 }) => {
-  const renderParticipants = ({ profile: { firstName, lastName, profilePicture = null, _id }}) => (
+  const eventImageUrl = photo ? photo.fullPath : null
+
+  const renderParticipants = ({
+    _id,
+    profile: { firstName, lastName, profilePicture = null },
+  }) => (
     <TouchableOpacity onPress={() => onGoToUserPage(_id)}>
       <Row style={styles.participant}>
         <ProfilePicture
@@ -49,19 +49,29 @@ const EventComponent = ({
           style={styles.profilePicture}
           textStyle={button}
         />
-        <Text>
+        <Text style={[button, grayText]}>
           {firstName} {lastName}
         </Text>
       </Row>
     </TouchableOpacity>
   )
 
+  const renderCards = ({ name, photo: { fullPath } }) => (
+    <Card
+      title={name}
+      titleStyle={[button, grayText]}
+      cardStyle={styles.card}
+      containerStyle={[styles.cardContainer, shadow]}
+      imageSource={fullPath}
+    />
+  )
+  console.log('start data', startDate)
   return (
     <SafeAreaView style={[container, styles.container]}>
       <Header onPress={onGoBack} />
       <ScrollView>
         <ImageBackground
-          source={eventImage && { uri: eventImage }}
+          source={eventImageUrl && { uri: eventImageUrl }}
           style={styles.eventImage}
           resizeMode="contain"
         >
@@ -81,7 +91,9 @@ const EventComponent = ({
               {addressName}
             </Text>
             <Text style={[caption, primaryDarkText]}>
-              {dayjs(date).format('DD MMMM YYYY, HH:mm')}
+              {dayjs(startDate)
+                .subtract(3, 'hour')
+                .format('DD MMMM YYYY, HH:mm')}
             </Text>
           </View>
         </Row>
@@ -91,9 +103,24 @@ const EventComponent = ({
           </View>
           <Text style={[caption, primaryDarkText, { flex: 1 }]}>{description}</Text>
         </Row>
+
         <View style={[styles.lightGrayContainer, styles.padding]}>
+          <Text style={[button, grayText]}>Categories</Text>
+          <FlatList
+            contentContainerStyle={{ alignItems: 'center' }}
+            bounces={false}
+            keyExtractor={({ _id }) => _id}
+            data={categories}
+            renderItem={({ item }) => renderCards(item)}
+            numColumns={2}
+          />
+        </View>
+
+        <View style={[styles.padding]}>
           <Text style={[button, grayText, { marginBottom: normalizeHeight(5) }]}>
-            {users && users.length > 0 ? 'People going to this event' : 'Be the first one to go to this event !'}
+            {users && users.length > 0
+              ? 'People going to this event'
+              : 'Be the first one to go to this event !'}
           </Text>
           <FlatList
             contentContainerStyle={{ alignItems: 'center' }}
@@ -105,7 +132,9 @@ const EventComponent = ({
           />
         </View>
         <TouchableOpacity onPress={() => onGoToUserPage(organiser._id)}>
-          <Row style={[styles.padding, {alignItems: 'center'}]}>
+          <Row
+            style={[styles.lightGrayContainer, styles.padding, { alignItems: 'center' }]}
+          >
             <ProfilePicture
               imageSource={organiser.profile.avatar}
               firstName={organiser.profile.firstName}
@@ -114,21 +143,19 @@ const EventComponent = ({
               textStyle={button}
             />
             <View>
-              <Text style={[button, grayText, {marginBottom: normalizeHeight(5)}]}>
+              <Text style={[button, grayText, { marginBottom: normalizeHeight(5) }]}>
                 Organiser of this event
               </Text>
               <Text style={[caption, primaryDarkText]}>
-                {organiser.profile.firstName}
-                {' '}
-                {organiser.profile.lastName}
+                {organiser.profile.firstName} {organiser.profile.lastName}
               </Text>
             </View>
           </Row>
         </TouchableOpacity>
-        <View style={[styles.lightGrayContainer, styles.padding]}>
+        <View style={[styles.padding]}>
           <TextButton
             text={userJoined ? 'Leave Event' : 'Join Event'}
-            style={{backgroundColor: Colors.primaryDark}}
+            style={{ backgroundColor: userJoined ? Colors.red : Colors.primaryDark }}
             onPress={onPressToggleJoinButton}
           />
         </View>

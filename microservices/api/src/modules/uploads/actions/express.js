@@ -7,6 +7,7 @@ import os from 'os';
 
 import { UploaderService } from '../services';
 import { MemberService } from '../../accounts/services';
+import { EventService } from '../../core/services';
 
 const URL = Meteor.settings.public.AWS.S3.url;
 const app = Express();
@@ -33,6 +34,17 @@ app.post('/uploadAvatar', upload.single('photo'), async (req, res) => {
   const uploadedFile = await UploaderService.handleFileUpload(file);
 
   MemberService.saveMemberAvatar(userId, uploadedFile._id);
+
+  res.status(200).json({
+    message: 'success!',
+    path: URL + '/' + uploadedFile.path,
+  });
+});
+
+app.post('/event/image', upload.single('photo'), async (req, res) => {
+  const file = req.file;
+  const eventId = req.body.eventId;
+  const uploadedFile = await EventService.uploadEventPhoto(eventId, file);
 
   res.status(200).json({
     message: 'success!',

@@ -2,10 +2,11 @@ import React from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import PropTypes from 'prop-types'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+
 import { normalizeHeight, normalizeWidth } from '../../themes/Metrics';
 import { Fonts, Colors, ApplicationStyles } from '../../themes';
 import { Row } from '../general';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 const { shadow, center } = ApplicationStyles
 const { primaryDarkText, boldTitle } = Fonts.style
@@ -56,6 +57,7 @@ const TextCard = ({ containerStyle, message, imageSource = null, icon, onPress }
             />
         )
     }
+    
     return (
         <TouchableWithoutFeedback onPress={onPress}>
             <Row style={[styles.container, shadow, containerStyle]}>

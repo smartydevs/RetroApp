@@ -2,7 +2,10 @@ import gql from 'graphql-tag'
 
 const REGISTER_MEMBER = gql`
   mutation registerMember($input: ProfileInput!) {
-    registerMember(input: $input)
+    registerMember(input: $input) {
+      token
+      userId
+    }
   }
 `
 

@@ -30,7 +30,7 @@ class ChooseFeedContainer extends Component {
           return {
             _id: cat._id,
             name: cat.name,
-            imageSource: 'https://picsum.photos/1920/1080',
+            imageSource: cat.photo.fullPath,
           }
         })
         this.setState({

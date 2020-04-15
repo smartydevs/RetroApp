@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { Text, AsyncStorage } from 'react-native'
+import { AsyncStorage } from 'react-native'
 import { EventComponent } from '.'
 
 import { getEvent, joinEvent, leaveEvent } from '../../api/event'
-import { events } from '../../fixtures/EventsData'
 import { Notification, Loading } from '../../components'
-import Constants, { NotificationTypeEnum } from '../../lib/enums'
+import Constants, { NotificationTypeEnum, ScreenEnum } from '../../lib/enums'
 import strings from '../../lib/stringEnums'
 
 class EventContainer extends Component {
@@ -13,13 +12,41 @@ class EventContainer extends Component {
     eventData: {},
     loading: true,
     userJoined: false,
-    userId: null
+    userId: null,
   }
 
   componentDidMount() {
     const { eventId } = this.props.navigation.state.params
     this.getUserId()
+    this.getEvent(eventId)
+  }
 
+  getUserId = () => {
+    AsyncStorage.getItem(Constants.USER_ID).then(userId => {
+      this.setState({ userId })
+    })
+  }
+
+  setUserJoined = () => {
+    const {
+      eventData: { users },
+      userId,
+    } = this.state
+
+    if (!users || users.length === 0) {
+      return this.setState({ userJoined: false, loading: false })
+    }
+
+    const userJoined = users.find(user => user._id === userId)
+
+    if (userJoined) {
+      this.setState({ userJoined: true, loading: false })
+    } else {
+      this.setState({ userJoined: false, loading: false })
+    }
+  }
+
+  getEvent = eventId => {
     getEvent(eventId).then(({ data, isOk }) => {
       if (isOk) {
         this.setState({ eventData: data.getEvent }, this.setUserJoined)
@@ -30,39 +57,22 @@ class EventContainer extends Component {
     })
   }
 
-  getUserId = () => {
-    AsyncStorage.getItem(Constants.USER_ID).then(userId => {
-      this.setState({ userId })
-    })
-  }
-
-  setUserJoined = () => {
-    const { eventData: { users }, userId } = this.state
-
-    if (!users || users.length === 0) {
-      return this.setState({ userJoined: false, loading: false })
-    }
-
-    const userJoined = users.find(user => user._id === userId)
-  
-    if (userJoined) {
-      this.setState({ userJoined: true, loading: false})
-    } else {
-      this.setState({ userJoined: false, loading: false})
-    }
-
-  }
-
   onGoBack = () => {
     this.props.navigation.goBack()
   }
 
   onGoToUserPage = _id => {
-    console.log(_id)
+    this.props.navigation.navigate(ScreenEnum.USER_PROFILE, {
+      userId: _id,
+      notEditable: true
+    })
   }
 
   onPressToggleJoinButton = () => {
-    const { userJoined, eventData: { _id : eventId} } = this.state
+    const {
+      userJoined,
+      eventData: { _id: eventId },
+    } = this.state
 
     if (!userJoined) {
       return this.joinEvent(eventId)
@@ -70,33 +80,34 @@ class EventContainer extends Component {
     return this.leaveEvent(eventId)
   }
 
-  joinEvent = async (eventId) => {
+  joinEvent = async eventId => {
     const { data, isOk } = await joinEvent(eventId)
 
     if (isOk) {
-      this.setState({ userJoined: true})
+      this.setState({ userJoined: true, loading: true }, () => this.getEvent(eventId))
     } else {
       Notification.error(strings.error)
     }
   }
 
-  leaveEvent = async (eventId) => {
+  leaveEvent = async eventId => {
     const { data, isOk } = await leaveEvent(eventId)
-    console.log(data, isOk)
 
     if (isOk) {
-      this.setState({ userJoined: false})
+      this.setState({ userJoined: false, loading: true }, () => this.getEvent(eventId))
     } else {
       Notification.error(strings.error)
     }
   }
 
   render() {
-    console.log(this.state)
     const { loading, userJoined, eventData } = this.state
+    console.log(eventData)
+
     if (loading) {
       return <Loading show={loading} />
     }
+
     return (
       <EventComponent
         onGoBack={this.onGoBack}

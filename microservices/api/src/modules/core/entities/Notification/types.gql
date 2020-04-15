@@ -5,5 +5,10 @@ type Notification {
     eventId: String
     event: Event
     createdAt: Date
-    ##data: Object
+    data: NotificationData
+    isViewed: Boolean
+}
+
+type NotificationData {
+    message: String
 }

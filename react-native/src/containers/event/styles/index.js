@@ -44,7 +44,18 @@ const styles = StyleSheet.create({
   participant: {
     marginVertical: normalizeHeight(10),
     alignItems: 'center',
-    width: normalizeHeight(160),
+    width: normalizeWidth(150),
+  },
+  cardContainer: {
+    margin: 10,
+    alignItems: 'center',
+  },
+  card: {
+    backgroundColor: 'white',
+    width: normalizeWidth(100),
+    height: normalizeHeight(80),
+    borderRadius: 15,
+    marginBottom: normalizeHeight(10)
   },
 })
 

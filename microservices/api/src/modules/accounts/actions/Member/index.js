@@ -36,10 +36,18 @@ load({
         return MemberService.loginMember(loginInput);
       },
 
-      addPushToken(_, { token }, { userId }) {
+      addPushToken(_, { token }, { user }) {
+        SecurityService.checkLoggedIn({ userId: user._id });
+
+        return MemberService.addPushToken(user, token);
+      },
+      updateUserInfo(_, { userInfo }, { userId }) {
         SecurityService.checkLoggedIn({ userId });
 
-        return MemberService.addPushToken(userId, token);
+        return MemberService.updateUserInfo(userId, userInfo);
+      },
+      setUserPassword(_, { newPassword, email }) {
+        return MemberService.setUserPassword(email, newPassword);
       },
     },
   },

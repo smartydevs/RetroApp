@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, SafeAreaView, Image, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, SafeAreaView, Image } from 'react-native'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler'
 
 import {
@@ -21,42 +21,68 @@ const { container, shadow, center } = ApplicationStyles
 const { bigBoldTitle, primaryDarkText, boldTitle, grayText } = Fonts.style
 const { ON_GOING_EVENTS, CREATED_EVENTS } = LoadMoreEnum
 
-const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore, goingEvents, totalGoingEvents,
-    createdEvents, totalCreatedEvents, navigate, takeProfilePicture }) => {
+const ProfileComponent = ({
+  coverUrl,
+  showEvent,
+  loadMore,
+  navigate,
+  takeProfilePicture,
+  editable,
+  onGoBack,
+  user,
+}) => {
+  console.log('user', user)
+  const {
+    profile: { firstName, lastName, avatar },
+    ownedEvents: createdEvents,
+    participatingEvents: goingEvents,
+    email,
+  } = user
 
-    const renderGoingEvents = ({_id, title, location, date, eventImage}) => (
-        <TouchableOpacity
-            onPress={() => navigate(ScreenEnum.EVENT, {eventId: _id})}
-            style={{paddingHorizontal: normalizeWidth(5)}}
-            key={_id}
-        >
-            <EventCard
-                containerStyle={[styles.eventCard, shadow]}
-                title={title}
-                location={location}
-                date={date}
-                eventImage={eventImage}
-                isSmall
-            />
-        </TouchableOpacity>
+  const avatarUrl = avatar ? avatar.fullPath : ''
+  const totalGoingEvents = goingEvents ? goingEvents.length : 0
+  const totalCreatedEvents = createdEvents ? createdEvents.length : 0
+
+  const renderGoingEvents = ({ _id, title, location, date, photo }) => {
+    const eventImage = photo ? photo.fullPath : null
+    return (
+      <TouchableOpacity
+        onPress={() => navigate(ScreenEnum.EVENT, { eventId: _id })}
+        style={{ paddingHorizontal: normalizeWidth(5) }}
+        key={_id}
+      >
+        <EventCard
+          containerStyle={[styles.eventCard, shadow]}
+          title={title}
+          location={location}
+          date={date}
+          eventImage={eventImage}
+          isSmall
+        />
+      </TouchableOpacity>
     )
+  }
 
-  const renderCreatedEvents = ({ _id, title, location, date, eventImage }) => (
-    <TouchableOpacity
-      onPress={() => showEvent(_id)}
-      style={{ paddingHorizontal: normalizeWidth(5) }}
-      key={_id}
-    >
-      <EventCard
-        containerStyle={[styles.eventCard, shadow]}
-        title={title}
-        location={location}
-        date={date}
-        eventImage={eventImage}
-        isSmall
-      />
-    </TouchableOpacity>
-  )
+  const renderCreatedEvents = ({ _id, title, location, date, photo }) => {
+    const eventImage = photo ? photo.fullPath : null
+
+    return (
+      <TouchableOpacity
+        onPress={() => showEvent(_id)}
+        style={{ paddingHorizontal: normalizeWidth(5) }}
+        key={_id}
+      >
+        <EventCard
+          containerStyle={[styles.eventCard, shadow]}
+          title={title}
+          location={location}
+          date={date}
+          eventImage={eventImage}
+          isSmall
+        />
+      </TouchableOpacity>
+    )
+  }
 
   const getGoingEvents = () => {
     if (totalGoingEvents) {
@@ -66,24 +92,19 @@ const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore, 
             {strings.going}
           </Text>
           {goingEvents.map(event => renderGoingEvents(event))}
-          <TextButton
-            style={[styles.loadMore, center, { marginBottom: Metrics.margin }]}
-            onPress={() => loadMore(ON_GOING_EVENTS)}
-            text={strings.loadMore}
-          />
         </View>
       )
     }
 
-        return (
-            <TextCard
-                message={strings.noGoingEvents}
-                icon={'md-search'}
-                containerStyle={{margin: normalizeWidth(5)}}
-                onPress={() => navigate(BottomStackScreensEnum.SEARCH)}
-            />
-        )
-    }
+    return (
+      <TextCard
+        message={strings.noGoingEvents}
+        icon={'md-search'}
+        containerStyle={{ margin: normalizeWidth(5) }}
+        onPress={() => navigate(BottomStackScreensEnum.SEARCH)}
+      />
+    )
+  }
 
   const getCreatedEvents = () => {
     if (totalCreatedEvents) {
@@ -93,58 +114,62 @@ const ProfileComponent = ({ coverUrl, firstName, lastName, showEvent, loadMore, 
             {strings.created}
           </Text>
           {createdEvents.map(event => renderCreatedEvents(event))}
-          <TextButton
-            style={[styles.loadMore]}
-            onPress={() => loadMore(CREATED_EVENTS)}
-            text={strings.loadMore}
-          />
         </View>
       )
     }
 
-        return (
-            <TextCard
-                message={strings.noCreatedEvents}
-                icon={'md-create'}
-                containerStyle={{margin: normalizeWidth(5)}}
-                onPress={() => navigate(BottomStackScreensEnum.CREATE)}
-            />
-        )
-    }
-
     return (
-        <SafeAreaView style={[container, styles.container]}>
-            <Header
-                icon={require("../../../../assets/icon.png")}
-                text={'Profile'}
-            />
-            <ScrollView>
-                <Image
-                    style={styles.cover}
-                    resizeMode="cover"
-                    source={coverUrl && {uri: coverUrl}}
-                />
-                <Row style={styles.infoContainer}>
-                    <Button onPress={takeProfilePicture}>
-                        <ProfilePicture
-                            firstName={firstName}
-                            lastName={lastName}
-                            style={styles.profilePicture}
-                        />
-                    </Button>
-                    <Text style={[bigBoldTitle, primaryDarkText]}>
-                        {firstName}
-                        {' '}
-                        {lastName}
-                    </Text>
-                </Row>
-                <View style={[styles.content]}>
-                    {getGoingEvents()}
-                    {getCreatedEvents()}
-                </View>
-            </ScrollView>
-        </SafeAreaView>
+      <TextCard
+        message={strings.noCreatedEvents}
+        icon={'md-create'}
+        containerStyle={{ margin: normalizeWidth(5) }}
+        onPress={() => navigate(BottomStackScreensEnum.CREATE)}
+      />
     )
+  }
+
+  return (
+    <SafeAreaView style={[container, styles.container]}>
+      <Header
+        icon={editable && require('../../../../assets/icon.png')}
+        text={'Profile'}
+        onPress={onGoBack}
+      />
+      <ScrollView>
+        <Image
+          style={styles.cover}
+          resizeMode="cover"
+          source={coverUrl && { uri: coverUrl }}
+        />
+        <Row style={styles.infoContainer}>
+          {editable ? (
+            <Button onPress={takeProfilePicture}>
+              <ProfilePicture
+                firstName={firstName}
+                lastName={lastName}
+                style={styles.profilePicture}
+                imageSource={avatarUrl}
+              />
+            </Button>
+          ) : (
+            <ProfilePicture
+              firstName={firstName}
+              lastName={lastName}
+              style={styles.profilePicture}
+              imageSource={avatarUrl}
+            />
+          )}
+          <Text style={[bigBoldTitle, primaryDarkText]}>
+            {firstName} {lastName}
+          </Text>
+        </Row>
+        <View style={[styles.content]}>
+          {getGoingEvents()}
+          {getCreatedEvents()}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  )
 }
 
 export default ProfileComponent

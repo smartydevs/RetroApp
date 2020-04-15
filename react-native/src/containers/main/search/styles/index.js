@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     content: {
         flex: 1,
         marginHorizontal: normalizeWidth(30),
-        paddingHorizontal: normalizeWidth(10),
+        paddingHorizontal: normalizeWidth(10)
     },
     eventCardStyle: {
         height: normalizeHeight(140),
@@ -40,6 +40,11 @@ const styles = StyleSheet.create({
         top: 15,
         backgroundColor: Colors.lightGray,
         marginBottom: normalizeHeight(20)
+    },
+    eventNotFound: {
+        height: normalizeHeight(120),
+        flex: 0,
+        margin: normalizeWidth(5)
     }
 })
 

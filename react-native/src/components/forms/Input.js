@@ -1,51 +1,57 @@
-import {StyleSheet, TextInput, Image, TouchableWithoutFeedback, Keyboard} from 'react-native'
+import {
+  StyleSheet,
+  TextInput,
+  Image,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native'
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Metrics, Colors, ApplicationStyles } from '../../themes'
 import { Row } from '..'
-import { normalizeWidth } from '../../themes/Metrics'
+import { normalizeWidth, normalizeHeight } from '../../themes/Metrics'
 
-const {white, black, primaryGray} = Colors
-const {imageSize, input} = Metrics.forms
+const { white, black, primaryGray } = Colors
+const { imageSize, input } = Metrics.forms
 
 const styles = StyleSheet.create({
   container: {
     height: input.height,
-    borderWidth: Metrics.border.base,
+    // borderWidth: Metrics.border.base,
     backgroundColor: white,
-    paddingLeft: normalizeWidth(20),
-    borderRadius: normalizeWidth(10)
+    paddingHorizontal: normalizeWidth(20),
+    borderRadius: normalizeWidth(10),
+    justifyContent: 'flex-start',
   },
   textStyle: {
     margin: 0,
     textAlignVertical: 'center',
     flex: 1,
     padding: 0,
-    color: black
+    color: black,
   },
   image: {
-    ...imageSize
-  }
+    ...imageSize,
+  },
 })
 
-const {alignCenter} = ApplicationStyles
+const { alignCenter, shadow } = ApplicationStyles
 
-const Input = (props) => {
-  const {containerStyle, textStyle, iconSource} = props
+const Input = props => {
+  const { containerStyle, textStyle, iconSource } = props
   let textInputRef
 
-  let {color} = props
-  const [borderColor, setBorderColor] = useState(color || primaryGray)
+  let { color } = props
 
-  const onPressInput = (textRef) => {
+  const onPressInput = textRef => {
     textRef.focus()
   }
 
   return (
     <TouchableWithoutFeedback onPress={() => onPressInput(textInputRef)}>
-      <Row style={[styles.container, alignCenter, containerStyle, {borderColor}]}>
+      <Row style={[styles.container, alignCenter, containerStyle, shadow]}>
         <TextInput
-          autoCapitalize='none'
+          autoCapitalize="none"
           ref={textRef => {
             textInputRef = textRef
           }}
@@ -53,11 +59,10 @@ const Input = (props) => {
           placeholderTextColor={primaryGray}
           style={[styles.textStyle, textStyle]}
           onSubmitEditing={Keyboard.dismiss}
-          onEndEditing={() => setBorderColor(color || primaryGray)}
         />
-        {
-          iconSource && <Image style={styles.image} source={iconSource} resizeMode='contain' />
-        }
+        {iconSource && (
+          <Image style={styles.image} source={iconSource} resizeMode="contain" />
+        )}
       </Row>
     </TouchableWithoutFeedback>
   )
@@ -68,7 +73,7 @@ Input.propTypes = {
   textStyle: PropTypes.instanceOf(Object),
   color: PropTypes.number,
   iconSource: PropTypes.number,
-  ...TextInput.propTypes
+  ...TextInput.propTypes,
 }
 
 Input.defaultProps = {

@@ -10,28 +10,70 @@ export default class NotificationService {
   getUserNotifications(userId) {
     const { db } = this;
 
-    return db.notifications
-      .find({
-        receiverId: userId,
-        isViewed: false,
+    const notifications = db.notifications
+      .createQuery({
+        $filters: {
+          receiverId: userId,
+        },
+        $options: {
+          sort: {
+            createdAt: -1,
+          },
+        },
+        _id: 1,
+        isViewed: 1,
+        data: {
+          message: 1,
+        },
+        event: {
+          _id: 1,
+          photo: {
+            path: 1,
+            fullPath: 1,
+          },
+        },
       })
       .fetch();
+
+    return notifications;
+  }
+
+  readAllUserNotifications(userId) {
+    const { db } = this;
+
+    db.notifications.update(
+      { receiverId: userId },
+      { $set: { isViewed: true } },
+      { multi: true }
+    );
+
+    return true;
+  }
+
+  readUserNotification(userId, notificationId) {
+    const { db } = this;
+
+    const res = db.notifications.update(
+      { receiverId: userId, _id: notificationId },
+      { $set: { isViewed: true } }
+    );
+    return true;
   }
 
   //Handles the notification creation for events that will start in 24 hours
   createNotificationsFor24HoursEvents() {
+    // WE ADD 3 MORE HOURS TO HANDLE OUR TIME ZONE
     const dateIn24Hours = moment()
+      .add(3, 'hour')
       .add(1, 'day')
-      .minute(0)
       .second(0)
       .millisecond(0)
       .toDate();
 
     const eventsIn24Hours = EventService.getEventsOnDate(dateIn24Hours);
     let messages = [];
-
     eventsIn24Hours.forEach(event => {
-      const { title, users } = event;
+      const { title, users = [] } = event;
       const data = {
         message: `Event ${title} will start in 24 hours`,
       };
@@ -58,18 +100,17 @@ export default class NotificationService {
 
   ////Handles the notification creation for events that will start in 3 hours
   createNotificationsFor3HoursEvents() {
+    // WE ADD 3 MORE HOURS TO HANDLE OUR TIME ZONE
     const dateIn3Hours = moment()
-      .add(3, 'hour')
-      .minute(0)
+      .add(6, 'hour')
       .second(0)
       .millisecond(0)
       .toDate();
 
     const eventsIn3Hours = EventService.getEventsOnDate(dateIn3Hours);
     let messages = [];
-
     eventsIn3Hours.forEach(event => {
-      const { title, users } = event;
+      const { title, users = [] } = event;
       const data = {
         message: `Event ${title} will start in 3 hours`,
       };
@@ -95,17 +136,17 @@ export default class NotificationService {
 
   //Handles the notification creation for events that are starting right now
   createNotificationsForNowEvents() {
+    // WE ADD 3 MORE HOURS TO HANDLE OUR TIME ZONE
     const now = moment()
-      .minute(0)
+      .add(3, 'hour')
       .second(0)
       .millisecond(0)
       .toDate();
 
-    const events = EventService.getEventsOnDate(now);gi
+    const events = EventService.getEventsOnDate(now);
     let messages = [];
-
     events.forEach(event => {
-      const { title, users } = event;
+      const { title, users = [] } = event;
       const data = {
         message: `Event ${title} just started`,
       };
@@ -154,10 +195,12 @@ export default class NotificationService {
     };
   }
 
-  sendNotificationChunks(messages) {
+  sendNotificationChunks(messages = []) {
     const expo = new Expo();
 
-    const chunks = expo.chunkPushNotifications(messages);
+    const finalMessages = messages.filter(m => !!m);
+
+    const chunks = expo.chunkPushNotifications(finalMessages);
     let tickets = [];
     (async () => {
       for (let chunk of chunks) {

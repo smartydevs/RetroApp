@@ -2,24 +2,54 @@ import React, { Component } from 'react'
 import * as Permissions from 'expo-permissions'
 import * as ImagePicker from 'expo-image-picker'
 import { Platform } from 'react-native-web'
-import { AsyncStorage } from 'react-native'
-import { Camera } from 'expo-camera'
+import { AsyncStorage, Alert } from 'react-native'
 
 import { ProfileComponent } from '.'
-import { saveMemberAvatar } from '../../../api'
-import { NotificationTypeEnum } from '../../../lib/enums'
-import { events as Events } from '../../../fixtures/EventsData'
-import { Notification } from '../../../components'
-import strings from '../../../lib/stringEnums'
-import Constants, { NotificationLength } from '../../../lib/enums'
+import { OS } from '../../../lib/enums'
+import { Notification, Loading } from '../../../components'
+import { getUserInfo } from '../../../api/'
 
 class ProfileContainer extends Component {
   state = {
     hasPermission: null,
+    editable: true,
+    userId: null,
+    user: {},
+    loading: true,
   }
 
   componentDidMount() {
-    this.cameraSetUp()
+    const { params } = this.props.navigation.state
+
+    if (params) {
+      this.setState({
+        editable: false,
+        userId: params.userId,
+      })
+      this.getUser(params.userId)
+    } else {
+      this.cameraSetUp()
+      this.getUser()
+    }
+  }
+
+  getUser = async (userId = null) => {
+    const { data, isOk } = await getUserInfo(userId)
+
+    if (!isOk) {
+      this.setState({
+        loading: false,
+      })
+      console.log('data', data)
+      return Notification.error('Something went wrong')
+    }
+
+    const user = data.getUserInfo
+
+    this.setState({
+      loading: false,
+      user,
+    })
   }
 
   cameraSetUp = async () => {
@@ -41,20 +71,42 @@ class ProfileContainer extends Component {
   }
 
   takeProfilePicture = async () => {
-    if (
-      this.state.hasCameraPermission === false ||
-      this.state.hasCameraRollPermission === false
-    ) {
-    } else {
-      let result = await ImagePicker.launchCameraAsync()
-      const userId = await AsyncStorage.getItem('userId')
-      const photoData = this.createFormData(result, userId)
-      this.saveAvatar(photoData)
-    }
+    Alert.alert('Add photo', 'Choose a photo or create one and upload it.', [
+      {
+        text: 'Camera',
+        onPress: async () => {
+          if (
+            this.state.hasCameraPermission === false ||
+            this.state.hasCameraRollPermission === false
+          ) {
+          } else {
+            let result = await ImagePicker.launchCameraAsync()
+            const userId = await AsyncStorage.getItem('userId')
+            const photoData = this.createFormData(result, userId)
+            this.saveAvatar(photoData)
+          }
+        },
+      },
+      {
+        text: 'Library',
+        onPress: async () => {
+          if (this.state.hasCameraRollPermission === false) {
+          } else {
+            let result = await ImagePicker.launchImageLibraryAsync()
+            const userId = await AsyncStorage.getItem('userId')
+            const photoData = this.createFormData(result, userId)
+            this.saveAvatar(photoData)
+          }
+        },
+      },
+      {
+        text: 'Cancel',
+      },
+    ])
   }
 
   saveAvatar(photoData) {
-    fetch('http://16a0e090.ngrok.io/uploadAvatar', {
+    fetch('http://134.122.68.158:3000/uploadAvatar', {
       method: 'POST',
       body: photoData,
     })
@@ -66,6 +118,7 @@ class ProfileContainer extends Component {
       })
       .catch(error => {
         console.log('upload error', error)
+        Notification.error('Something went wrong while uploading the picture')
       })
   }
 
@@ -74,7 +127,7 @@ class ProfileContainer extends Component {
     data.append('photo', {
       name: 'Image',
       type: photo.type,
-      uri: Platform.OS === 'android' ? photo.uri : photo.uri.replace('file://', ''),
+      uri: Platform.OS === OS.ANDROID ? photo.uri : photo.uri.replace('file://', ''),
     })
 
     data.append('userId', userId)
@@ -90,25 +143,27 @@ class ProfileContainer extends Component {
     console.log(listType)
   }
 
+  onGoBack = () => {
+    this.props.navigation.goBack()
+  }
+
   render() {
-    const events = []
-    const totalGoingEvents = events.length
-    const totalCreatedEvents = events.length
+    const { editable, loading, user } = this.state
+
+    if (loading) {
+      return <Loading show={loading} />
+    }
 
     return (
       <ProfileComponent
-        coverUrl={'https://picsum.photos/300/300'}
-        avatarUrl={this.state.avatarUrl}
-        firstName="vlad"
-        lastName="romila"
-        goingEvents={events}
-        totalGoingEvents={totalGoingEvents}
-        createdEvents={events}
-        totalCreatedEvents={totalCreatedEvents}
+        coverUrl={''}
+        user={user}
         showEvent={this.showEvent}
         loadMore={this.loadMore}
         navigate={this.props.navigation.navigate}
         takeProfilePicture={this.takeProfilePicture}
+        editable={editable}
+        onGoBack={this.onGoBack}
       />
     )
   }

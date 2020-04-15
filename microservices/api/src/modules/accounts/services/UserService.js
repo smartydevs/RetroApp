@@ -44,18 +44,48 @@ export default class UserService {
   getUserInfo(userId) {
     const { db } = this;
 
-    return db.user
+    const users = db.users
       .createQuery({
-        $filter: {
+        $filters: {
           _id: userId,
         },
-        roles: 1,
-        email: 1,
         profile: {
           firstName: 1,
           lastName: 1,
           fullName: 1,
           avatar: {
+            path: 1,
+            fullPath: 1,
+          },
+        },
+        followingCategories: {
+          _id: 1,
+          name: 1,
+          photo: {
+            path: 1,
+            fullPath: 1,
+          },
+        },
+        ownedEvents: {
+          _id: 1,
+          title: 1,
+          startDate: 1,
+          location: {
+            addressName: 1,
+          },
+          photo: {
+            path: 1,
+            fullPath: 1,
+          },
+        },
+        participatingEvents: {
+          _id: 1,
+          title: 1,
+          startDate: 1,
+          location: {
+            addressName: 1,
+          },
+          photo: {
             path: 1,
             fullPath: 1,
           },
@@ -67,5 +97,7 @@ export default class UserService {
         },
       })
       .fetch();
+    console.log('users', users);
+    return users ? users[0] : {};
   }
 }
