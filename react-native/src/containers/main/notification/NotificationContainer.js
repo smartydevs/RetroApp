@@ -37,7 +37,7 @@ class NotificationContainer extends Component {
     clearInterval(this.setInterval)
   }
 
-  readAllNotifications = async () => {
+  markAllAsRead = async () => {
     const { isOk, data } = await readAllUserNotifications()
 
     if (!isOk) {
@@ -84,18 +84,6 @@ class NotificationContainer extends Component {
   }
 
   onSearchEvents = () => this.props.navigation.navigate(BottomStackScreensEnum.SEARCH)
-
-  markAllAsRead = () => {
-    const { notifications } = this.state
-    notifications.forEach((notification) => {
-      notification.isViewed = true
-    })
-    this.setState({ notifications })
-  }
-
-  markAsRead = notificationId => {
-
-  }
 
   render() {
     const { notifications, loading } = this.state
