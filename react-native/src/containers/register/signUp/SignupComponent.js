@@ -15,52 +15,54 @@ const { bigBoldTitle, creamText, primaryPinkText } = Fonts.style
 
 const SignupComponent = ({ onChangeEmail, onChangePassword, onChangeRepeatPassword, email,
   password, repeatPassword, onPressFacebook, onPressSignUp }) => (
-    <KeyboardAwareScrollView
-      scrollEnabled={false}
-      contentContainerStyle={[container, center, styles.screen]}
-      enableOnAndroid={false}
-    >
-      <Image
-        source={Images.logo}
-        style={styles.logo}
-        resizeMode={'contain'}
-      />
-      <Text style={[styles.welcome, bigBoldTitle, creamText]}>
-        Welcome to{' '}
-        <Text style={primaryPinkText}>
-          Retr
+    <View style={[container]}>
+      <KeyboardAwareScrollView
+        scrollEnabled={true}
+        contentContainerStyle={[container, center, styles.screen]}
+        enableOnAndroid={false}
+      >
+        <Image
+          source={Images.logo}
+          style={styles.logo}
+          resizeMode={'contain'}
+        />
+        <Text style={[styles.welcome, bigBoldTitle, creamText]}>
+          Welcome to{' '}
+          <Text style={primaryPinkText}>
+            Retr
           </Text>
           Up
         </Text>
-      <View style={styles.maxWidth}>
-        <Input
-          containerStyle={[styles.inputContainer]}
-          placeholder={strings.email}
-          onChangeText={onChangeEmail}
-          value={email}
-        />
-        <Input
-          containerStyle={[styles.inputContainer]}
-          placeholder={strings.password}
-          autoCompleteType={'password'}
-          onChangeText={onChangePassword}
-          value={password}
-          secureTextEntry
-        />
-        <Input
-          containerStyle={[styles.inputContainer]}
-          placeholder={strings.repeatPassword}
-          autoCompleteType={'password'}
-          onChangeText={onChangeRepeatPassword}
-          value={repeatPassword}
-          secureTextEntry
-        />
-      </View>
-      <TextButton style={[styles.signup]} onPress={() => {
-        Keyboard.dismiss();
-        onPressSignUp()
-      }} text={strings.signup} />
-    </KeyboardAwareScrollView>
+        <View style={styles.maxWidth}>
+          <Input
+            containerStyle={[styles.inputContainer]}
+            placeholder={strings.email}
+            onChangeText={onChangeEmail}
+            value={email}
+          />
+          <Input
+            containerStyle={[styles.inputContainer]}
+            placeholder={strings.password}
+            autoCompleteType={'password'}
+            onChangeText={onChangePassword}
+            value={password}
+            secureTextEntry
+          />
+          <Input
+            containerStyle={[styles.inputContainer]}
+            placeholder={strings.repeatPassword}
+            autoCompleteType={'password'}
+            onChangeText={onChangeRepeatPassword}
+            value={repeatPassword}
+            secureTextEntry
+          />
+        </View>
+        <TextButton style={[styles.signup]} onPress={() => {
+          Keyboard.dismiss();
+          onPressSignUp()
+        }} text={strings.signup} />
+      </KeyboardAwareScrollView>
+    </View>
   )
 
 SignupComponent.propTypes = {
@@ -70,7 +72,6 @@ SignupComponent.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   repeatPassword: PropTypes.string.isRequired,
-  onPressFacebook: PropTypes.func.isRequired,
   onPressSignUp: PropTypes.func.isRequired,
 }
 

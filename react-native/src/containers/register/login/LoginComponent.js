@@ -16,57 +16,59 @@ const { bigBoldTitle, creamText, boldTitle, button, primaryPinkText } = Fonts.st
 const LoginComponent = ({ onPressLogin, onPressForgotPassword,
   onPressSignUp, onChangePassword, onChangeEmail, email, password }) => {
   return (
-    <KeyboardAwareScrollView
-      scrollEnabled={false}
-      contentContainerStyle={[container, center, styles.screen]}
-      enableOnAndroid={false}
-    >
-      <Image
-        source={Images.logo}
-        style={styles.logo}
-        resizeMode={'contain'}
-      />
-      <Text style={[styles.welcome, bigBoldTitle, creamText]}>
-        Welcome to{' '}
-        <Text style={primaryPinkText}>
-          Retr
+    <View style={[container]}>
+      <KeyboardAwareScrollView
+        scrollEnabled={true}
+        contentContainerStyle={[container, center, styles.screen]}
+        enableOnAndroid={false}
+      >
+        <Image
+          source={Images.logo}
+          style={styles.logo}
+          resizeMode={'contain'}
+        />
+        <Text style={[styles.welcome, bigBoldTitle, creamText]}>
+          Welcome to{' '}
+          <Text style={primaryPinkText}>
+            Retr
           </Text>
           Up
         </Text>
-      <View style={styles.maxWidth}>
-        <Input
-          containerStyle={[styles.inputContainer]}
-          placeholder={strings.email}
-          onChangeText={onChangeEmail}
-          value={email}
+        <View style={styles.maxWidth}>
+          <Input
+            containerStyle={[styles.inputContainer]}
+            placeholder={strings.email}
+            onChangeText={onChangeEmail}
+            value={email}
+          />
+          <Input
+            placeholder={strings.password}
+            autoCompleteType={'password'}
+            onChangeText={onChangePassword}
+            value={password}
+            secureTextEntry
+          />
+        </View>
+        <TextButton
+          textStyle={[boldTitle, creamText]}
+          text={strings.forgotPassword}
+          onPress={onPressForgotPassword}
+          style={marginVertical}
         />
-        <Input
-          placeholder={strings.password}
-          autoCompleteType={'password'}
-          onChangeText={onChangePassword}
-          value={password}
-          secureTextEntry
+        <TextButton
+          style={[styles.login]}
+          onPress={onPressLogin}
+          text={strings.login}
         />
-      </View>
-      <TextButton
-        textStyle={[boldTitle, creamText]}
-        text={strings.forgotPassword}
-        onPress={onPressForgotPassword}
-        style={marginVertical}
-      />
-      <TextButton
-        style={[styles.login]}
-        onPress={onPressLogin}
-        text={strings.login}
-      />
-      <TextButton
-        text={strings.notOnApp}
-        onPress={() => {
-          Keyboard.dismiss()
-          onPressSignUp()
-        }}
-      />
-    </KeyboardAwareScrollView>
+        <TextButton
+          text={strings.notOnApp}
+          onPress={() => {
+            Keyboard.dismiss()
+            onPressSignUp()
+          }}
+        />
+      </KeyboardAwareScrollView>
+    </View>
   )
 }
 
