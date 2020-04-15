@@ -35,7 +35,8 @@ export const ScreenEnum = {
   MAIN: 'Main',
   EVENT: 'Event',
   FORGOT_PASSWORD: 'ForgotPassword',
-  USER_PROFILE: 'UserProfile'
+  USER_PROFILE: 'UserProfile',
+  EDIT: 'Edit'
 }
 
 export const BottomStackScreensEnum = {
@@ -55,11 +56,6 @@ export const NotificationLength = {
   SHORT: 1000,
   LONG: 2000,
   FOREVER: 0,
-}
-
-export const LoadMoreEnum = {
-  ON_GOING_EVENTS: 'onGoingEvents',
-  CREATED_EVENTS: 'creaedEvents',
 }
 
 export default Constants

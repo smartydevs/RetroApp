@@ -3,12 +3,8 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import {
   View,
   Text,
-  StyleSheet,
   SafeAreaView,
-  ScrollView,
   ImageBackground,
-  Platform,
-  KeyboardAvoidingView,
 } from 'react-native'
 import dayjs from 'dayjs'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -16,13 +12,12 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { ApplicationStyles, Colors, Fonts } from '../../../themes'
 import { Header, TextButton, Input, Card } from '../../../components'
 import { normalizeHeight } from '../../../themes/Metrics'
-import { OS } from '../../../lib/enums'
 import styles from './styles'
 import { initialState, reducer } from './reducer'
 import { FlatList } from 'react-native-gesture-handler'
 
 const { container, shadow } = ApplicationStyles
-const { bigBoldTitle, button, grayText, centeredText, whiteText } = Fonts.style
+const { bigBoldTitle, button, grayText, centeredText } = Fonts.style
 
 const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo, cards, cardsChosen, onCardPress }) => {
   const dt = new Date()

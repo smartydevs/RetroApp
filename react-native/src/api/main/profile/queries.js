@@ -20,14 +20,17 @@ export const GET_USER_INFO = gql`
         _id
         name
         photo {
-          path
           fullPath
+          path
         }
       }
       ownedEvents {
         _id
         title
         startDate
+        location {
+          addressName
+        }
         photo {
           path
           fullPath
@@ -37,6 +40,9 @@ export const GET_USER_INFO = gql`
         _id
         title
         startDate
+        location {
+          addressName
+        }
         photo {
           path
           fullPath

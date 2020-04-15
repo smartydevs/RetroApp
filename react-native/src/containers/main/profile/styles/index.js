@@ -37,24 +37,38 @@ const styles = StyleSheet.create({
         shadowOffset: { height: 0, width: 0 }
     },
     eventCard: {
-        height: normalizeHeight(90),
-        maxHeight: normalizeHeight(100),
+        height: normalizeHeight(150),
         borderRadius: normalizeWidth(10),
         backgroundColor: Colors.lightGray,
         marginBottom: normalizeHeight(20)
     },
     infoContainer: {
-        marginTop: Metrics.margin,
-        paddingHorizontal: normalizeWidth(40),
-        height: normalizeWidth(50),
+        height: normalizeWidth(80),
         borderBottomWidth: normalizeHeight(4),
         borderColor: Colors.lighCream,
-        padding: Metrics.margin
+        padding: Metrics.margin,
+        justifyContent: 'space-between'
     },
     loadMore: {
         width: normalizeWidth(150),
         backgroundColor: Colors.primaryPink,
         color: Colors.cream
+    },
+    smallBtn: {
+        backgroundColor: Colors.primaryAqua,
+        width: normalizeWidth(40),
+        height: normalizeWidth(40),
+        marginHorizontal: normalizeWidth(5)
+    },
+    smallBtnLogo: {
+        color: Colors.gray
+    },
+    eventButton: {
+        width: '50%'
+    },
+    buttonsRow: {
+        justifyContent: 'space-between',
+        marginBottom: normalizeHeight(15)
     }
 })
 

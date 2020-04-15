@@ -5,9 +5,9 @@ import { Platform } from 'react-native-web'
 import { AsyncStorage, Alert } from 'react-native'
 
 import { ProfileComponent } from '.'
-import { OS } from '../../../lib/enums'
+import { OS, ScreenEnum } from '../../../lib/enums'
 import { Notification, Loading } from '../../../components'
-import { getUserInfo } from '../../../api/'
+import { getUserInfo } from '../../../api'
 
 class ProfileContainer extends Component {
   state = {
@@ -136,16 +136,26 @@ class ProfileContainer extends Component {
     return data
   }
 
-  showEvent = _id => {
-    console.log(_id)
-  }
-
-  loadMore = listType => {
-    console.log(listType)
-  }
-
   onGoBack = () => {
     this.props.navigation.goBack()
+  }
+
+  logout = () => {
+    Alert.alert("Log Out", "Are you sure you want to log out ?", [{
+      text: "Yes",
+      onPress: () => {
+        AsyncStorage.clear()
+        this.props.navigation.navigate(ScreenEnum.LOG_IN)
+      }
+    }, {
+      text: "No"
+    }])
+  }
+
+  editData = () => {
+    this.props.navigation.navigate(ScreenEnum.EDIT, {
+      user: this.state.user
+    })
   }
 
   render() {
@@ -157,15 +167,14 @@ class ProfileContainer extends Component {
 
     return (
       <ProfileComponent
-        coverUrl={''}
         user={user}
         avatarUrl={avatarUrl}
-        showEvent={this.showEvent}
-        loadMore={this.loadMore}
         navigate={this.props.navigation.navigate}
         takeProfilePicture={this.takeProfilePicture}
         editable={editable}
         onGoBack={this.onGoBack}
+        logout={this.logout}
+        editData={this.editData}
       />
     )
   }
