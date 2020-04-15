@@ -49,6 +49,7 @@ export default class UserService {
         $filters: {
           _id: userId,
         },
+        _id: 1,
         profile: {
           firstName: 1,
           lastName: 1,

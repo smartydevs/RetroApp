@@ -1,5 +1,6 @@
 import Users from './collection';
 import { Categories, Events } from '../../../core/db';
+import { AppUploads } from '../../../uploads/db';
 
 Users.addLinks({
   ownedEvents: {
@@ -14,5 +15,10 @@ Users.addLinks({
     collection: Categories,
     field: 'profile.categoryIds',
     type: 'many',
+  },
+  avatar: {
+    collection: AppUploads,
+    field: 'profile.avatarId',
+    type: 'one',
   },
 });

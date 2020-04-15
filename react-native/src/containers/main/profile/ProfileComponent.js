@@ -26,6 +26,7 @@ const ProfileComponent = ({
   showEvent,
   loadMore,
   navigate,
+  avatarUrl: photoUrl,
   takeProfilePicture,
   editable,
   onGoBack,
@@ -39,7 +40,7 @@ const ProfileComponent = ({
     email,
   } = user
 
-  const avatarUrl = avatar ? avatar.fullPath : ''
+  const avatarUrl = photoUrl ? photoUrl : avatar ? avatar.fullPath : ''
   const totalGoingEvents = goingEvents ? goingEvents.length : 0
   const totalCreatedEvents = createdEvents ? createdEvents.length : 0
 

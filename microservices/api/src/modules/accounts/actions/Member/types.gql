@@ -13,9 +13,10 @@ type Query {
 }
 
 input UserInfoInput {
-    firstName: String!
-    lastName: String!
-    email: String!
+    firstName: String
+    lastName: String
+    email: String
+    categoriesId: [String]
 }
 
 input ProfileInput {
