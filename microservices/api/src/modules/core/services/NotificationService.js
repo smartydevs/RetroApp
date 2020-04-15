@@ -14,7 +14,9 @@ export default class NotificationService {
       .createQuery({
         $filters: {
           receiverId: userId,
-          isViewed: false,
+        },
+        $sort: {
+          createdAt: -1,
         },
         _id: 1,
         data: {

@@ -60,6 +60,7 @@ class NotificationContainer extends Component {
       message: notification.data.message,
       imageSource: notification.event.photo ? notification.event.photo.fullPath : '',
       eventId: notification.event._id,
+      isViewed: notification.isViewed,
     }))
 
     this.setState({
