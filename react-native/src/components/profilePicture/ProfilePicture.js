@@ -44,7 +44,6 @@ const ProfilePicture = ({
   imageSource,
 }) => {
   const [colorNum] = useState(Math.floor(Math.random() * 9))
-  console.log('imageSource',  imageSource)
 
   const getBackgroundColor = () => {
     const backgroundColor = backgroundColors[colorNum]

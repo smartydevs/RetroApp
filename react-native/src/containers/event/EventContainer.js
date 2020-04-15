@@ -90,7 +90,6 @@ class EventContainer extends Component {
 
   leaveEvent = async eventId => {
     const { data, isOk } = await leaveEvent(eventId)
-    console.log(data, isOk)
 
     if (isOk) {
       this.setState({ userJoined: false, loading: true }, () => this.getEvent(eventId))
