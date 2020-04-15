@@ -13,7 +13,7 @@ const { container, center } = ApplicationStyles
 const { bigBoldTitle, creamText } = Fonts.style
 
 const ForgotPasswordComponent = ({ onChangeEmail, onChangePassword, onChangeRepeatPassword, email,
-  password, repeatPassword, onPressChangePassword }) => (
+  password, repeatPassword, onPressChangePassword, editable }) => (
     <View style={[container]}><KeyboardAwareScrollView
       scrollEnabled={true}
       contentContainerStyle={[container, center, styles.screen]}
@@ -33,6 +33,7 @@ const ForgotPasswordComponent = ({ onChangeEmail, onChangePassword, onChangeRepe
           placeholder={strings.email}
           onChangeText={onChangeEmail}
           value={email}
+          editable={editable}
         />
         <Input
           containerStyle={[styles.inputContainer]}

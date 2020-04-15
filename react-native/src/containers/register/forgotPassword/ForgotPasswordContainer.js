@@ -10,6 +10,7 @@ class ForgotPasswordContainer extends Component {
     email: '',
     password: '',
     repeatPassword: '',
+    editable: false
   }
 
   onChangeEmail = email => {
@@ -42,12 +43,17 @@ class ForgotPasswordContainer extends Component {
 
     this.props.navigation.goBack()
   }
-
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ editable: true })
+    }, 100)
+  }
   render() {
     const { email, password, repeatPassword } = this.state
 
     return (
       <ForgotPasswordComponent
+        editable
         onChangeEmail={this.onChangeEmail}
         onChangePassword={this.onChangePassword}
         onChangeRepeatPassword={this.onChangeRepeatPassword}

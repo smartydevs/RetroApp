@@ -14,7 +14,7 @@ const { container, center } = ApplicationStyles
 const { bigBoldTitle, creamText, primaryPinkText } = Fonts.style
 
 const SignupComponent = ({ onChangeEmail, onChangePassword, onChangeRepeatPassword, email,
-  password, repeatPassword, onPressFacebook, onPressSignUp }) => (
+  password, repeatPassword, onPressFacebook, onPressSignUp, editable }) => (
     <View style={[container]}>
       <KeyboardAwareScrollView
         scrollEnabled={true}
@@ -35,6 +35,7 @@ const SignupComponent = ({ onChangeEmail, onChangePassword, onChangeRepeatPasswo
         </Text>
         <View style={styles.maxWidth}>
           <Input
+            editable={editable}
             containerStyle={[styles.inputContainer]}
             placeholder={strings.email}
             onChangeText={onChangeEmail}

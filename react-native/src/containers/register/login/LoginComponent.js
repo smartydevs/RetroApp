@@ -14,7 +14,7 @@ const { container, center, marginVertical } = ApplicationStyles
 const { bigBoldTitle, creamText, boldTitle, button, primaryPinkText } = Fonts.style
 
 const LoginComponent = ({ onPressLogin, onPressForgotPassword,
-  onPressSignUp, onChangePassword, onChangeEmail, email, password }) => {
+  onPressSignUp, onChangePassword, onChangeEmail, email, password, editable }) => {
   return (
     <View style={[container]}>
       <KeyboardAwareScrollView
@@ -36,6 +36,7 @@ const LoginComponent = ({ onPressLogin, onPressForgotPassword,
         </Text>
         <View style={styles.maxWidth}>
           <Input
+            editable={editable}
             containerStyle={[styles.inputContainer]}
             placeholder={strings.email}
             onChangeText={onChangeEmail}

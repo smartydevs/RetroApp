@@ -11,6 +11,7 @@ class LoginContainer extends Component {
   state = {
     email: '',
     password: '',
+    editable: false
   }
 
   onChangeEmail = email => {
@@ -84,12 +85,18 @@ class LoginContainer extends Component {
   onPressSignUp = () => {
     this.props.navigation.push(ScreenEnum.SIGN_UP)
   }
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ editable: true })
+    }, 100)
+  }
 
   render() {
     const { email, password } = this.state
 
     return (
       <LoginComponent
+        editable={this.state.editable}
         onChangeEmail={this.onChangeEmail}
         onChangePassword={this.onChangePassword}
         onPressLogin={this.onPressLogin}
