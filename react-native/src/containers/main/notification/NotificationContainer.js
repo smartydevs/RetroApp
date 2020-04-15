@@ -25,7 +25,7 @@ class NotificationContainer extends Component {
     this.setInterval()
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.clearInterval()
   }
 
@@ -43,6 +43,17 @@ class NotificationContainer extends Component {
     if (!isOk) {
       return Notification.error('Something went wrong')
     }
+
+    const { notifications } = this.state
+
+    const newNotifications = notifications.map(n => ({
+      ...n,
+      isViewed: true,
+    }))
+
+    this.setState({
+      notifications: newNotifications,
+    })
   }
 
   showNotification = async (notificationId, eventId) => {
@@ -52,7 +63,20 @@ class NotificationContainer extends Component {
       return Notification.error('Something went wrong')
     }
 
-    this.markAsRead(notificationId)
+    const { notifications } = this.state
+
+    this.setState({
+      notifications: notifications.map(n => {
+        if (n._id === notificationId) {
+          return {
+            ...n,
+            isViewed: true,
+          }
+        }
+
+        return n
+      }),
+    })
 
     this.props.navigation.navigate(ScreenEnum.EVENT, {
       eventId,
@@ -76,7 +100,6 @@ class NotificationContainer extends Component {
       eventId: notification.event._id,
       isViewed: notification.isViewed,
     }))
-
     this.setState({
       loading: false,
       notifications,

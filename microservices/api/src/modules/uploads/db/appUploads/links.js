@@ -10,7 +10,6 @@ AppUploads.addReducers({
       path: 1,
     },
     reduce({ path }) {
-      console.log('upload path', path);
       return URL + '/' + path;
     },
   },
