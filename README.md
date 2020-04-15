@@ -1,20 +1,19 @@
 # RetrUp
+RetrUp is a platform where the users can create or participate in Retro-themed events.
 
-RetrUp este o platforma in care poti crea si participa la evenimente cu tematica Retro.
-
-### Evenimentele
-Evenimentele sunt inmpartite in mai multe categorii, utilizatorul putand sa isi selecteze prefererintele, avand astfel rezultate personalizate:
- - muzică
- - modă
- - jocuri
- - cutlură
+### Events
+Events are divided into several categories, the user being able to select their preferences, thus having personalized results:
+ - music
+ - fashion
+ - gaming
+ - culture
  - sport
-### Instalare aplicație
-Pentru a rula aplicația pe un emulator este novoie de expo-cli. Pentru a îl instala vom rula:
+### Install RetrUp
+In order to run the app, expo-cli needs to be installed globally:
 ```sh
 npm install -g expo-cli
 ```
-Odată ce proiectul a fost clonat, vom naviga in interiorul proiectului, urmând apoi să efectuăm următoarele comenzi:
+Once the repository has been cloned, several commands need to be executed:
 ```sh
 $ cd react-native
 $ npm install
