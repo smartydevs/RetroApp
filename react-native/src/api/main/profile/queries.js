@@ -9,7 +9,17 @@ export const GET_USER_INFO = gql`
         firstName
         lastName
         fullName
+        categoryIds
+        avatarId
         avatar {
+          path
+          fullPath
+        }
+      }
+      followingCategories {
+        _id
+        name
+        photo {
           path
           fullPath
         }
