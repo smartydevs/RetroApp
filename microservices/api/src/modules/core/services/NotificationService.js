@@ -10,12 +10,27 @@ export default class NotificationService {
   getUserNotifications(userId) {
     const { db } = this;
 
-    return db.notifications
-      .find({
-        receiverId: userId,
-        isViewed: false,
+    const notifications = db.notifications
+      .createQuery({
+        $filters: {
+          receiverId: userId,
+          isViewed: false,
+        },
+        _id: 1,
+        data: {
+          message: 1,
+        },
+        event: {
+          _id: 1,
+          photo: {
+            path: 1,
+            fullPath: 1,
+          },
+        },
       })
       .fetch();
+
+    return notifications;
   }
 
   readAllUserNotifications(userId) {
@@ -31,7 +46,13 @@ export default class NotificationService {
   }
 
   readUserNotification(userId, notificationId) {
+    const { db } = this;
 
+    const res = db.notifications.update(
+      { receiverId: userId, _id: notificationId },
+      { $set: { isViewed: true } }
+    );
+    return true;
   }
 
   //Handles the notification creation for events that will start in 24 hours
@@ -172,7 +193,9 @@ export default class NotificationService {
   sendNotificationChunks(messages = []) {
     const expo = new Expo();
 
-    const chunks = expo.chunkPushNotifications(messages);
+    const finalMessages = messages.filter(m => !!m);
+
+    const chunks = expo.chunkPushNotifications(finalMessages);
     let tickets = [];
     (async () => {
       for (let chunk of chunks) {

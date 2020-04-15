@@ -58,7 +58,6 @@ class LoginContainer extends Component {
         if (message.indexOf('Email not used') >= 0) {
           return Notification.show('Email or password wrong')
         }
-        console.log('login data', data)
         return Notification.show(strings.error, NotificationTypeEnum.ERROR)
       }
     })

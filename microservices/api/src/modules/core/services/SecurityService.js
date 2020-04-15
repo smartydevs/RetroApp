@@ -1,6 +1,10 @@
 import { Roles } from 'meteor/alanning:roles';
 
 export default class SecurityService {
+  constructor(injection) {
+    Object.assign(this, injection);
+  }
+
   checkLoggedIn({ userId }) {
     if (!userId) {
       throw new Error('not-authorized', 'You are not authorized');

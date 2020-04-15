@@ -8,7 +8,7 @@ load({
   resolvers: {
     Query: {
       getUserNotifications(_, args, { userId }) {
-        SecurityService.checkLoggedIn({ userId });
+        SecurityService.checkLoggedIn({  userId });
 
         return NotificationService.getUserNotifications(userId);
       },
