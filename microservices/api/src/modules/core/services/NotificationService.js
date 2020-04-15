@@ -15,10 +15,13 @@ export default class NotificationService {
         $filters: {
           receiverId: userId,
         },
-        $sort: {
-          createdAt: -1,
+        $options: {
+          sort: {
+            createdAt: -1,
+          },
         },
         _id: 1,
+        isViewed: 1,
         data: {
           message: 1,
         },
