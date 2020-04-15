@@ -8,7 +8,7 @@ Events are divided into several categories, the user being able to select their 
  - gaming
  - culture
  - sport
-### Install RetrUp
+### Run RetrUp on local emulator
 In order to run the app, expo-cli needs to be installed globally:
 ```sh
 npm install -g expo-cli
@@ -21,3 +21,4 @@ $ expo start -c
 ```
 
 It is important to note that while the app is being tested on an emulator, [the push notifications will not work](https://docs.expo.io/versions/latest/sdk/notifications/)!
+If you have an Android device, once you run `expo start -c` a QR Code that you can scan using the [Expo App](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_US) will appear in the command line. This way, if your phone is connected to the same network as your computer, you will be able to test the app directly from your phone.
