@@ -57,9 +57,4 @@ export const NotificationLength = {
   FOREVER: 0,
 }
 
-export const LoadMoreEnum = {
-  ON_GOING_EVENTS: 'onGoingEvents',
-  CREATED_EVENTS: 'creaedEvents',
-}
-
 export default Constants

@@ -37,15 +37,13 @@ const styles = StyleSheet.create({
         shadowOffset: { height: 0, width: 0 }
     },
     eventCard: {
-        height: normalizeHeight(90),
-        maxHeight: normalizeHeight(100),
+        height: normalizeHeight(120),
         borderRadius: normalizeWidth(10),
         backgroundColor: Colors.lightGray,
         marginBottom: normalizeHeight(20)
     },
     infoContainer: {
-        marginTop: Metrics.margin,
-        height: normalizeWidth(50),
+        height: normalizeWidth(80),
         borderBottomWidth: normalizeHeight(4),
         borderColor: Colors.lighCream,
         padding: Metrics.margin,
@@ -64,6 +62,13 @@ const styles = StyleSheet.create({
     },
     smallBtnLogo: {
         color: Colors.gray
+    },
+    eventButton: {
+        width: '50%'
+    },
+    buttonsRow: {
+        justifyContent: 'space-between',
+        marginBottom: normalizeHeight(15)
     }
 })
 

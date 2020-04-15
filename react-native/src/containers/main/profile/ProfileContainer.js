@@ -6,26 +6,50 @@ import { AsyncStorage, Alert } from 'react-native'
 
 import { ProfileComponent } from '.'
 import { OS, ScreenEnum } from '../../../lib/enums'
-import { Notification } from '../../../components'
+import { Notification, Loading } from '../../../components'
+import { getUserInfo } from '../../../api'
 
 class ProfileContainer extends Component {
   state = {
     hasPermission: null,
     editable: true,
-    userId: null
+    userId: null,
+    user: {},
+    loading: true,
   }
 
   componentDidMount() {
-    const {params} = this.props.navigation.state
+    const { params } = this.props.navigation.state
 
     if (params) {
       this.setState({
         editable: false,
-        userId: params.userId
+        userId: params.userId,
       })
+      this.getUser(params.userId)
     } else {
       this.cameraSetUp()
+      this.getUser()
     }
+  }
+
+  getUser = async (userId = null) => {
+    const { data, isOk } = await getUserInfo(userId)
+
+    if (!isOk) {
+      this.setState({
+        loading: false,
+      })
+      console.log('data', data)
+      return Notification.error('Something went wrong')
+    }
+
+    const user = data.getUserInfo
+
+    this.setState({
+      loading: false,
+      user,
+    })
   }
 
   cameraSetUp = async () => {
@@ -47,34 +71,38 @@ class ProfileContainer extends Component {
   }
 
   takeProfilePicture = async () => {
-    Alert.alert("Add photo", "Choose a photo or create one and upload it.", [{
-      text: "Camera", onPress: async () => {
-        if (
-          this.state.hasCameraPermission === false ||
-          this.state.hasCameraRollPermission === false
-        ) {
-        } else {
-          let result = await ImagePicker.launchCameraAsync()
-          const userId = await AsyncStorage.getItem('userId')
-          const photoData = this.createFormData(result, userId)
-          this.saveAvatar(photoData)
-        }
-      }
-    }, {
-      text: "Library", onPress: async () => {
-        if (
-          this.state.hasCameraRollPermission === false
-        ) {
-        } else {
-          let result = await ImagePicker.launchImageLibraryAsync()
-          const userId = await AsyncStorage.getItem('userId')
-          const photoData = this.createFormData(result, userId)
-          this.saveAvatar(photoData)
-        }
-      }
-    }, {
-      text: "Cancel"
-    }])
+    Alert.alert('Add photo', 'Choose a photo or create one and upload it.', [
+      {
+        text: 'Camera',
+        onPress: async () => {
+          if (
+            this.state.hasCameraPermission === false ||
+            this.state.hasCameraRollPermission === false
+          ) {
+          } else {
+            let result = await ImagePicker.launchCameraAsync()
+            const userId = await AsyncStorage.getItem('userId')
+            const photoData = this.createFormData(result, userId)
+            this.saveAvatar(photoData)
+          }
+        },
+      },
+      {
+        text: 'Library',
+        onPress: async () => {
+          if (this.state.hasCameraRollPermission === false) {
+          } else {
+            let result = await ImagePicker.launchImageLibraryAsync()
+            const userId = await AsyncStorage.getItem('userId')
+            const photoData = this.createFormData(result, userId)
+            this.saveAvatar(photoData)
+          }
+        },
+      },
+      {
+        text: 'Cancel',
+      },
+    ])
   }
 
   saveAvatar(photoData) {
@@ -107,10 +135,6 @@ class ProfileContainer extends Component {
     return data
   }
 
-  showEvent = _id => {
-    console.log(_id)
-  }
-
   loadMore = listType => {
     console.log(listType)
   }
@@ -136,24 +160,16 @@ class ProfileContainer extends Component {
   }
 
   render() {
-    const { editable } = this.state
-    console.log('editable', editable)
-    const events = []
-    const totalGoingEvents = events.length
-    const totalCreatedEvents = events.length
+    const { editable, loading, user } = this.state
+
+    if (loading) {
+      return <Loading show={loading} />
+    }
 
     return (
       <ProfileComponent
         coverUrl={''}
-        avatarUrl={this.state.avatarUrl}
-        firstName="vlad"
-        lastName="romila"
-        email='vlad@romila.com'
-        goingEvents={events}
-        totalGoingEvents={totalGoingEvents}
-        createdEvents={events}
-        totalCreatedEvents={totalCreatedEvents}
-        showEvent={this.showEvent}
+        user={user}
         loadMore={this.loadMore}
         navigate={this.props.navigation.navigate}
         takeProfilePicture={this.takeProfilePicture}

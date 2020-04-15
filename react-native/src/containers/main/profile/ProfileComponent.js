@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, Text, SafeAreaView, Image } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, SafeAreaView, Image, FlatList } from 'react-native'
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler'
 
 import {
@@ -13,84 +13,61 @@ import {
 } from '../../../components'
 import { ApplicationStyles, Fonts } from '../../../themes'
 import Metrics, { normalizeWidth } from '../../../themes/Metrics'
-import { LoadMoreEnum, BottomStackScreensEnum, ScreenEnum } from '../../../lib/enums'
+import { BottomStackScreensEnum, ScreenEnum } from '../../../lib/enums'
 import strings from '../../../lib/stringEnums'
 import styles from './styles'
 import { Ionicons } from '@expo/vector-icons'
 
 const { container, shadow, center } = ApplicationStyles
-const { bigBoldTitle, primaryDarkText, boldTitle, grayText, caption } = Fonts.style
-const { ON_GOING_EVENTS, CREATED_EVENTS } = LoadMoreEnum
+const { bigBoldTitle, primaryDarkText, primaryPinkText, grayText, caption, button } = Fonts.style
 
 const ProfileComponent = ({
   coverUrl,
-  firstName,
-  lastName,
-  email,
-  showEvent,
-  loadMore,
-  goingEvents,
-  totalGoingEvents,
-  createdEvents,
-  totalCreatedEvents,
   navigate,
   takeProfilePicture,
-  avatarUrl = null,
   editable,
   onGoBack,
   logout,
-  editData
+  editData,
+  user,
 }) => {
+  const [showedList, setShowedList] = useState('onGoing')
 
-  const renderGoingEvents = ({ _id, title, location, date, eventImage }) => (
-    <TouchableOpacity
-      onPress={() => navigate(ScreenEnum.EVENT, { eventId: _id })}
-      style={{ paddingHorizontal: normalizeWidth(5) }}
-      key={_id}
-    >
-      <EventCard
-        containerStyle={[styles.eventCard, shadow]}
-        title={title}
-        location={location}
-        date={date}
-        eventImage={eventImage}
-        isSmall
-      />
-    </TouchableOpacity>
-  )
+  console.log('user', user)
+  const {
+    profile: { firstName, lastName, avatar },
+    ownedEvents: createdEvents,
+    participatingEvents: goingEvents,
+    email,
+  } = user
 
-  const renderCreatedEvents = ({ _id, title, location, date, eventImage }) => (
-    <TouchableOpacity
-      onPress={() => showEvent(_id)}
-      style={{ paddingHorizontal: normalizeWidth(5) }}
-      key={_id}
-    >
-      <EventCard
-        containerStyle={[styles.eventCard, shadow]}
-        title={title}
-        location={location}
-        date={date}
-        eventImage={eventImage}
-        isSmall
-      />
-    </TouchableOpacity>
-  )
+  const avatarUrl = avatar ? avatar.fullPath : ''
+  const totalGoingEvents = goingEvents ? goingEvents.length : 0
+  const totalCreatedEvents = createdEvents ? createdEvents.length : 0
+
+  const renderEvents = ({ _id, title, location, startDate, photo }) => {
+    const eventImage = photo ? photo.fullPath : null
+    return (
+      <TouchableOpacity
+        onPress={() => navigate(ScreenEnum.EVENT, { eventId: _id })}
+        style={{ paddingHorizontal: normalizeWidth(5) }}
+        key={_id}
+      >
+        <EventCard
+          containerStyle={[styles.eventCard, shadow]}
+          title={title}
+          location={location && location.addressName}
+          date={startDate}
+          eventImage={eventImage}
+          isSmall
+        />
+      </TouchableOpacity>
+    )
+  }
 
   const getGoingEvents = () => {
     if (totalGoingEvents) {
-      return (
-        <View>
-          <Text style={[boldTitle, grayText, { paddingVertical: Metrics.margin }]}>
-            {strings.going}
-          </Text>
-          {goingEvents.map(event => renderGoingEvents(event))}
-          <TextButton
-            style={[styles.loadMore, center, { marginBottom: Metrics.margin }]}
-            onPress={() => loadMore(ON_GOING_EVENTS)}
-            text={strings.loadMore}
-          />
-        </View>
-      )
+      return goingEvents.map(event => renderEvents(event))
     }
 
     return (
@@ -105,19 +82,7 @@ const ProfileComponent = ({
 
   const getCreatedEvents = () => {
     if (totalCreatedEvents) {
-      return (
-        <View>
-          <Text style={[boldTitle, grayText, { paddingVertical: Metrics.margin }]}>
-            {strings.created}
-          </Text>
-          {createdEvents.map(event => renderCreatedEvents(event))}
-          <TextButton
-            style={[styles.loadMore]}
-            onPress={() => loadMore(CREATED_EVENTS)}
-            text={strings.loadMore}
-          />
-        </View>
-      )
+      return createdEvents.map(event => renderEvents(event))
     }
 
     return (
@@ -137,7 +102,7 @@ const ProfileComponent = ({
         text={'Profile'}
         onPress={onGoBack}
       />
-      <ScrollView>
+      <ScrollView bounces={false}>
         <Image
           style={styles.cover}
           resizeMode="cover"
@@ -199,8 +164,21 @@ const ProfileComponent = ({
           )}
         </Row>
         <View style={[styles.content]}>
-          {getGoingEvents()}
-          {getCreatedEvents()}
+          <Row style={styles.buttonsRow}>
+            <TextButton
+              text={'Going Events'}
+              textStyle={[button, grayText, showedList === 'onGoing' && primaryPinkText]}
+              style={styles.eventButton}
+              onPress={() => setShowedList('onGoing')}
+            />
+            <TextButton
+              text={'Created Events'}
+              textStyle={[button, grayText, showedList === 'created' && primaryPinkText]}
+              style={styles.eventButton}
+              onPress={() => setShowedList('created')}
+            />
+          </Row>
+          {showedList === 'onGoing' ? getGoingEvents() : getCreatedEvents()}
         </View>
       </ScrollView>
     </SafeAreaView>
