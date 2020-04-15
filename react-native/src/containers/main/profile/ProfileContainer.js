@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import * as Permissions from 'expo-permissions'
 import * as ImagePicker from 'expo-image-picker'
 import { Platform } from 'react-native-web'
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, Alert } from 'react-native'
 
 import { ProfileComponent } from '.'
-import { saveMemberAvatar } from '../../../api'
 import { OS } from '../../../lib/enums'
 import { Notification } from '../../../components'
 
@@ -48,16 +47,34 @@ class ProfileContainer extends Component {
   }
 
   takeProfilePicture = async () => {
-    if (
-      this.state.hasCameraPermission === false ||
-      this.state.hasCameraRollPermission === false
-    ) {
-    } else {
-      let result = await ImagePicker.launchCameraAsync()
-      const userId = await AsyncStorage.getItem('userId')
-      const photoData = this.createFormData(result, userId)
-      this.saveAvatar(photoData)
-    }
+    Alert.alert("Add photo", "Choose a photo or create one and upload it.", [{
+      text: "Camera", onPress: async () => {
+        if (
+          this.state.hasCameraPermission === false ||
+          this.state.hasCameraRollPermission === false
+        ) {
+        } else {
+          let result = await ImagePicker.launchCameraAsync()
+          const userId = await AsyncStorage.getItem('userId')
+          const photoData = this.createFormData(result, userId)
+          this.saveAvatar(photoData)
+        }
+      }
+    }, {
+      text: "Library", onPress: async () => {
+        if (
+          this.state.hasCameraRollPermission === false
+        ) {
+        } else {
+          let result = await ImagePicker.launchImageLibraryAsync()
+          const userId = await AsyncStorage.getItem('userId')
+          const photoData = this.createFormData(result, userId)
+          this.saveAvatar(photoData)
+        }
+      }
+    }, {
+      text: "Cancel"
+    }])
   }
 
   saveAvatar(photoData) {

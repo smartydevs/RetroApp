@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import * as Permissions from 'expo-permissions'
 import * as ImagePicker from 'expo-image-picker'
+import { AsyncStorage, Alert } from 'react-native'
 
 import { CreateEventComponent } from '.'
-import { createEvent, saveEventPhoto } from '../../../api/main/event'
+import { createEvent, saveEventPhoto, getCategories } from '../../../api'
 import { Notification } from '../../../components'
 import { NotificationTypeEnum, BottomStackScreensEnum } from '../../../lib/enums'
-import { AsyncStorage } from 'react-native'
-import { getCategories } from '../../../api'
 import strings from '../../../lib/stringEnums'
 
 class CreateEventContainer extends Component {
@@ -44,15 +43,34 @@ class CreateEventContainer extends Component {
   }
 
   onAddPhoto = async () => {
-    const havePermissionForPhoto =
-      this.state.hasCameraPermission && this.state.hasCameraRollPermission
-    if (havePermissionForPhoto) {
-      let result = await ImagePicker.launchCameraAsync()
-      await this.setState({
-        photo: result,
-        photoExisting: true,
-      })
-    }
+    Alert.alert("Add photo", "Choose a photo or create one and upload it.", [{
+      text: "Camera", onPress: async () => {
+        const havePermissionForPhoto =
+          this.state.hasCameraPermission && this.state.hasCameraRollPermission
+        if (havePermissionForPhoto) {
+          let result = await ImagePicker.launchCameraAsync()
+          await this.setState({
+            photo: result,
+            photoExisting: true,
+          })
+        }
+      }
+    }, {
+      text: "Library", onPress: async () => {
+        const havePermissionForPhoto =
+          this.state.hasCameraRollPermission
+        if (havePermissionForPhoto) {
+          let result = await ImagePicker.launchImageLibraryAsync()
+          await this.setState({
+            photo: result,
+            photoExisting: true,
+          })
+        }
+      }
+    }, {
+      text: "Cancel"
+    }])
+
   }
 
   onCreateEvent = async (eventDetails, callback) => {
