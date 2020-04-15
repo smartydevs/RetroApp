@@ -11,8 +11,16 @@ class EditContainer extends Component {
   }
 
   componentDidMount () {
+    const { email, followingCategories, profile: { firstName, lastName }} = this.props.navigation.state.params.user
+    // console.log(this.props.navigation.state.params)
+
     this.setState({
-      user: this.props.navigation.state.params,
+      user : {
+        email,
+        followingCategories,
+        firstName,
+        lastName,
+      },
       loading: false
     })
   }
