@@ -140,14 +140,23 @@ const ProfileComponent = ({
           source={coverUrl && { uri: coverUrl }}
         />
         <Row style={styles.infoContainer}>
-          <Button onPress={takeProfilePicture}>
+          {editable ? (
+            <Button onPress={takeProfilePicture}>
+              <ProfilePicture
+                firstName={firstName}
+                lastName={lastName}
+                style={styles.profilePicture}
+                imageSource={avatarUrl}
+              />
+            </Button>
+          ) : (
             <ProfilePicture
               firstName={firstName}
               lastName={lastName}
               style={styles.profilePicture}
               imageSource={avatarUrl}
             />
-          </Button>
+          )}
           <Text style={[bigBoldTitle, primaryDarkText]}>
             {firstName} {lastName}
           </Text>

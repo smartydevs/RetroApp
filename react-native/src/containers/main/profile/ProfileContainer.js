@@ -18,14 +18,15 @@ class ProfileContainer extends Component {
 
   componentDidMount() {
     const {params} = this.props.navigation.state
-    console.log('params', params && params.notEditable)
+
     if (params) {
       this.setState({
         editable: false,
         userId: params.userId
-      }, () => console.log(this.state))
+      })
+    } else {
+      this.cameraSetUp()
     }
-    this.cameraSetUp()
   }
 
   cameraSetUp = async () => {
