@@ -62,6 +62,10 @@ export default class MemberService {
       updateObj['profile.lastName'] = userInfo.lastName.trim();
     }
 
+    if (userInfo.categoriesId) {
+      updateObj['profile.categoriesId'] = userInfo.categoriesId;
+    }
+
     db.users.update(user._id, { $set: updateObj });
 
     return true;

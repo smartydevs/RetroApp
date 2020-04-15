@@ -2,9 +2,10 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import PropTypes from 'prop-types'
 import { Ionicons } from '@expo/vector-icons'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import { ApplicationStyles, Fonts } from '../../../themes'
-import {Input, TextButton} from '../../../components'
+import { Input, TextButton } from '../../../components'
 
 import styles from './styles'
 import strings from '../../../lib/stringEnums'
@@ -14,7 +15,11 @@ const { bigBoldTitle, whiteText } = Fonts.style
 
 const EnterDetailsComponent = ({ firstName, lastName, onChangeLastName, onChangeFirstName, onRegisterDetails }) => {
   return (
-    <View style={[container, center, styles.container]}>
+    <KeyboardAwareScrollView
+      scrollEnabled={false}
+      contentContainerStyle={[container, center, styles.screen]}
+      enableOnAndroid={false}
+    >
       <Ionicons
         name={'md-person'}
         size={100}
@@ -42,7 +47,7 @@ const EnterDetailsComponent = ({ firstName, lastName, onChangeLastName, onChange
         text={strings.signup}
         onPress={onRegisterDetails}
       />
-    </View>
+    </KeyboardAwareScrollView>
   )
 }
 

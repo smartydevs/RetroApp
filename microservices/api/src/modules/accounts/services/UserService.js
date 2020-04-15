@@ -49,11 +49,21 @@ export default class UserService {
         $filters: {
           _id: userId,
         },
+        _id: 1,
         profile: {
           firstName: 1,
           lastName: 1,
           fullName: 1,
+          avatarId: 1,
           avatar: {
+            path: 1,
+            fullPath: 1,
+          },
+        },
+        followingCategories: {
+          _id: 1,
+          name: 1,
+          photo: {
             path: 1,
             fullPath: 1,
           },
@@ -62,6 +72,9 @@ export default class UserService {
           _id: 1,
           title: 1,
           startDate: 1,
+          location: {
+            addressName: 1,
+          },
           photo: {
             path: 1,
             fullPath: 1,
@@ -71,6 +84,9 @@ export default class UserService {
           _id: 1,
           title: 1,
           startDate: 1,
+          location: {
+            addressName: 1,
+          },
           photo: {
             path: 1,
             fullPath: 1,

@@ -19,6 +19,26 @@ const styles = StyleSheet.create({
   label: {
     marginBottom: normalizeHeight(10)
   },
+  cardContainer: {
+    margin: 10,
+    borderRadius: 15,
+    alignItems: 'center',
+    flex: 1
+  },
+  card: {
+    backgroundColor: Colors.white,
+    width: normalizeWidth(100),
+    height: normalizeHeight(80),
+    marginBottom: normalizeHeight(15),
+    borderRadius: 15, 
+  },
+  highlight: {
+    borderColor: Colors.primaryPink,
+    borderWidth: 2,
+  },
+  saveButton: {
+    backgroundColor: Colors.primaryDark
+  }
 })
 
 export default styles

@@ -16,6 +16,7 @@ class ProfileContainer extends Component {
     userId: null,
     user: {},
     loading: true,
+    avatarUrl: null,
   }
 
   componentDidMount() {
@@ -158,7 +159,7 @@ class ProfileContainer extends Component {
   }
 
   render() {
-    const { editable, loading, user } = this.state
+    const { editable, loading, user, avatarUrl } = this.state
 
     if (loading) {
       return <Loading show={loading} />
@@ -167,6 +168,7 @@ class ProfileContainer extends Component {
     return (
       <ProfileComponent
         user={user}
+        avatarUrl={avatarUrl}
         navigate={this.props.navigation.navigate}
         takeProfilePicture={this.takeProfilePicture}
         editable={editable}

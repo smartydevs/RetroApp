@@ -3,25 +3,21 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import {
   View,
   Text,
-  StyleSheet,
   SafeAreaView,
-  ScrollView,
   ImageBackground,
-  Platform,
-  KeyboardAvoidingView,
 } from 'react-native'
 import dayjs from 'dayjs'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import { ApplicationStyles, Colors, Fonts } from '../../../themes'
 import { Header, TextButton, Input, Card } from '../../../components'
 import { normalizeHeight } from '../../../themes/Metrics'
-import { OS } from '../../../lib/enums'
 import styles from './styles'
 import { initialState, reducer } from './reducer'
 import { FlatList } from 'react-native-gesture-handler'
 
 const { container, shadow } = ApplicationStyles
-const { bigBoldTitle, button, grayText, centeredText, whiteText } = Fonts.style
+const { bigBoldTitle, button, grayText, centeredText } = Fonts.style
 
 const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo, cards, cardsChosen, onCardPress }) => {
   const dt = new Date()
@@ -64,7 +60,10 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
   return (
     <SafeAreaView style={[container, styles.container]}>
       <Header icon={require('../../../../assets/icon.png')} text={'Create an event'} />
-      <ScrollView bounces={false}>
+      <KeyboardAwareScrollView
+        scrollEnabled={true}
+        enableOnAndroid={false}
+      >
         <ImageBackground
           source={{ uri: photoExisting ? photo.uri : '' }}
           style={styles.image}
@@ -80,11 +79,6 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
           </View>
         </ImageBackground>
         <View style={styles.separator} />
-        <KeyboardAvoidingView
-          behavior={OS.IOS === Platform.OS ? 'padding' : 'height'}
-          style={styles.container}
-          enabled
-        >
           <View style={[styles.padding, styles.lightGrayContainer]}>
             <Text style={[styles.label, button, grayText]}>Name</Text>
             <Input
@@ -178,8 +172,7 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
               style={styles.createEventButton}
             />
           </View>
-        </KeyboardAvoidingView>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   )
 }

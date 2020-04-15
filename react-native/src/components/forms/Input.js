@@ -51,6 +51,7 @@ const Input = props => {
     <TouchableWithoutFeedback onPress={() => onPressInput(textInputRef)}>
       <Row style={[styles.container, alignCenter, containerStyle, shadow]}>
         <TextInput
+          editable={props.editable ? props.editable : true}
           autoCapitalize="none"
           ref={textRef => {
             textInputRef = textRef

@@ -3,6 +3,9 @@ import { Meteor } from 'meteor/meteor';
 import GenderEnum from '../../db/users/enums/GenderEnum';
 import RolesEnum from '../../db/users/enums/RolesEnum';
 import { UserService } from '../../services';
+import { Users } from '../../db';
+import { AppUploads } from '../../../uploads/db';
+import { Categories } from '../../../core/db';
 
 export default {
   User: {
@@ -13,9 +16,17 @@ export default {
     news: async ({ _id: userId }) => {
       return UserService.getNews(userId);
     },
+    followingCategories: ({ _id }) => {
+      const user = Users.findOne(_id);
+      const { categoryIds } = user.profile;
+      return Categories.find({ _id: { $in: categoryIds } }).fetch();
+    },
   },
   UserStandardProfile: {
     fullName: userProfile => UserService.getFullName(userProfile),
+    avatar: ({ avatarId }) => {
+      return AppUploads.findOne(avatarId);
+    },
   },
   GenderEnum: {
     MALE: GenderEnum.MALE,

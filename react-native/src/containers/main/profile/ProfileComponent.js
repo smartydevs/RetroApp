@@ -23,6 +23,7 @@ const { bigBoldTitle, primaryDarkText, primaryPinkText, grayText, caption, butto
 
 const ProfileComponent = ({
   navigate,
+  avatarUrl: photoUrl,
   takeProfilePicture,
   editable,
   onGoBack,
@@ -41,7 +42,7 @@ const ProfileComponent = ({
     followingCategories
   } = user
 
-  const avatarUrl = avatar ? avatar.fullPath : ''
+  const avatarUrl = photoUrl ? photoUrl : avatar ? avatar.fullPath : ''
   const totalGoingEvents = goingEvents ? goingEvents.length : 0
   const totalCreatedEvents = createdEvents ? createdEvents.length : 0
   const categoryElement = followingCategories && followingCategories.length && followingCategories[0]
