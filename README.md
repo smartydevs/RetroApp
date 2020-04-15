@@ -20,4 +20,4 @@ $ npm install
 $ expo start -c
 ```
 
-Este important de menționat că odata cu testarea aplicației pe un emulator, notificările de tip push [nu pot funcționa](https://docs.expo.io/versions/latest/sdk/notifications/)!
+It is important to note that while the app is being tested on an emulator, [the push notifications will not work](https://docs.expo.io/versions/latest/sdk/notifications/)!
