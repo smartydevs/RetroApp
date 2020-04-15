@@ -111,6 +111,10 @@ export default class EventService {
 
   validateEventDetails(eventDetails) {
     const { startDate, endDate } = eventDetails;
+
+    const validatedStartDate = moment(startDate)
+      .second(0)
+      .toDate();
     const title = eventDetails.title.trim();
     const description = eventDetails.description.trim();
     //Checks that the endDate is not earlier than the startDate
@@ -120,6 +124,7 @@ export default class EventService {
 
     return {
       ...eventDetails,
+      startDate: validatedStartDate,
       title,
       description,
     };

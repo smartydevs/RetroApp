@@ -23,54 +23,66 @@ const { ON_GOING_EVENTS, CREATED_EVENTS } = LoadMoreEnum
 
 const ProfileComponent = ({
   coverUrl,
-  firstName,
-  lastName,
   showEvent,
   loadMore,
-  goingEvents,
-  totalGoingEvents,
-  createdEvents,
-  totalCreatedEvents,
   navigate,
   takeProfilePicture,
-  avatarUrl = null,
   editable,
-  onGoBack
+  onGoBack,
+  user,
 }) => {
+  console.log('user', user)
+  const {
+    profile: { firstName, lastName, avatar },
+    ownedEvents: createdEvents,
+    participatingEvents: goingEvents,
+    email,
+  } = user
 
-  const renderGoingEvents = ({ _id, title, location, date, eventImage }) => (
-    <TouchableOpacity
-      onPress={() => navigate(ScreenEnum.EVENT, { eventId: _id })}
-      style={{ paddingHorizontal: normalizeWidth(5) }}
-      key={_id}
-    >
-      <EventCard
-        containerStyle={[styles.eventCard, shadow]}
-        title={title}
-        location={location}
-        date={date}
-        eventImage={eventImage}
-        isSmall
-      />
-    </TouchableOpacity>
-  )
+  const avatarUrl = avatar ? avatar.fullPath : ''
+  const totalGoingEvents = goingEvents ? goingEvents.length : 0
+  const totalCreatedEvents = createdEvents ? createdEvents.length : 0
 
-  const renderCreatedEvents = ({ _id, title, location, date, eventImage }) => (
-    <TouchableOpacity
-      onPress={() => showEvent(_id)}
-      style={{ paddingHorizontal: normalizeWidth(5) }}
-      key={_id}
-    >
-      <EventCard
-        containerStyle={[styles.eventCard, shadow]}
-        title={title}
-        location={location}
-        date={date}
-        eventImage={eventImage}
-        isSmall
-      />
-    </TouchableOpacity>
-  )
+  const renderGoingEvents = ({ _id, title, location, date, photo }) => {
+    const eventImage = photo ? photo.fullPath : null
+    return (
+      <TouchableOpacity
+        onPress={() => navigate(ScreenEnum.EVENT, { eventId: _id })}
+        style={{ paddingHorizontal: normalizeWidth(5) }}
+        key={_id}
+      >
+        <EventCard
+          containerStyle={[styles.eventCard, shadow]}
+          title={title}
+          location={location}
+          date={date}
+          eventImage={eventImage}
+          isSmall
+        />
+      </TouchableOpacity>
+    )
+  }
+
+  const renderCreatedEvents = ({ _id, title, location, date, photo }) => {
+    const eventImage = photo ? photo.fullPath : null
+
+    return (
+      <TouchableOpacity
+        onPress={() => showEvent(_id)}
+        style={{ paddingHorizontal: normalizeWidth(5) }}
+        key={_id}
+      >
+        <EventCard
+          containerStyle={[styles.eventCard, shadow]}
+          title={title}
+          location={location}
+          date={date}
+          eventImage={eventImage}
+          isSmall
+        />
+      </TouchableOpacity>
+    )
+  }
 
   const getGoingEvents = () => {
     if (totalGoingEvents) {
@@ -80,11 +92,6 @@ const ProfileComponent = ({
             {strings.going}
           </Text>
           {goingEvents.map(event => renderGoingEvents(event))}
-          <TextButton
-            style={[styles.loadMore, center, { marginBottom: Metrics.margin }]}
-            onPress={() => loadMore(ON_GOING_EVENTS)}
-            text={strings.loadMore}
-          />
         </View>
       )
     }
@@ -107,11 +114,6 @@ const ProfileComponent = ({
             {strings.created}
           </Text>
           {createdEvents.map(event => renderCreatedEvents(event))}
-          <TextButton
-            style={[styles.loadMore]}
-            onPress={() => loadMore(CREATED_EVENTS)}
-            text={strings.loadMore}
-          />
         </View>
       )
     }

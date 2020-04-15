@@ -8,8 +8,19 @@ import styles from './styles'
 const { container, shadow } = ApplicationStyles
 const { button } = Fonts.style
 
-const NotificationComponent = ({ showNotification, notifications, onSearchEvents, markAllAsRead }) => {
-  const renderNotification = ({ _id, message = '', imageSource = '', eventId, isViewed }) => (
+const NotificationComponent = ({
+  showNotification,
+  notifications,
+  onSearchEvents,
+  markAllAsRead,
+}) => {
+  const renderNotification = ({
+    _id,
+    message = '',
+    imageSource = '',
+    eventId,
+    isViewed,
+  }) => (
     <TextCard
       onPress={() => showNotification(_id, eventId)}
       containerStyle={styles.cardContainer(isViewed)}

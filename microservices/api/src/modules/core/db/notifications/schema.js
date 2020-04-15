@@ -1,7 +1,6 @@
 import SimpleSchema from 'simpl-schema';
 
 import Notifications from './collection';
-import { Events } from '../../events';
 
 const NotificationsSchema = new SimpleSchema({
   receiverId: {
@@ -11,7 +10,7 @@ const NotificationsSchema = new SimpleSchema({
     type: String,
   },
   isViewed: {
-    type: String,
+    type: Boolean,
     optional: true,
   },
   data: {
