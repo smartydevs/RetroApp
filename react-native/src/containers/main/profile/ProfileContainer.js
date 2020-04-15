@@ -135,10 +135,6 @@ class ProfileContainer extends Component {
     return data
   }
 
-  loadMore = listType => {
-    console.log(listType)
-  }
-
   onGoBack = () => {
     this.props.navigation.goBack()
   }
@@ -156,7 +152,9 @@ class ProfileContainer extends Component {
   }
 
   editData = () => {
-    console.log('edit data')
+    this.props.navigation.navigate(ScreenEnum.EDIT, {
+      user: this.state.user
+    })
   }
 
   render() {
@@ -168,9 +166,7 @@ class ProfileContainer extends Component {
 
     return (
       <ProfileComponent
-        coverUrl={''}
         user={user}
-        loadMore={this.loadMore}
         navigate={this.props.navigation.navigate}
         takeProfilePicture={this.takeProfilePicture}
         editable={editable}

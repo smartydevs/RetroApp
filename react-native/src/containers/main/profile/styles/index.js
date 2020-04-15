@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         shadowOffset: { height: 0, width: 0 }
     },
     eventCard: {
-        height: normalizeHeight(120),
+        height: normalizeHeight(150),
         borderRadius: normalizeWidth(10),
         backgroundColor: Colors.lightGray,
         marginBottom: normalizeHeight(20)

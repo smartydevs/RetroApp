@@ -22,7 +22,6 @@ const { container, shadow, center } = ApplicationStyles
 const { bigBoldTitle, primaryDarkText, primaryPinkText, grayText, caption, button } = Fonts.style
 
 const ProfileComponent = ({
-  coverUrl,
   navigate,
   takeProfilePicture,
   editable,
@@ -39,11 +38,14 @@ const ProfileComponent = ({
     ownedEvents: createdEvents,
     participatingEvents: goingEvents,
     email,
+    followingCategories
   } = user
 
   const avatarUrl = avatar ? avatar.fullPath : ''
   const totalGoingEvents = goingEvents ? goingEvents.length : 0
   const totalCreatedEvents = createdEvents ? createdEvents.length : 0
+  const categoryElement = followingCategories && followingCategories.length && followingCategories[0]
+  const coverUrl = categoryElement && categoryElement.photo && categoryElement.photo.fullPath
 
   const renderEvents = ({ _id, title, location, startDate, photo }) => {
     const eventImage = photo ? photo.fullPath : null

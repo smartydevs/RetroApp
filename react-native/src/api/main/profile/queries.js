@@ -13,6 +13,14 @@ export const GET_USER_INFO = gql`
           fullPath
         }
       }
+      followingCategories {
+        _id
+        name
+        photo {
+          fullPath
+          path
+        }
+      }
       ownedEvents {
         _id
         title
