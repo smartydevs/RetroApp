@@ -8,7 +8,7 @@ import {
 } from '../../../api/main/notification'
 import { NotificationComponent } from '.'
 import { Notification } from '../../../components'
-import { ScreenEnum } from '../../../lib/enums'
+import { ScreenEnum, BottomStackScreensEnum } from '../../../lib/enums'
 
 class NotificationContainer extends Component {
   constructor(props) {
@@ -69,6 +69,8 @@ class NotificationContainer extends Component {
     })
   }
 
+  onSearchEvents = () => this.props.navigation.navigate(BottomStackScreensEnum.SEARCH)
+
   render() {
     const { notifications, loading } = this.state
     console.log('notifications', notifications)
@@ -80,6 +82,7 @@ class NotificationContainer extends Component {
       <NotificationComponent
         notifications={notifications}
         showNotification={this.showNotification}
+        onSearchEvents={this.onSearchEvents}
       />
     )
   }

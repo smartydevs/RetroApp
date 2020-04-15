@@ -8,7 +8,7 @@ import { normalizeWidth } from '../../../themes/Metrics'
 
 const { container } = ApplicationStyles
 
-const NotificationComponent = ({ showNotification, notifications }) => {
+const NotificationComponent = ({ showNotification, notifications, onSearchEvents }) => {
   const renderNotification = ({ _id, message = '', imageSource = '', eventId }) => (
     <TextCard
       onPress={() => showNotification(_id, eventId)}
@@ -33,7 +33,12 @@ const NotificationComponent = ({ showNotification, notifications }) => {
             renderItem={({ item }) => renderNotification(item)}
           />
         ) : (
-          <TextCard message={strings.noNotifications} icon={'md-search'} />
+          <TextCard
+            message={strings.noNotifications}
+            icon={'md-search'}
+            containerStyle={styles.noNotifications}
+            onPress={onSearchEvents}
+          />
         )}
       </View>
     </SafeAreaView>

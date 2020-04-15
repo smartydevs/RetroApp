@@ -10,6 +10,11 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: normalizeHeight(30),
         paddingHorizontal: normalizeWidth(40)
+    },
+    noNotifications: {
+        height: normalizeHeight(120),
+        flex: 0,
+        margin: normalizeWidth(5)
     }
 })
 
