@@ -11,8 +11,8 @@ import { ScrollView } from 'react-native-gesture-handler'
 const { container, shadow, center } = ApplicationStyles
 const { boldTitle } = Fonts.style
 
-const HomeComponent = ({ hasMore, events, showEvent, loadMore, refreshPage }) => {
-  const renderEvent = ({ _id, title, startDate, eventImage, location: { addressName } }) => (
+const HomeComponent = ({ hasMore, events, showEvent, loadMore, refreshPage, eventsNumber }) => {
+  const renderEvent = ({ _id, title, startDate, photo, location: { addressName } }) => (
     <TouchableOpacity
       onPress={() => showEvent(_id)}
       style={{ paddingHorizontal: normalizeWidth(5) }}
@@ -23,7 +23,7 @@ const HomeComponent = ({ hasMore, events, showEvent, loadMore, refreshPage }) =>
         title={title}
         location={addressName}
         date={startDate}
-        eventImage={eventImage}
+        eventImage={photo && photo.fullPath}
         isSmall
       />
     </TouchableOpacity>
@@ -44,7 +44,7 @@ const HomeComponent = ({ hasMore, events, showEvent, loadMore, refreshPage }) =>
           <Text style={[boldTitle, styles.title]}>
             You have
             {' '}
-            {events.length ? events.length : 'no'}
+            {eventsNumber ? eventsNumber : 'no'}
             {' '}
             ongoing events
           </Text>
@@ -61,20 +61,18 @@ const HomeComponent = ({ hasMore, events, showEvent, loadMore, refreshPage }) =>
             />
           </TextButton>
 
-          {/* <View> */}
-            <FlatList
-              data={events}
-              keyExtractor={({ _id }) => _id}
-              renderItem={({ item }) => renderEvent(item)}
+          <FlatList
+            data={events}
+            keyExtractor={({ _id }) => _id}
+            renderItem={({ item }) => renderEvent(item)}
+          />
+          {hasMore && (
+            <TextButton
+              style={[styles.loadMore, center, { marginBottom: Metrics.margin }]}
+              onPress={() => loadMore()}
+              text={strings.loadMore}
             />
-            {hasMore && (
-              <TextButton
-                style={[styles.loadMore, center, { marginBottom: Metrics.margin }]}
-                onPress={() => loadMore()}
-                text={strings.loadMore}
-              />
-            )}
-          {/* </View> */}
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>

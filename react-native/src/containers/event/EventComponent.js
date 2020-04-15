@@ -4,11 +4,11 @@ import { Ionicons } from '@expo/vector-icons'
 import dayjs from 'dayjs'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 import { ApplicationStyles, Colors, Fonts } from '../../themes'
-import { Header, Row, ProfilePicture, TextButton } from '../../components'
+import { Header, Row, ProfilePicture, TextButton, Card } from '../../components'
 import { normalizeHeight } from '../../themes/Metrics'
 import styles from './styles'
 
-const { container, center } = ApplicationStyles
+const { container, center, shadow } = ApplicationStyles
 const {
   bigBoldTitle,
   whiteText,
@@ -31,8 +31,11 @@ const EventComponent = ({
     description,
     users,
     organiser,
+    categories
   },
 }) => {
+  const eventImageUrl = photo ? photo.fullPath : null
+
   const renderParticipants = ({
     profile: { firstName, lastName, profilePicture = null, _id },
   }) => (
@@ -45,14 +48,23 @@ const EventComponent = ({
           style={styles.profilePicture}
           textStyle={button}
         />
-        <Text>
+        <Text style={[button, grayText]}>
           {firstName} {lastName}
         </Text>
       </Row>
     </TouchableOpacity>
   )
-  console.log('photo event', photo)
-  const eventImageUrl = photo ? photo.fullPath : null
+  
+  const renderCards = ({ name, photo: { fullPath } }) => (
+    <Card
+      title={name}
+      titleStyle={[button, grayText]}
+      cardStyle={styles.card}
+      containerStyle={[styles.cardContainer, shadow]}
+      imageSource={fullPath}
+    />
+  )
+
   return (
     <SafeAreaView style={[container, styles.container]}>
       <Header onPress={onGoBack} />
@@ -88,7 +100,22 @@ const EventComponent = ({
           </View>
           <Text style={[caption, primaryDarkText, { flex: 1 }]}>{description}</Text>
         </Row>
+
         <View style={[styles.lightGrayContainer, styles.padding]}>
+          <Text style={[button, grayText]}>
+            Categories
+          </Text>
+          <FlatList
+            contentContainerStyle={{ alignItems: 'center' }}
+            bounces={false}
+            keyExtractor={({ _id }) => _id}
+            data={categories}
+            renderItem={({ item }) => renderCards(item)}
+            numColumns={2}
+          />
+        </View>
+
+        <View style={[styles.padding]}>
           <Text style={[button, grayText, { marginBottom: normalizeHeight(5) }]}>
             {users && users.length > 0
               ? 'People going to this event'
@@ -104,7 +131,7 @@ const EventComponent = ({
           />
         </View>
         <TouchableOpacity onPress={() => onGoToUserPage(organiser._id)}>
-          <Row style={[styles.padding, { alignItems: 'center' }]}>
+          <Row style={[styles.lightGrayContainer, styles.padding, { alignItems: 'center' }]}>
             <ProfilePicture
               imageSource={organiser.profile.avatar}
               firstName={organiser.profile.firstName}
@@ -122,7 +149,7 @@ const EventComponent = ({
             </View>
           </Row>
         </TouchableOpacity>
-        <View style={[styles.lightGrayContainer, styles.padding]}>
+        <View style={[styles.padding]}>
           <TextButton
             text={userJoined ? 'Leave Event' : 'Join Event'}
             style={{ backgroundColor: userJoined ? Colors.red : Colors.primaryDark }}

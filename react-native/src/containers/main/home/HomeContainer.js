@@ -17,6 +17,7 @@ class HomeContainer extends Component {
       events: [],
       hasMore: true,
       loading: true,
+      eventsNumber: 0
     }
   }
 
@@ -72,11 +73,12 @@ class HomeContainer extends Component {
       )
     }
 
-    const { events, hasMore } = data.getUserEvents
+    const { events, hasMore, eventsNumber } = data.getUserEvents
 
     this.setState({
       events,
       hasMore,
+      eventsNumber,
       loading: false,
     })
 
@@ -101,7 +103,7 @@ class HomeContainer extends Component {
   }
 
   render() {
-    const { events, hasMore, loading } = this.state
+    const { events, hasMore, loading, eventsNumber } = this.state
     if (loading) {
       return (
         <Loading show={loading} />
@@ -110,6 +112,7 @@ class HomeContainer extends Component {
     return (
         <HomeComponent
             events={events}
+            eventsNumber={eventsNumber}
             hasMore={hasMore}
             showEvent={this.showEvent}
             loadMore={this.loadMore}

@@ -17,6 +17,7 @@ export const GET_USER_EVENTS = gql`
         }
       }
       hasMore
+      eventsNumber
     }
   }
 `

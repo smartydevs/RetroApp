@@ -1,6 +1,7 @@
 import React from 'react'
 import { Image as ImageNative, TouchableOpacity, Text } from 'react-native'
 import PropTypes from 'prop-types'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 const Card = ({
   cardStyle,
@@ -11,7 +12,7 @@ const Card = ({
   title,
   titleStyle,
 }) => (
-  <TouchableOpacity style={containerStyle} onPress={onPress}>
+  <TouchableWithoutFeedback style={containerStyle} onPress={onPress}>
     <React.Fragment>
       <ImageNative
         style={cardStyle}
@@ -20,7 +21,7 @@ const Card = ({
       />
       <Text style={titleStyle}>{title}</Text>
     </React.Fragment>
-  </TouchableOpacity>
+  </TouchableWithoutFeedback>
 )
 
 Card.propTypes = {

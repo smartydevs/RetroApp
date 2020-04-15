@@ -20,7 +20,7 @@ import styles from './styles'
 import { initialState, reducer } from './reducer'
 import { FlatList } from 'react-native-gesture-handler'
 
-const { container } = ApplicationStyles
+const { container, shadow } = ApplicationStyles
 const { bigBoldTitle, button, grayText, centeredText, whiteText } = Fonts.style
 
 const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo, cards, cardsChosen, onCardPress }) => {
@@ -39,7 +39,9 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
   }
 
   const handleCreateEvent = () => {
-    onCreateEvent(eventState)
+    onCreateEvent(eventState, () => {
+      dispatch({ type: 'clear' })
+    })
   }
 
   const onRenderCard = ({ _id, name, imageSource }) => {
@@ -50,9 +52,9 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
       <Card
         onPress={() => onCardPress(_id)}
         title={name}
-        titleStyle={[button, whiteText, styles.cardTitle]}
+        titleStyle={[button]}
         cardStyle={cardStyle}
-        containerStyle={styles.cardContainer}
+        containerStyle={[styles.cardContainer, shadow]}
         imageSource={imageSource}
       />
     )
@@ -151,6 +153,7 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
               Choose categories that your event is part of
             </Text>
             <FlatList
+              contentContainerStyle={{ alignItems: 'center' }}
               numColumns={2}
               data={cards}
               keyExtractor={({ _id }) => _id}

@@ -55,7 +55,7 @@ class CreateEventContainer extends Component {
     }
   }
 
-  onCreateEvent = async eventDetails => {
+  onCreateEvent = async (eventDetails, callback) => {
     eventDetails.categoriesId = this.state.cardsChosen
   
     const { isOk, data } = await createEvent(eventDetails)
@@ -82,6 +82,12 @@ class CreateEventContainer extends Component {
       )
     }
 
+    this.setState({
+      photoExisting: false,
+      photo: null,
+      cardsChosen: [],
+    })
+    callback()
     this.props.navigation.navigate(BottomStackScreensEnum.MAIN)
   }
 
@@ -113,7 +119,7 @@ class CreateEventContainer extends Component {
           return {
             _id: cat._id,
             name: cat.name,
-            imageSource: 'https://picsum.photos/1920/1080',
+            imageSource: cat.photo.fullPath,
           }
         })
         this.setState({

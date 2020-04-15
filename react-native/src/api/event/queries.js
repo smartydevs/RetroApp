@@ -8,7 +8,6 @@ export const GET_EVENT = gql`
       description
       startDate
       endDate
-      categoriesId
       categories {
         _id
         name

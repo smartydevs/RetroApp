@@ -1,10 +1,11 @@
 export const initialState = {
   startDate: new Date(),
+  location: {
+    addressName: ''
+  }
 }
 
 export const reducer = (state, action) => {
-  console.log('type', action.type)
-  console.log('payload', action.payload)
   if (action.type === 'location') {
     return {
       ...state,
@@ -12,6 +13,9 @@ export const reducer = (state, action) => {
         addressName: action.payload,
       },
     }
+  }
+  if (action.type === 'clear') {
+    return initialState
   }
   return {
     ...state,

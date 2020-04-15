@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: normalizeWidth(100),
     height: normalizeHeight(80),
-    borderRadius: 15
+    marginBottom: normalizeHeight(15),
+    borderRadius: 15, 
   },
   highlight: {
     borderColor: Colors.primaryPink,
