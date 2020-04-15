@@ -11,7 +11,7 @@ class LoginContainer extends Component {
   state = {
     email: '',
     password: '',
-    editable: false
+    editable: false,
   }
 
   onChangeEmail = email => {
@@ -39,7 +39,7 @@ class LoginContainer extends Component {
       return Notification.show('Please fill in all inputs', NotificationTypeEnum.ERROR)
     }
 
-    login(state).then(async ({ data, isOk }) => {
+    login({ email, password }).then(async ({ data, isOk }) => {
       if (isOk) {
         const { loginMember } = data
         await this.storeToken(loginMember.token)

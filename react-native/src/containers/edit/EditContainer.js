@@ -9,16 +9,20 @@ class EditContainer extends Component {
   state = {
     loading: true,
     user: {},
-    editable: false
+    editable: false,
   }
 
-  async componentDidMount () {
-    const { email, followingCategories, profile: { firstName, lastName }} = this.props.navigation.state.params.user
+  async componentDidMount() {
+    const {
+      email,
+      followingCategories,
+      profile: { firstName, lastName },
+    } = this.props.navigation.state.params.user
     // console.log(this.props.navigation.state.params)
     await this.getCategories(followingCategories)
 
-    this.setState((prevState) => ({
-      user : {
+    this.setState(prevState => ({
+      user: {
         ...prevState.user,
         email,
         firstName,
@@ -32,17 +36,18 @@ class EditContainer extends Component {
     }, 100)
   }
 
-  getCategories = async (followingCategories) => {
+  getCategories = async followingCategories => {
     getCategories().then(({ data, isOk }) => {
       if (isOk) {
         const { getCategories = [] } = data
         const categories = getCategories.map(cat => {
-          const isSelected = followingCategories && followingCategories.find(c => c._id === cat._id)
+          const isSelected =
+            followingCategories && followingCategories.find(c => c._id === cat._id)
           return {
             _id: cat._id,
             name: cat.name,
             imageSource: cat.photo.fullPath,
-            isSelected: !!isSelected
+            isSelected: !!isSelected,
           }
         })
 
@@ -50,7 +55,7 @@ class EditContainer extends Component {
           isLoading: false,
           user: {
             ...prevState.user,
-            categories
+            categories,
           },
         }))
       } else {
@@ -61,16 +66,23 @@ class EditContainer extends Component {
   }
 
   onGoBack = () => {
-    Alert.alert('Go Back', 'If you go back all your changes will be lost. Are you sure you want to do this ?', [{
-      text: 'Yes',
-      onPress: this.props.navigation.goBack
-    }, {
-      text: 'No'
-    }])
+    Alert.alert(
+      'Go Back',
+      'If you go back all your changes will be lost. Are you sure you want to do this ?',
+      [
+        {
+          text: 'Yes',
+          onPress: this.props.navigation.goBack,
+        },
+        {
+          text: 'No',
+        },
+      ]
+    )
   }
 
   onCardPress = categoryId => {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       ...prevState,
       user: {
         ...prevState.user,
@@ -79,49 +91,60 @@ class EditContainer extends Component {
             c.isSelected = !c.isSelected
           }
           return c
-        })
-      }
+        }),
+      },
     }))
   }
 
-  onPressSave = () => {
-    const { firstName, lastName, email, categories} = this.state.user
-    const { email : initialEmail } = this.props.navigation.state.params.user
+  onPressSave = userInput => {
+    const { firstName, lastName, email } = userInput
+    const { categories } = this.state.user
+    const { email: initialEmail } = this.props.navigation.state.params.user
 
-    const categoriesId = categories.map(c => {
-      if (c.isSelected) {
-        return c._id
-      }
-    })
+    // const categoriesId = categories.map(c => {
+    //   if (c.isSelected) {
+    //     return c._id
+    //   }
+    // })
+
+    const categoriesId = categories.filter(c => c.isSelected).map(c => c._id)
 
     const payload = {
-      firstName, 
+      firstName,
       lastName,
-      categoriesId
+      categoriesId,
     }
-
+    console.log('payload', payload)
     if (initialEmail !== email.trim()) {
       payload.email = email.trim()
     }
 
-    Alert.alert('Save', 'If you save this your previous data will be lost for ever. Are you sure you want to do this ?', [{
-      text: 'Yes',
-      onPress: async () => {
-        
-        const { data, isOk } = await updateUserInfo(payload)
+    Alert.alert(
+      'Save',
+      'If you save this your previous data will be lost for ever. Are you sure you want to do this ?',
+      [
+        {
+          text: 'Yes',
+          onPress: async () => {
+            const { data, isOk } = await updateUserInfo(payload)
 
-        if (!isOk) {
-          return Notification.error('Something went wrong while uploading the data. Please Try again')
-        }
+            if (!isOk) {
+              return Notification.error(
+                'Something went wrong while uploading the data. Please Try again'
+              )
+            }
 
-        this.props.navigation.goBack()
-      }
-    }, {
-      text: 'No'
-    }])
+            this.props.navigation.goBack()
+          },
+        },
+        {
+          text: 'No',
+        },
+      ]
+    )
   }
 
-  render () {
+  render() {
     const { user, loading, editable } = this.state
     console.log(user)
 

@@ -41,10 +41,10 @@ load({
 
         return MemberService.addPushToken(user, token);
       },
-      updateUserInfo(_, { userInfo }, { userId }) {
-        SecurityService.checkLoggedIn({ userId });
+      updateUserInfo(_, { userInfo }, { user }) {
+        SecurityService.checkLoggedIn({ userId: user._id });
 
-        return MemberService.updateUserInfo(userId, userInfo);
+        return MemberService.updateUserInfo(user, userInfo);
       },
       setUserPassword(_, { newPassword, email }) {
         return MemberService.setUserPassword(email, newPassword);

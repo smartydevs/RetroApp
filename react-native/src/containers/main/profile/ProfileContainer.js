@@ -141,20 +141,23 @@ class ProfileContainer extends Component {
   }
 
   logout = () => {
-    Alert.alert("Log Out", "Are you sure you want to log out ?", [{
-      text: "Yes",
-      onPress: () => {
-        AsyncStorage.clear()
-        this.props.navigation.navigate(ScreenEnum.LOG_IN)
-      }
-    }, {
-      text: "No"
-    }])
+    Alert.alert('Log Out', 'Are you sure you want to log out ?', [
+      {
+        text: 'Yes',
+        onPress: () => {
+          AsyncStorage.clear()
+          this.props.navigation.navigate(ScreenEnum.LOG_IN)
+        },
+      },
+      {
+        text: 'No',
+      },
+    ])
   }
 
   editData = () => {
     this.props.navigation.navigate(ScreenEnum.EDIT, {
-      user: this.state.user
+      user: this.state.user,
     })
   }
 

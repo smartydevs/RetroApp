@@ -30,6 +30,8 @@ const EditComponent = ({ onGoBack, user, onCardPress, onPressSave, editable }) =
     )
   }
 
+
+
   return (
     <SafeAreaView style={[container, styles.container]}>
       <Header onPress={onGoBack} />
@@ -90,7 +92,7 @@ const EditComponent = ({ onGoBack, user, onCardPress, onPressSave, editable }) =
           <View style={[styles.padding, styles.lightGrayContainer]}>
             <TextButton
               text={'Save'}
-              onPress={onPressSave}
+              onPress={() => onPressSave(eventState)}
               style={styles.saveButton}
             />
           </View>

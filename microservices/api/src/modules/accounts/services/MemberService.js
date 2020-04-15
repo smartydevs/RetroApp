@@ -63,9 +63,8 @@ export default class MemberService {
     }
 
     if (userInfo.categoriesId) {
-      updateObj['profile.categoriesId'] = userInfo.categoriesId;
+      updateObj['profile.categoryIds'] = userInfo.categoriesId;
     }
-
     db.users.update(user._id, { $set: updateObj });
 
     return true;
