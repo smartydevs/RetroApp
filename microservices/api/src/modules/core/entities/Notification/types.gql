@@ -6,6 +6,7 @@ type Notification {
     event: Event
     createdAt: Date
     data: NotificationData
+    isViewed: Boolean
 }
 
 type NotificationData {
