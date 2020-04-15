@@ -92,11 +92,11 @@ class LoginContainer extends Component {
   }
 
   render() {
-    const { email, password } = this.state
+    const { email, password, editable } = this.state
 
     return (
       <LoginComponent
-        editable={this.state.editable}
+        editable={editable}
         onChangeEmail={this.onChangeEmail}
         onChangePassword={this.onChangePassword}
         onPressLogin={this.onPressLogin}

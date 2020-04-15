@@ -11,7 +11,7 @@ import { reducer } from './reducer'
 const { center, shadow, container } = ApplicationStyles
 const { boldTitle, grayText, button } = Fonts.style
 
-const EditComponent = ({ onGoBack, user, onCardPress, onPressSave }) => {
+const EditComponent = ({ onGoBack, user, onCardPress, onPressSave, editable }) => {
   const [eventState, dispatch] = useReducer(reducer, user)
 
   const onRenderCard = ({ _id, name, imageSource, isSelected }) => {
@@ -48,6 +48,7 @@ const EditComponent = ({ onGoBack, user, onCardPress, onPressSave }) => {
               Email
             </Text>
             <Input
+              editable={editable}
               onChangeText={value => dispatch({ type: 'email', payload: value })}
               value={eventState.email}
             />

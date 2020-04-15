@@ -8,7 +8,8 @@ import { getCategories, updateUserInfo } from '../../api'
 class EditContainer extends Component {
   state = {
     loading: true,
-    user: {}
+    user: {},
+    editable: false
   }
 
   async componentDidMount () {
@@ -23,8 +24,12 @@ class EditContainer extends Component {
         firstName,
         lastName,
       },
-      loading: false
+      loading: false,
     }))
+
+    setTimeout(() => {
+      this.setState({ editable: true })
+    }, 100)
   }
 
   getCategories = async (followingCategories) => {
@@ -117,7 +122,7 @@ class EditContainer extends Component {
   }
 
   render () {
-    const { user, loading } = this.state
+    const { user, loading, editable } = this.state
     console.log(user)
 
     if (loading) {
@@ -130,6 +135,7 @@ class EditContainer extends Component {
         user={user}
         onCardPress={this.onCardPress}
         onPressSave={this.onPressSave}
+        editable={editable}
       />
     )
   }
