@@ -13,16 +13,17 @@ import {
 import dayjs from 'dayjs'
 
 import { ApplicationStyles, Colors, Fonts } from '../../../themes'
-import { Header, TextButton, Input } from '../../../components'
+import { Header, TextButton, Input, Card } from '../../../components'
 import { normalizeHeight } from '../../../themes/Metrics'
 import { OS } from '../../../lib/enums'
 import styles from './styles'
 import { initialState, reducer } from './reducer'
+import { FlatList } from 'react-native-gesture-handler'
 
-const { container } = ApplicationStyles
-const { bigBoldTitle, button, grayText, centeredText } = Fonts.style
+const { container, shadow } = ApplicationStyles
+const { bigBoldTitle, button, grayText, centeredText, whiteText } = Fonts.style
 
-const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo }) => {
+const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo, cards, cardsChosen, onCardPress }) => {
   const dt = new Date()
   dt.setHours(dt.getHours() + 2)
   const [showDate, setShowDate] = useState(false)
@@ -38,8 +39,27 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo 
   }
 
   const handleCreateEvent = () => {
-    onCreateEvent(eventState)
+    onCreateEvent(eventState, () => {
+      dispatch({ type: 'clear' })
+    })
   }
+
+  const onRenderCard = ({ _id, name, imageSource }) => {
+    const existingCard = cardsChosen.find(cardId => cardId === _id)
+    const cardStyle = [styles.card]
+    if (existingCard) cardStyle.push(styles.highlight)
+    return (
+      <Card
+        onPress={() => onCardPress(_id)}
+        title={name}
+        titleStyle={[button]}
+        cardStyle={cardStyle}
+        containerStyle={[styles.cardContainer, shadow]}
+        imageSource={imageSource}
+      />
+    )
+  }
+
 
   return (
     <SafeAreaView style={[container, styles.container]}>
@@ -127,7 +147,21 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo 
               />
             )}
           </View>
+
           <View style={[styles.padding, styles.lightGrayContainer]}>
+            <Text style={[styles.label, button, grayText]}>
+              Choose categories that your event is part of
+            </Text>
+            <FlatList
+              contentContainerStyle={{ alignItems: 'center' }}
+              numColumns={2}
+              data={cards}
+              keyExtractor={({ _id }) => _id}
+              renderItem={({ item }) => onRenderCard(item)}
+            />
+          </View>
+
+          <View style={[styles.padding]}>
             <Text style={[styles.label, button, grayText]}>Description</Text>
             <Input
               multiline
@@ -137,7 +171,7 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo 
               value={eventState.description}
             />
           </View>
-          <View style={[styles.padding]}>
+          <View style={[styles.padding, styles.lightGrayContainer]}>
             <TextButton
               text={'Create Event'}
               onPress={handleCreateEvent}

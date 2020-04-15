@@ -7,16 +7,22 @@ import { createEvent, saveEventPhoto } from '../../../api/main/event'
 import { Notification } from '../../../components'
 import { NotificationTypeEnum, BottomStackScreensEnum } from '../../../lib/enums'
 import { AsyncStorage } from 'react-native'
+import { getCategories } from '../../../api'
+import strings from '../../../lib/stringEnums'
 
 class CreateEventContainer extends Component {
   state = {
     photoExisting: false,
     photo: null,
     hasPermission: null,
+    numberOfCards: 0,
+    cardsChosen: [],
+    categoriesCards: []
   }
 
   componentDidMount() {
     this.cameraSetUp()
+    this.getCategories()
   }
 
   cameraSetUp = async () => {
@@ -49,7 +55,9 @@ class CreateEventContainer extends Component {
     }
   }
 
-  onCreateEvent = async eventDetails => {
+  onCreateEvent = async (eventDetails, callback) => {
+    eventDetails.categoriesId = this.state.cardsChosen
+  
     const { isOk, data } = await createEvent(eventDetails)
 
     if (!isOk) {
@@ -74,11 +82,59 @@ class CreateEventContainer extends Component {
       )
     }
 
+    this.setState({
+      photoExisting: false,
+      photo: null,
+      cardsChosen: [],
+    })
+    callback()
     this.props.navigation.navigate(BottomStackScreensEnum.MAIN)
   }
 
+  onCardPress = (_id) => {
+    const { cardsChosen, numberOfCards } = this.state
+    const existingCard = cardsChosen.find(cardId => cardId === _id)
+    let newCardsChosen = []
+    let newNumberOfCards = numberOfCards
+
+    if (existingCard) {
+      newCardsChosen = cardsChosen.filter(cardId => cardId !== _id)
+      newNumberOfCards--
+    } else {
+      newCardsChosen = [...cardsChosen, _id]
+      newNumberOfCards++
+    }
+
+    this.setState({
+      numberOfCards: newNumberOfCards,
+      cardsChosen: newCardsChosen,
+    })
+  }
+
+  async getCategories() {
+    getCategories().then(({ data, isOk }) => {
+      if (isOk) {
+        const { getCategories = [] } = data
+        const categories = getCategories.map(cat => {
+          return {
+            _id: cat._id,
+            name: cat.name,
+            imageSource: cat.photo.fullPath,
+          }
+        })
+        this.setState({
+          isLoading: false,
+          categoriesCards: categories,
+        }, () => console.log(this.state.categoriesCards))
+      } else {
+        this.setState({ isLoading: false })
+        return Notification.error(strings.error)
+      }
+    })
+  }
+
   render() {
-    const { photoExisting, photo } = this.state
+    const { photoExisting, photo, categoriesCards, cardsChosen } = this.state
 
     return (
       <CreateEventComponent
@@ -86,6 +142,9 @@ class CreateEventContainer extends Component {
         onAddPhoto={this.onAddPhoto}
         photoExisting={photoExisting}
         photo={photo}
+        cards={categoriesCards}
+        onCardPress={this.onCardPress}
+        cardsChosen={cardsChosen}
       />
     )
   }

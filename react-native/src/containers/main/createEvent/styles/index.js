@@ -68,6 +68,27 @@ const styles = StyleSheet.create({
   },
   createEventButton: {
     backgroundColor: Colors.primaryDark
+  },
+  cardContainer: {
+    margin: 10,
+    borderRadius: 15,
+    alignItems: 'center',
+    flex: 1
+  },
+  card: {
+    backgroundColor: 'white',
+    width: normalizeWidth(100),
+    height: normalizeHeight(80),
+    marginBottom: normalizeHeight(15),
+    borderRadius: 15, 
+  },
+  highlight: {
+    borderColor: Colors.primaryPink,
+    borderWidth: 2,
+  },
+  cardTitle :{
+    position: 'absolute',
+    bottom: 5,
   }
 })
 

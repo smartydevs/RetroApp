@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         marginVertical: normalizeHeight(20)
     },
     eventCard: {
-        height: normalizeHeight(110),
+        height: normalizeHeight(140),
         borderRadius: normalizeWidth(10),
         backgroundColor: Colors.lightGray,
         marginBottom: normalizeHeight(20)
