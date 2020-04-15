@@ -16,15 +16,17 @@ import Metrics, { normalizeWidth } from '../../../themes/Metrics'
 import { LoadMoreEnum, BottomStackScreensEnum, ScreenEnum } from '../../../lib/enums'
 import strings from '../../../lib/stringEnums'
 import styles from './styles'
+import { Ionicons } from '@expo/vector-icons'
 
 const { container, shadow, center } = ApplicationStyles
-const { bigBoldTitle, primaryDarkText, boldTitle, grayText } = Fonts.style
+const { bigBoldTitle, primaryDarkText, boldTitle, grayText, caption } = Fonts.style
 const { ON_GOING_EVENTS, CREATED_EVENTS } = LoadMoreEnum
 
 const ProfileComponent = ({
   coverUrl,
   firstName,
   lastName,
+  email,
   showEvent,
   loadMore,
   goingEvents,
@@ -35,7 +37,9 @@ const ProfileComponent = ({
   takeProfilePicture,
   avatarUrl = null,
   editable,
-  onGoBack
+  onGoBack,
+  logout,
+  editData
 }) => {
 
   const renderGoingEvents = ({ _id, title, location, date, eventImage }) => (
@@ -140,26 +144,59 @@ const ProfileComponent = ({
           source={coverUrl && { uri: coverUrl }}
         />
         <Row style={styles.infoContainer}>
-          {editable ? (
-            <Button onPress={takeProfilePicture}>
+          <Row>
+            {editable ? (
+              <Button onPress={takeProfilePicture}>
+                <ProfilePicture
+                  firstName={firstName}
+                  lastName={lastName}
+                  style={styles.profilePicture}
+                  imageSource={avatarUrl}
+                />
+              </Button>
+            ) : (
               <ProfilePicture
                 firstName={firstName}
                 lastName={lastName}
                 style={styles.profilePicture}
                 imageSource={avatarUrl}
               />
-            </Button>
-          ) : (
-            <ProfilePicture
-              firstName={firstName}
-              lastName={lastName}
-              style={styles.profilePicture}
-              imageSource={avatarUrl}
-            />
+            )}
+            <View style={{justifyContent: 'center'}}>
+              <Text style={[bigBoldTitle, primaryDarkText]}>
+                {firstName} {lastName}
+              </Text>
+              <Text style={[caption, grayText]}>
+                {email}
+              </Text>
+            </View>
+          </Row>
+          {editable && (
+            <Row>
+              <TextButton 
+                onPress={editData}
+                style={[styles.smallBtn, center, shadow]}
+                hasChildren
+              >
+                <Ionicons
+                  name={'md-create'}
+                  size={24}
+                  style={styles.smallBtnLogo}
+                />
+              </TextButton>
+              <TextButton
+                onPress={logout}
+                style={[styles.smallBtn, center, shadow]}
+                hasChildren
+              >
+                <Ionicons
+                  name={'md-log-out'}
+                  size={24}
+                  style={styles.smallBtnLogo}
+                />
+              </TextButton>
+            </Row>
           )}
-          <Text style={[bigBoldTitle, primaryDarkText]}>
-            {firstName} {lastName}
-          </Text>
         </Row>
         <View style={[styles.content]}>
           {getGoingEvents()}

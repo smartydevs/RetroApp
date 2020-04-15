@@ -5,7 +5,7 @@ import { Platform } from 'react-native-web'
 import { AsyncStorage, Alert } from 'react-native'
 
 import { ProfileComponent } from '.'
-import { OS } from '../../../lib/enums'
+import { OS, ScreenEnum } from '../../../lib/enums'
 import { Notification } from '../../../components'
 
 class ProfileContainer extends Component {
@@ -119,6 +119,22 @@ class ProfileContainer extends Component {
     this.props.navigation.goBack()
   }
 
+  logout = () => {
+    Alert.alert("Log Out", "Are you sure you want to log out ?", [{
+      text: "Yes",
+      onPress: () => {
+        AsyncStorage.clear()
+        this.props.navigation.navigate(ScreenEnum.LOG_IN)
+      }
+    }, {
+      text: "No"
+    }])
+  }
+
+  editData = () => {
+    console.log('edit data')
+  }
+
   render() {
     const { editable } = this.state
     console.log('editable', editable)
@@ -132,6 +148,7 @@ class ProfileContainer extends Component {
         avatarUrl={this.state.avatarUrl}
         firstName="vlad"
         lastName="romila"
+        email='vlad@romila.com'
         goingEvents={events}
         totalGoingEvents={totalGoingEvents}
         createdEvents={events}
@@ -142,6 +159,8 @@ class ProfileContainer extends Component {
         takeProfilePicture={this.takeProfilePicture}
         editable={editable}
         onGoBack={this.onGoBack}
+        logout={this.logout}
+        editData={this.editData}
       />
     )
   }

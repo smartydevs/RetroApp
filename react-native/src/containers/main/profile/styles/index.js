@@ -45,16 +45,25 @@ const styles = StyleSheet.create({
     },
     infoContainer: {
         marginTop: Metrics.margin,
-        paddingHorizontal: normalizeWidth(40),
         height: normalizeWidth(50),
         borderBottomWidth: normalizeHeight(4),
         borderColor: Colors.lighCream,
-        padding: Metrics.margin
+        padding: Metrics.margin,
+        justifyContent: 'space-between'
     },
     loadMore: {
         width: normalizeWidth(150),
         backgroundColor: Colors.primaryPink,
         color: Colors.cream
+    },
+    smallBtn: {
+        backgroundColor: Colors.primaryAqua,
+        width: normalizeWidth(40),
+        height: normalizeWidth(40),
+        marginHorizontal: normalizeWidth(5)
+    },
+    smallBtnLogo: {
+        color: Colors.gray
     }
 })
 
