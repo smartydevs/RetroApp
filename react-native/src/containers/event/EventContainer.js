@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { Text, AsyncStorage } from 'react-native'
+import { AsyncStorage } from 'react-native'
 import { EventComponent } from '.'
 
 import { getEvent, joinEvent, leaveEvent } from '../../api/event'
-import { events } from '../../fixtures/EventsData'
 import { Notification, Loading } from '../../components'
-import Constants, { NotificationTypeEnum } from '../../lib/enums'
+import Constants, { NotificationTypeEnum, ScreenEnum } from '../../lib/enums'
 import strings from '../../lib/stringEnums'
 
 class EventContainer extends Component {
@@ -63,7 +62,10 @@ class EventContainer extends Component {
   }
 
   onGoToUserPage = _id => {
-    console.log(_id)
+    this.props.navigation.navigate(ScreenEnum.USER_PROFILE, {
+      userId: _id,
+      notEditable: true
+    })
   }
 
   onPressToggleJoinButton = () => {

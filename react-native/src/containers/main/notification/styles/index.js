@@ -15,6 +15,14 @@ const styles = StyleSheet.create({
         height: normalizeHeight(120),
         flex: 0,
         margin: normalizeWidth(5)
+    },
+    cardContainer: isViewed => ({
+        marginHorizontal: normalizeWidth(5),
+        backgroundColor: isViewed ? Colors.lightGray : '#cbc7d1'
+    }),
+    markAllAsRead: {
+        backgroundColor: Colors.primaryAqua,
+        marginBottom: normalizeHeight(20)
     }
 })
 

@@ -37,7 +37,8 @@ const EventComponent = ({
   const eventImageUrl = photo ? photo.fullPath : null
 
   const renderParticipants = ({
-    profile: { firstName, lastName, profilePicture = null, _id },
+    _id,
+    profile: { firstName, lastName, profilePicture = null },
   }) => (
     <TouchableOpacity onPress={() => onGoToUserPage(_id)}>
       <Row style={styles.participant}>

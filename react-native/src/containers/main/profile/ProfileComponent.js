@@ -33,9 +33,11 @@ const ProfileComponent = ({
   totalCreatedEvents,
   navigate,
   takeProfilePicture,
-  avatarUrl = null
+  avatarUrl = null,
+  editable,
+  onGoBack
 }) => {
-  console.log(avatarUrl)
+
   const renderGoingEvents = ({ _id, title, location, date, eventImage }) => (
     <TouchableOpacity
       onPress={() => navigate(ScreenEnum.EVENT, { eventId: _id })}
@@ -126,7 +128,11 @@ const ProfileComponent = ({
 
   return (
     <SafeAreaView style={[container, styles.container]}>
-      <Header icon={require('../../../../assets/icon.png')} text={'Profile'} />
+      <Header
+        icon={editable && require('../../../../assets/icon.png')}
+        text={'Profile'}
+        onPress={onGoBack}
+      />
       <ScrollView>
         <Image
           style={styles.cover}
