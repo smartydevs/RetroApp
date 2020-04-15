@@ -31,7 +31,7 @@ const EventComponent = ({
     description,
     users,
     organiser,
-    categories
+    categories,
   },
 }) => {
   const eventImageUrl = photo ? photo.fullPath : null
@@ -55,7 +55,7 @@ const EventComponent = ({
       </Row>
     </TouchableOpacity>
   )
-  
+
   const renderCards = ({ name, photo: { fullPath } }) => (
     <Card
       title={name}
@@ -65,7 +65,7 @@ const EventComponent = ({
       imageSource={fullPath}
     />
   )
-
+  console.log('start data', startDate)
   return (
     <SafeAreaView style={[container, styles.container]}>
       <Header onPress={onGoBack} />
@@ -91,7 +91,9 @@ const EventComponent = ({
               {addressName}
             </Text>
             <Text style={[caption, primaryDarkText]}>
-              {dayjs(startDate).format('DD MMMM YYYY, HH:mm')}
+              {dayjs(startDate)
+                .subtract(3, 'hour')
+                .format('DD MMMM YYYY, HH:mm')}
             </Text>
           </View>
         </Row>
@@ -103,9 +105,7 @@ const EventComponent = ({
         </Row>
 
         <View style={[styles.lightGrayContainer, styles.padding]}>
-          <Text style={[button, grayText]}>
-            Categories
-          </Text>
+          <Text style={[button, grayText]}>Categories</Text>
           <FlatList
             contentContainerStyle={{ alignItems: 'center' }}
             bounces={false}
@@ -132,7 +132,9 @@ const EventComponent = ({
           />
         </View>
         <TouchableOpacity onPress={() => onGoToUserPage(organiser._id)}>
-          <Row style={[styles.lightGrayContainer, styles.padding, { alignItems: 'center' }]}>
+          <Row
+            style={[styles.lightGrayContainer, styles.padding, { alignItems: 'center' }]}
+          >
             <ProfilePicture
               imageSource={organiser.profile.avatar}
               firstName={organiser.profile.firstName}

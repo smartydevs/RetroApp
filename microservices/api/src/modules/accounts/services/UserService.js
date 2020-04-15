@@ -44,7 +44,7 @@ export default class UserService {
   getUserInfo(userId) {
     const { db } = this;
 
-    return db.user
+    const users = db.users
       .createQuery({
         $filters: {
           _id: userId,
@@ -83,5 +83,7 @@ export default class UserService {
         },
       })
       .fetch();
+    console.log('users', users);
+    return users ? users[0] : {};
   }
 }

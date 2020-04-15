@@ -7,7 +7,7 @@ const { currentInstance } = ApiClient
 const getUserInfo = async userId => {
   try {
     const { data } = await currentInstance().query({
-      mutation: GET_USER_INFO,
+      query: GET_USER_INFO,
       variables: { userId },
     })
 
