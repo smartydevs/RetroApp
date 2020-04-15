@@ -14,6 +14,7 @@ class SignupContainer extends Component {
     email: '',
     password: '',
     repeatPassword: '',
+    editable: false
   }
 
   onChangeEmail = email => {
@@ -72,12 +73,17 @@ class SignupContainer extends Component {
       console.log('err', err)
     }
   }
-
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ editable: true })
+    }, 100)
+  }
   render() {
     const { email, password, repeatPassword } = this.state
 
     return (
       <SignupComponent
+        editable={this.state.editable}
         onChangeEmail={this.onChangeEmail}
         onChangePassword={this.onChangePassword}
         onChangeRepeatPassword={this.onChangeRepeatPassword}

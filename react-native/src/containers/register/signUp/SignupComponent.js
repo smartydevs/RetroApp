@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, Image, KeyboardAvoidingView, Platform, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import PropTypes from 'prop-types'
 import { ApplicationStyles, Images, Fonts } from '../../../themes'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import styles from './styles'
 import strings from '../../../lib/stringEnums'
@@ -13,15 +14,12 @@ const { container, center } = ApplicationStyles
 const { bigBoldTitle, creamText, primaryPinkText } = Fonts.style
 
 const SignupComponent = ({ onChangeEmail, onChangePassword, onChangeRepeatPassword, email,
-  password, repeatPassword, onPressFacebook, onPressSignUp }) => (
-    <TouchableWithoutFeedback onPress={() => {
-      Keyboard.dismiss();
-    }}>
-      <KeyboardAvoidingView
-        behavior={OS.IOS === Platform.OS ? 'position' : 'height'}
+  password, repeatPassword, onPressFacebook, onPressSignUp, editable }) => (
+    <View style={[container]}>
+      <KeyboardAwareScrollView
+        scrollEnabled={true}
         contentContainerStyle={[container, center, styles.screen]}
-        style={OS.IOS === Platform.OS ? container : [container, center, styles.screen]}
-        enabled
+        enableOnAndroid={false}
       >
         <Image
           source={Images.logo}
@@ -37,6 +35,7 @@ const SignupComponent = ({ onChangeEmail, onChangePassword, onChangeRepeatPasswo
         </Text>
         <View style={styles.maxWidth}>
           <Input
+            editable={editable}
             containerStyle={[styles.inputContainer]}
             placeholder={strings.email}
             onChangeText={onChangeEmail}
@@ -63,8 +62,8 @@ const SignupComponent = ({ onChangeEmail, onChangePassword, onChangeRepeatPasswo
           Keyboard.dismiss();
           onPressSignUp()
         }} text={strings.signup} />
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+      </KeyboardAwareScrollView>
+    </View>
   )
 
 SignupComponent.propTypes = {
@@ -74,7 +73,6 @@ SignupComponent.propTypes = {
   email: PropTypes.string.isRequired,
   password: PropTypes.string.isRequired,
   repeatPassword: PropTypes.string.isRequired,
-  onPressFacebook: PropTypes.func.isRequired,
   onPressSignUp: PropTypes.func.isRequired,
 }
 

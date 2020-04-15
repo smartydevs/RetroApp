@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native'
 import dayjs from 'dayjs'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import { ApplicationStyles, Colors, Fonts } from '../../../themes'
 import { Header, TextButton, Input, Card } from '../../../components'
@@ -64,7 +65,10 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
   return (
     <SafeAreaView style={[container, styles.container]}>
       <Header icon={require('../../../../assets/icon.png')} text={'Create an event'} />
-      <ScrollView bounces={false}>
+      <KeyboardAwareScrollView
+        scrollEnabled={true}
+        enableOnAndroid={false}
+      >
         <ImageBackground
           source={{ uri: photoExisting ? photo.uri : '' }}
           style={styles.image}
@@ -80,11 +84,6 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
           </View>
         </ImageBackground>
         <View style={styles.separator} />
-        <KeyboardAvoidingView
-          behavior={OS.IOS === Platform.OS ? 'padding' : 'height'}
-          style={styles.container}
-          enabled
-        >
           <View style={[styles.padding, styles.lightGrayContainer]}>
             <Text style={[styles.label, button, grayText]}>Name</Text>
             <Input
@@ -178,8 +177,7 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
               style={styles.createEventButton}
             />
           </View>
-        </KeyboardAvoidingView>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </SafeAreaView>
   )
 }
