@@ -34,13 +34,16 @@ const ProfileComponent = ({
   const [showedList, setShowedList] = useState('onGoing')
 
   const {
-    profile: { firstName, lastName, avatar },
+    profile,
     ownedEvents: createdEvents,
     participatingEvents: goingEvents,
     email,
     followingCategories
   } = user
 
+  const firstName = profile && profile.firstName
+  const lastName = profile && profile.lastName
+  const avatar = profile && profile.avatar
   const avatarUrl = photoUrl ? photoUrl : avatar ? avatar.fullPath : ''
   const totalGoingEvents = goingEvents ? goingEvents.length : 0
   const totalCreatedEvents = createdEvents ? createdEvents.length : 0
@@ -83,6 +86,7 @@ const ProfileComponent = ({
   }
 
   const getCreatedEvents = () => {
+    console.log(createdEvents)
     if (totalCreatedEvents) {
       return createdEvents.map(event => renderEvents(event))
     }

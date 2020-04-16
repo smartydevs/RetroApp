@@ -37,12 +37,14 @@ const NotificationComponent = ({
         text={strings.notifications}
       />
       <View style={styles.content}>
-        <TextButton
-          text={'Mark all as read'}
-          textStyle={[button]}
-          onPress={markAllAsRead}
-          style={[styles.markAllAsRead, shadow]}
-        />
+        {notifications && notifications.length && (
+          <TextButton
+            text={'Mark all as read'}
+            textStyle={[button]}
+            onPress={markAllAsRead}
+            style={[styles.markAllAsRead, shadow]}
+          />
+        )}
         {notifications && notifications.length ? (
           <FlatList
             data={notifications}

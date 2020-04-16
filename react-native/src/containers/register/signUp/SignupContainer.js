@@ -4,7 +4,7 @@ import { Notification } from '../../../components'
 import strings from '../../../lib/stringEnums'
 import Constants, { NotificationTypeEnum, ScreenEnum } from '../../../lib/enums'
 import { registerMember } from '../../../api'
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, BackHandler } from 'react-native'
 import ApiClient from '../../../api/client'
 
 const { ERROR } = NotificationTypeEnum
@@ -16,6 +16,18 @@ class SignupContainer extends Component {
     repeatPassword: '',
     editable: false
   }
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ editable: true })
+    }, 100)
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
+  }
+
+  componentWillUnmount () {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
+  }
+
+  handleBackPress = () => this.props.navigation.goBack()
 
   onChangeEmail = email => {
     this.setState({ email })
@@ -70,11 +82,6 @@ class SignupContainer extends Component {
       await AsyncStorage.setItem(Constants.USER_ID, userId)
     } catch (err) {
     }
-  }
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({ editable: true })
-    }, 100)
   }
   render() {
     const { email, password, repeatPassword } = this.state

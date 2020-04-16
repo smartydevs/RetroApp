@@ -1,5 +1,6 @@
 import '../config'
 import React, { Component } from 'react'
+import { AsyncStorage } from 'react-native'
 import { Provider } from 'react-redux'
 import { registerRootComponent } from 'expo'
 import * as Font from 'expo-font'
@@ -7,7 +8,6 @@ import * as Font from 'expo-font'
 import ApiClient from '../api/client'
 import RootContainer from './RootContainer'
 import createStore from '../redux'
-import { AsyncStorage } from 'react-native'
 import Constants from '../lib/enums'
 
 const store = createStore()

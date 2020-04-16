@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { ChooseFeedComponent } from '.'
 
-import { cards } from '../../../fixtures/ChooseFeedData'
 import { ScreenEnum } from '../../../lib/enums'
 import { getCategories, addMemberCategories } from '../../../api'
 import { Notification } from '../../../components'
 import strings from '../../../lib/stringEnums'
+import { BackHandler } from 'react-native'
 
 class ChooseFeedContainer extends Component {
   constructor(props) {
@@ -20,7 +20,14 @@ class ChooseFeedContainer extends Component {
 
   componentDidMount() {
     this.getCategories()
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
   }
+
+  componentWillUnmount () {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
+  }
+
+  handleBackPress = () => this.props.navigation.goBack()
 
   async getCategories() {
     getCategories().then(({ data, isOk }) => {

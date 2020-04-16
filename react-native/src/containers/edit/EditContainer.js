@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Alert } from 'react-native'
+import { Alert, BackHandler } from 'react-native'
 
 import { EditComponent } from '.'
 import { Loading, Notification } from '../../components'
 import { getCategories, updateUserInfo } from '../../api'
-import { BottomStackScreensEnum, ScreenEnum } from '../../lib/enums'
+import { BottomStackScreensEnum } from '../../lib/enums'
 
 class EditContainer extends Component {
   state = {
@@ -35,6 +35,12 @@ class EditContainer extends Component {
     setTimeout(() => {
       this.setState({ editable: true })
     }, 100)
+  
+    BackHandler.addEventListener('hardwareBackPress', this.onGoBack)
+  }
+
+  componentWillUnmount () {
+    BackHandler.removeEventListener('hardwareBackPress', this.onGoBack)
   }
 
   getCategories = async followingCategories => {

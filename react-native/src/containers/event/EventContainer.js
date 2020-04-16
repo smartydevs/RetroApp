@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, BackHandler } from 'react-native'
 import { EventComponent } from '.'
 
 import { getEvent, joinEvent, leaveEvent } from '../../api/event'
@@ -19,6 +19,12 @@ class EventContainer extends Component {
     const { eventId } = this.props.navigation.state.params
     this.getUserId()
     this.getEvent(eventId)
+  
+    BackHandler.addEventListener('hardwareBackPress', this.onGoBack)
+  }
+
+  componentWillUnmount () {
+    BackHandler.removeEventListener('hardwareBackPress', this.onGoBack)
   }
 
   getUserId = () => {
