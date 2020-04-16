@@ -1,4 +1,5 @@
 import { Accounts } from 'meteor/accounts-base';
+import moment from 'moment';
 
 import { ValidationService } from '../../core/services';
 
@@ -99,7 +100,14 @@ export default class UserService {
         },
       })
       .fetch();
-    console.log('users', users);
-    return users ? users[0] : {};
+    const user = users ? users[0] : {};
+    const filteredParticipatinEvents = user.participatingEvents
+      ? user.participatingEvents.filter(event => {
+          const { startDate } = event;
+          return moment(startDate).diff(moment()) >= 0;
+        })
+      : [];
+    user.participatingEvents = filteredParticipatinEvents;
+    return user;
   }
 }
