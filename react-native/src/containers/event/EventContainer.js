@@ -102,7 +102,6 @@ class EventContainer extends Component {
 
   render() {
     const { loading, userJoined, eventData } = this.state
-    console.log(eventData)
 
     if (loading) {
       return <Loading show={loading} />

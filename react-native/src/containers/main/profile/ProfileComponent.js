@@ -33,7 +33,6 @@ const ProfileComponent = ({
 }) => {
   const [showedList, setShowedList] = useState('onGoing')
 
-  console.log('user', user)
   const {
     profile: { firstName, lastName, avatar },
     ownedEvents: createdEvents,

@@ -143,7 +143,7 @@ class CreateEventContainer extends Component {
         this.setState({
           isLoading: false,
           categoriesCards: categories,
-        }, () => console.log(this.state.categoriesCards))
+        })
       } else {
         this.setState({ isLoading: false })
         return Notification.error(strings.error)

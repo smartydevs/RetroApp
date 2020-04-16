@@ -4,6 +4,7 @@ import { Alert } from 'react-native'
 import { EditComponent } from '.'
 import { Loading, Notification } from '../../components'
 import { getCategories, updateUserInfo } from '../../api'
+import { BottomStackScreensEnum, ScreenEnum } from '../../lib/enums'
 
 class EditContainer extends Component {
   state = {
@@ -18,7 +19,7 @@ class EditContainer extends Component {
       followingCategories,
       profile: { firstName, lastName },
     } = this.props.navigation.state.params.user
-    // console.log(this.props.navigation.state.params)
+    
     await this.getCategories(followingCategories)
 
     this.setState(prevState => ({
@@ -72,7 +73,9 @@ class EditContainer extends Component {
       [
         {
           text: 'Yes',
-          onPress: this.props.navigation.goBack,
+          onPress: () => {
+            this.props.navigation.goBack()
+          }
         },
         {
           text: 'No',
@@ -101,12 +104,6 @@ class EditContainer extends Component {
     const { categories } = this.state.user
     const { email: initialEmail } = this.props.navigation.state.params.user
 
-    // const categoriesId = categories.map(c => {
-    //   if (c.isSelected) {
-    //     return c._id
-    //   }
-    // })
-
     const categoriesId = categories.filter(c => c.isSelected).map(c => c._id)
 
     const payload = {
@@ -114,7 +111,6 @@ class EditContainer extends Component {
       lastName,
       categoriesId,
     }
-    console.log('payload', payload)
     if (initialEmail !== email.trim()) {
       payload.email = email.trim()
     }
@@ -134,7 +130,7 @@ class EditContainer extends Component {
               )
             }
 
-            this.props.navigation.goBack()
+            this.props.navigation.navigate(BottomStackScreensEnum.MAIN)
           },
         },
         {
@@ -146,7 +142,6 @@ class EditContainer extends Component {
 
   render() {
     const { user, loading, editable } = this.state
-    console.log(user)
 
     if (loading) {
       return <Loading show={loading} />

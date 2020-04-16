@@ -65,7 +65,7 @@ const EventComponent = ({
       imageSource={fullPath}
     />
   )
-  console.log('start data', startDate)
+
   return (
     <SafeAreaView style={[container, styles.container]}>
       <Header onPress={onGoBack} />

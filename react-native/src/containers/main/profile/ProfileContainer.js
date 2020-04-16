@@ -17,12 +17,14 @@ class ProfileContainer extends Component {
     user: {},
     loading: true,
     avatarUrl: null,
+    shouldUpdate: false
   }
 
   componentDidMount() {
-    const { params } = this.props.navigation.state
+    const { navigation } = this.props
+    const { params } = navigation.state
 
-    if (params) {
+    if (params && !params.editable) {
       this.setState({
         editable: false,
         userId: params.userId,
@@ -32,6 +34,16 @@ class ProfileContainer extends Component {
       this.cameraSetUp()
       this.getUser()
     }
+
+    this.focusListener = navigation.addListener('didFocus', () => {
+      console.log('rerender')
+      this.getUser()
+      this.setState({ count: 0 })
+    })
+  }
+
+  componentWillUnmount() {
+    this.focusListener.remove();
   }
 
   getUser = async (userId = null) => {
@@ -41,7 +53,6 @@ class ProfileContainer extends Component {
       this.setState({
         loading: false,
       })
-      console.log('data', data)
       return Notification.error('Something went wrong')
     }
 
@@ -156,9 +167,15 @@ class ProfileContainer extends Component {
   }
 
   editData = () => {
+    this.setState({ shouldUpdate: true })
     this.props.navigation.navigate(ScreenEnum.EDIT, {
       user: this.state.user,
     })
+  }
+
+  update = () => {
+    this.props.navigation.state.params.shouldUpdate = false
+    this.getUser()    
   }
 
   render() {
