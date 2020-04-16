@@ -17,7 +17,7 @@ const EnterDetailsComponent = ({ firstName, lastName, onChangeLastName, onChange
   return (
     <KeyboardAwareScrollView
       scrollEnabled={false}
-      contentContainerStyle={[container, center, styles.screen]}
+      contentContainerStyle={[container, center, styles.container]}
       enableOnAndroid={false}
     >
       <Ionicons

@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   card: {
-    backgroundColor: 'white',
+    backgroundColor: Colors.primaryDark,
     width: normalizeWidth(100),
     height: normalizeHeight(80),
     marginBottom: normalizeHeight(15),
@@ -86,10 +86,6 @@ const styles = StyleSheet.create({
     borderColor: Colors.primaryPink,
     borderWidth: 2,
   },
-  cardTitle :{
-    position: 'absolute',
-    bottom: 5,
-  }
 })
 
 export default styles

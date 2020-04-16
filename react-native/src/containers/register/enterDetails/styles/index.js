@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   enterDetails: {
     marginBottom: Metrics.margin * 2,
     marginTop: Metrics.margin
-  }
+  },
 })
 
 export default styles

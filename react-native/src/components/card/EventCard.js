@@ -60,38 +60,11 @@ const styles = StyleSheet.create({
 const EventCard = ({
   title,
   location,
-  participants = [],
   date,
   isSmall = false,
   eventImage = null,
   containerStyle,
 }) => {
-  const userParticipants = participants ? participants : []
-  const renderParticipants = () => {
-    if (!userParticipants) {
-      return
-    }
-
-    if (userParticipants.length < 7) {
-      return userParticipants.map((participant, i) => (
-        <Image
-          key={i}
-          style={[styles.participantImage, { left: -(i * left) }]}
-          source={{ uri: participant.profilePicture }}
-        />
-      ))
-    }
-
-    return userParticipants
-      .slice(0, 6)
-      .map((participant, i) => (
-        <Image
-          key={i}
-          style={[styles.participantImage, { left: -(i * left) }]}
-          source={{ uri: participant.profilePicture }}
-        />
-      ))
-  }
 
   return (
     <Row style={containerStyle}>
@@ -112,25 +85,6 @@ const EventCard = ({
             {dayjs(date).format('DD MMM YYYY')}
           </Text>
         </View>
-        {!isSmall ? (
-          <View style={styles.detailsContainer}>
-            <Text style={[caption, primaryLightText]}>
-              {participants ? participants.length : null} people going
-            </Text>
-            <Row>
-              {renderParticipants()}
-              {userParticipants.length > 6 ? (
-                <View style={[styles.more, styles.participantImage, center]}>
-                  <Text style={[smallCaption, primaryLightText]}>
-                    {userParticipants.length < 105
-                      ? `+${userParticipants.length - 6}`
-                      : '99+'}
-                  </Text>
-                </View>
-              ) : null}
-            </Row>
-          </View>
-        ) : null}
       </View>
     </Row>
   )

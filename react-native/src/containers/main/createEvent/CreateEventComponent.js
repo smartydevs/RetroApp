@@ -20,19 +20,7 @@ const { container, shadow } = ApplicationStyles
 const { bigBoldTitle, button, grayText, centeredText } = Fonts.style
 
 const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo, cards, cardsChosen, onCardPress }) => {
-  const dt = new Date()
-  dt.setHours(dt.getHours() + 2)
-  const [showDate, setShowDate] = useState(false)
-  const [showTime, setShowTime] = useState(false)
   const [eventState, dispatch] = useReducer(reducer, initialState)
-
-  const toggleDatePicker = () => {
-    setShowDate(!showDate)
-  }
-
-  const toggleTimePicker = () => {
-    setShowTime(!showTime)
-  }
 
   const handleCreateEvent = () => {
     onCreateEvent(eventState, () => {
@@ -50,7 +38,7 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
         title={name}
         titleStyle={[button]}
         cardStyle={cardStyle}
-        containerStyle={[styles.cardContainer, shadow]}
+        containerStyle={[styles.cardContainer]}
         imageSource={imageSource}
       />
     )
@@ -99,11 +87,11 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
               {dayjs(eventState.startDate).format('DD MMMM YYYY')}
             </Text>
             <TextButton
-              text={showDate ? 'Save' : 'Choose Date'}
-              onPress={toggleDatePicker}
+              text={eventState.showDate ? 'Save' : 'Choose Date'}
+              onPress={() => dispatch({ type: 'toggleDate' })}
               style={styles.button}
             />
-            {showDate && (
+            {eventState.showDate && (
               <DateTimePicker
                 testID="dateTimePicker"
                 timeZoneOffsetInMinutes={180}
@@ -111,9 +99,12 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
                 mode={'date'}
                 is24Hour={true}
                 display="spinner"
-                onChange={(event, value) =>
-                  dispatch({ type: 'startDate', payload: value })
-                }
+                onChange={async (event, value) => {
+                  if (value) {
+                    await dispatch({ type: 'startDate', payload: value })
+                  }     
+                  console.log('1', value, eventState.startDate)          
+                }}
               />
             )}
           </View>
@@ -123,11 +114,11 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
               {dayjs(eventState.startDate).format('HH : mm')}
             </Text>
             <TextButton
-              text={showTime ? 'Save' : 'Choose Hour'}
-              onPress={toggleTimePicker}
+              text={eventState.showTime ? 'Save' : 'Choose Hour'}
+              onPress={() => dispatch({ type: 'toggleTime' })}
               style={styles.button}
             />
-            {showTime && (
+            {eventState.showTime && (
               <DateTimePicker
                 testID="dateTimePicker"
                 timeZoneOffsetInMinutes={180}
@@ -135,9 +126,12 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
                 mode={'time'}
                 is24Hour={true}
                 display="spinner"
-                onChange={(event, value) =>
-                  dispatch({ type: 'startDate', payload: value })
-                }
+                onChange={async (event, value) => {
+                  if (value) {
+                    await dispatch({ type: 'startDate', payload: value })
+                  }      
+                  console.log('2', value, eventState.startDate)         
+                }}
               />
             )}
           </View>
