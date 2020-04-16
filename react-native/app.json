@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Retro App",
+    "name": "RetrUp",
     "slug": "retro_app",
     "privacy": "public",
     "sdkVersion": "36.0.0",
@@ -25,22 +25,19 @@
     "ios": {
       "buildNumber": "1.0.0",
       "supportsTablet": true,
-      "bundleIdentifier": "client.trage-ma.ro",
-      "config": {
-        "googleMapsApiKey": "AIzaSyDsdsINY4bDUMQ6wQI0sKnmKJwnQXE5LlY"
-      },
+      "bundleIdentifier": "smarty.retrup.com",
       "infoPlist": {
-        "NSPhotoLibraryAddUsageDescription": "Retro App folosește librăria pentru a stoca imaginea până in momentul în care mașina este adăugată sau editată.",
-        "NSPhotoLibraryUsageDescription": "Retro App folosește librăria pentru a stoca imaginea până in momentul în care mașina este adăugată sau editată.",
-        "NSCameraUsageDescription": "Retro App folosește camera pentru a captura poze ce surprind locul unde tractarea este dorită.",
-        "NSLocationAlwaysUsageDescription": "Retro App folosește locația pentru a trimite coordonatele exacte șoferilor.",
-        "NSLocationWhenInUseUsageDescription": "Retro App folosește locația pentru a trimite coordonatele exacte șoferilor.",
-        "NSLocationUsageDescription": "Retro App folosește locația pentru a trimite coordonatele exacte șoferilor."
+        "NSPhotoLibraryAddUsageDescription": "RetrUp folosește librăria pentru a stoca imaginea până in momentul în care mașina este adăugată sau editată.",
+        "NSPhotoLibraryUsageDescription": "RetrUp folosește librăria pentru a stoca imaginea până in momentul în care mașina este adăugată sau editată.",
+        "NSCameraUsageDescription": "RetrUp folosește camera pentru a captura poze ce surprind locul unde tractarea este dorită.",
+        "NSLocationAlwaysUsageDescription": "RetrUp folosește locația pentru a trimite coordonatele exacte șoferilor.",
+        "NSLocationWhenInUseUsageDescription": "RetrUp folosește locația pentru a trimite coordonatele exacte șoferilor.",
+        "NSLocationUsageDescription": "RetrUp folosește locația pentru a trimite coordonatele exacte șoferilor."
       }
     },
     "android": {
       "versionCode": 100,
-      "package": "client.trage_ma.ro",
+      "package": "smarty.retrup.com",
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",

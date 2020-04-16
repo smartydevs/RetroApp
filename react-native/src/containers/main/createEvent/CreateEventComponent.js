@@ -101,7 +101,7 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
                 display="spinner"
                 onChange={async (event, value) => {
                   if (value) {
-                    await dispatch({ type: 'startDate', payload: value })
+                    await dispatch({ type: 'setDate', payload: value })
                   }     
                   console.log('1', value, eventState.startDate)          
                 }}
@@ -128,9 +128,8 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
                 display="spinner"
                 onChange={async (event, value) => {
                   if (value) {
-                    await dispatch({ type: 'startDate', payload: value })
+                    await dispatch({ type: 'setTime', payload: value })
                   }      
-                  console.log('2', value, eventState.startDate)         
                 }}
               />
             )}

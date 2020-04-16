@@ -22,7 +22,7 @@ export const reducer = (state, action) => {
   if (action.type === 'toggleTime') {
     return {
       ...state,
-      location : {
+      location: {
         ...state.location
       },
       showTime: !state.showTime
@@ -31,21 +31,34 @@ export const reducer = (state, action) => {
   if (action.type === 'toggleDate') {
     return {
       ...state,
-      location : {
+      location: {
         ...state.location
       },
       showDate: !state.showDate
     }
   }
-  if (action.type === 'startDate') {
-    return  {
+  if (action.type === 'setDate') {
+    const newDate = new Date(action.payload.getFullYear(), action.payload.getMonth(), action.payload.getDate(), state.startDate.getHours(), state.startDate.getMinutes());
+    return {
       ...state,
-      location : {
+      location: {
         ...state.location
       },
-      startDate: action.payload,
+      startDate: newDate,
       showDate: false,
       showTime: false
+    }
+  }
+  if (action.type === 'setTime') {
+    const newDate = new Date(state.startDate.getFullYear(), state.startDate.getMonth(), state.startDate.getDate(), action.payload.getHours(), action.payload.getMinutes())
+    return {
+      ...state,
+      location: {
+        ...state.location,
+      },
+      startDate: newDate,
+      showDate: false,
+      showTime: false,
     }
   }
   return {
