@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { BackHandler } from 'react-native'
 
 import { forgotPassword } from '../../../api/register/forgotPassword'
 import { ForgotPasswordComponent } from '.'
@@ -12,6 +13,19 @@ class ForgotPasswordContainer extends Component {
     repeatPassword: '',
     editable: false
   }
+
+  componentDidMount () {
+    setTimeout(() => {
+      this.setState({ editable: true })
+    }, 100)
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
+  }
+
+  componentWillUnmount () {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
+  }
+
+  handleBackPress = () => this.props.navigation.goBack()
 
   onChangeEmail = email => {
     this.setState({ email })
@@ -43,11 +57,7 @@ class ForgotPasswordContainer extends Component {
 
     this.props.navigation.goBack()
   }
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({ editable: true })
-    }, 100)
-  }
+  
   render() {
     const { email, password, repeatPassword } = this.state
 

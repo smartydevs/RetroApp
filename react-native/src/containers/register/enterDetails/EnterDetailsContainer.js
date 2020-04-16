@@ -5,12 +5,23 @@ import { ScreenEnum } from '../../../lib/enums'
 import { addMemberDetails } from '../../../api'
 import { Notification } from '../../../components'
 import strings from '../../../lib/stringEnums'
+import { BackHandler } from 'react-native'
 
 class EnterDetailsContainer extends Component {
   state = {
     firstName: '',
     lastName: '',
   }
+
+  componentDidMount () {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
+  }
+
+  componentWillUnmount () {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
+  }
+
+  handleBackPress = () => this.props.navigation.goBack()
 
   onChangeFirstName = firstName => {
     this.setState({ firstName })
