@@ -23,12 +23,13 @@ class ProfileContainer extends Component {
   componentDidMount() {
     const { navigation } = this.props
     const { params } = navigation.state
+    console.log(params)
 
-    if (params && !params.editable) {
+    if (params && params.notEditable) {
       this.setState({
         editable: false,
         userId: params.userId,
-      })
+      }, () => {console.log(this.state)})
       this.getUser(params.userId)
     } else {
       this.cameraSetUp()
@@ -36,7 +37,7 @@ class ProfileContainer extends Component {
     }
 
     this.focusListener = navigation.addListener('didFocus', () => {
-      this.getUser()
+      this.state.editable && this.getUser()
       this.setState({ count: 0 })
     })
   }

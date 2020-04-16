@@ -31,6 +31,7 @@ const ProfileComponent = ({
   editData,
   user,
 }) => {
+  console.log(editable)
   const [showedList, setShowedList] = useState('onGoing')
 
   const {
@@ -77,7 +78,7 @@ const ProfileComponent = ({
 
     return (
       <TextCard
-        message={strings.noGoingEvents}
+        message={editable ? strings.noGoingEvents: 'The user is not going to any event yet.'}
         icon={'md-search'}
         containerStyle={{ margin: normalizeWidth(5) }}
         onPress={() => navigate(BottomStackScreensEnum.SEARCH)}
@@ -93,7 +94,7 @@ const ProfileComponent = ({
 
     return (
       <TextCard
-        message={strings.noCreatedEvents}
+        message={editable ? strings.noCreatedEvents : 'The user hasn\'t created any event yet.'}
         icon={'md-create'}
         containerStyle={{ margin: normalizeWidth(5) }}
         onPress={() => navigate(BottomStackScreensEnum.CREATE)}
