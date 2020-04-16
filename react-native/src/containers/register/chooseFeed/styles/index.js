@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   card: {
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     width: normalizeWidth(160),
     height: normalizeHeight(120),
     borderRadius: 15,
@@ -18,12 +18,7 @@ const styles = StyleSheet.create({
   container: {
     margin: 10,
     borderRadius: 15,
-  },
-  cardTitle: {
-    color: Colors.white,
-    position: 'absolute',
-    bottom: 5,
-    right: 5,
+    flex: 1
   },
   skipButton: {
     padding: normalizeWidth(10),

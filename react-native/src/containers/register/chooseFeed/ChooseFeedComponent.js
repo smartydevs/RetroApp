@@ -10,7 +10,7 @@ import { TextButton } from '../../../components'
 import { Ionicons } from '@expo/vector-icons'
 
 const { container, center } = ApplicationStyles
-const { bigBoldTitle, button } = Fonts.style
+const { bigBoldTitle, button, whiteText, centeredText } = Fonts.style
 
 const ChooseFeedComponent = ({
   onCardPress,
@@ -24,11 +24,12 @@ const ChooseFeedComponent = ({
     const existingCard = cardsChosen.find(cardId => cardId === _id)
     const cardStyle = [styles.card]
     if (existingCard) cardStyle.push(styles.highlight)
+    // console.log(imageSource)
     return (
       <Card
         onPress={() => onCardPress(_id)}
         title={name}
-        titleStyle={[Fonts.style.bigBoldTitle, styles.cardTitle]}
+        titleStyle={[bigBoldTitle, whiteText, centeredText]}
         cardStyle={cardStyle}
         containerStyle={styles.container}
         imageSource={imageSource}
