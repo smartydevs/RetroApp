@@ -38,7 +38,7 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
         title={name}
         titleStyle={[button]}
         cardStyle={cardStyle}
-        containerStyle={[styles.cardContainer, shadow]}
+        containerStyle={[styles.cardContainer]}
         imageSource={imageSource}
       />
     )
