@@ -36,7 +36,6 @@ class ProfileContainer extends Component {
     }
 
     this.focusListener = navigation.addListener('didFocus', () => {
-      console.log('rerender')
       this.getUser()
       this.setState({ count: 0 })
     })
@@ -129,7 +128,6 @@ class ProfileContainer extends Component {
         })
       })
       .catch(error => {
-        console.log('upload error', error)
         Notification.error('Something went wrong while uploading the picture')
       })
   }

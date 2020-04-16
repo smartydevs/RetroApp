@@ -70,7 +70,6 @@ class LoginContainer extends Component {
       ApiClient.setToken(token)
     } catch (err) {
       this.setState({ isLoading: false })
-      console.log('err', err)
     }
   }
 
@@ -78,7 +77,6 @@ class LoginContainer extends Component {
     try {
       await AsyncStorage.setItem(Constants.USER_ID, userId)
     } catch (err) {
-      console.log('err', err)
     }
   }
 

@@ -15,7 +15,6 @@ export const getUserNotifications = async () => {
       data,
     }
   } catch (error) {
-    console.log('method error', error)
     return {
       isOk: false,
       data: error,

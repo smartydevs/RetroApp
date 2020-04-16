@@ -23,7 +23,10 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
   const [eventState, dispatch] = useReducer(reducer, initialState)
 
   const handleCreateEvent = () => {
-    onCreateEvent(eventState, () => {
+    let payload = { ...eventState };
+    delete payload.showDate;
+    delete payload.showTime;
+    onCreateEvent(payload, () => {
       dispatch({ type: 'clear' })
     })
   }
@@ -67,104 +70,103 @@ const CreateEventComponent = ({ onAddPhoto, onCreateEvent, photoExisting, photo,
           </View>
         </ImageBackground>
         <View style={styles.separator} />
-          <View style={[styles.padding, styles.lightGrayContainer]}>
-            <Text style={[styles.label, button, grayText]}>Name</Text>
-            <Input
-              onChangeText={value => dispatch({ type: 'title', payload: value })}
-              value={eventState.title}
+        <View style={[styles.padding, styles.lightGrayContainer]}>
+          <Text style={[styles.label, button, grayText]}>Name</Text>
+          <Input
+            onChangeText={value => dispatch({ type: 'title', payload: value })}
+            value={eventState.title}
+          />
+        </View>
+        <View style={styles.padding}>
+          <Text style={[styles.label, button, grayText]}>Location</Text>
+          <Input
+            onChangeText={value => dispatch({ type: 'location', payload: value })}
+            value={eventState.location}
+          />
+        </View>
+        <View style={[styles.padding, styles.lightGrayContainer]}>
+          <Text style={[styles.label, button, grayText]}>Date</Text>
+          <Text style={[button, grayText, centeredText]}>
+            {dayjs(eventState.startDate).format('DD MMMM YYYY')}
+          </Text>
+          <TextButton
+            text={eventState.showDate ? 'Save' : 'Choose Date'}
+            onPress={() => dispatch({ type: 'toggleDate' })}
+            style={styles.button}
+          />
+          {eventState.showDate && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              timeZoneOffsetInMinutes={180}
+              value={eventState.startDate}
+              mode={'date'}
+              is24Hour={true}
+              display="spinner"
+              onChange={async (event, value) => {
+                if (value) {
+                  await dispatch({ type: 'setDate', payload: value })
+                }
+              }}
             />
-          </View>
-          <View style={styles.padding}>
-            <Text style={[styles.label, button, grayText]}>Location</Text>
-            <Input
-              onChangeText={value => dispatch({ type: 'location', payload: value })}
-              value={eventState.location}
+          )}
+        </View>
+        <View style={styles.padding}>
+          <Text style={[styles.label, button, grayText]}>Hour</Text>
+          <Text style={[button, grayText, centeredText]}>
+            {dayjs(eventState.startDate).format('HH : mm')}
+          </Text>
+          <TextButton
+            text={eventState.showTime ? 'Save' : 'Choose Hour'}
+            onPress={() => dispatch({ type: 'toggleTime' })}
+            style={styles.button}
+          />
+          {eventState.showTime && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              timeZoneOffsetInMinutes={180}
+              value={eventState.startDate}
+              mode={'time'}
+              is24Hour={true}
+              display="spinner"
+              onChange={async (event, value) => {
+                if (value) {
+                  await dispatch({ type: 'setTime', payload: value })
+                }
+              }}
             />
-          </View>
-          <View style={[styles.padding, styles.lightGrayContainer]}>
-            <Text style={[styles.label, button, grayText]}>Date</Text>
-            <Text style={[button, grayText, centeredText]}>
-              {dayjs(eventState.startDate).format('DD MMMM YYYY')}
-            </Text>
-            <TextButton
-              text={eventState.showDate ? 'Save' : 'Choose Date'}
-              onPress={() => dispatch({ type: 'toggleDate' })}
-              style={styles.button}
-            />
-            {eventState.showDate && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                timeZoneOffsetInMinutes={180}
-                value={eventState.startDate}
-                mode={'date'}
-                is24Hour={true}
-                display="spinner"
-                onChange={async (event, value) => {
-                  if (value) {
-                    await dispatch({ type: 'setDate', payload: value })
-                  }     
-                  console.log('1', value, eventState.startDate)          
-                }}
-              />
-            )}
-          </View>
-          <View style={styles.padding}>
-            <Text style={[styles.label, button, grayText]}>Hour</Text>
-            <Text style={[button, grayText, centeredText]}>
-              {dayjs(eventState.startDate).format('HH : mm')}
-            </Text>
-            <TextButton
-              text={eventState.showTime ? 'Save' : 'Choose Hour'}
-              onPress={() => dispatch({ type: 'toggleTime' })}
-              style={styles.button}
-            />
-            {eventState.showTime && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                timeZoneOffsetInMinutes={180}
-                value={eventState.startDate}
-                mode={'time'}
-                is24Hour={true}
-                display="spinner"
-                onChange={async (event, value) => {
-                  if (value) {
-                    await dispatch({ type: 'setTime', payload: value })
-                  }      
-                }}
-              />
-            )}
-          </View>
+          )}
+        </View>
 
-          <View style={[styles.padding, styles.lightGrayContainer]}>
-            <Text style={[styles.label, button, grayText]}>
-              Choose categories that your event is part of
+        <View style={[styles.padding, styles.lightGrayContainer]}>
+          <Text style={[styles.label, button, grayText]}>
+            Choose categories that your event is part of
             </Text>
-            <FlatList
-              contentContainerStyle={{ alignItems: 'center' }}
-              numColumns={2}
-              data={cards}
-              keyExtractor={({ _id }) => _id}
-              renderItem={({ item }) => onRenderCard(item)}
-            />
-          </View>
+          <FlatList
+            contentContainerStyle={{ alignItems: 'center' }}
+            numColumns={2}
+            data={cards}
+            keyExtractor={({ _id }) => _id}
+            renderItem={({ item }) => onRenderCard(item)}
+          />
+        </View>
 
-          <View style={[styles.padding]}>
-            <Text style={[styles.label, button, grayText]}>Description</Text>
-            <Input
-              multiline
-              containerStyle={styles.descriptionInput}
-              textStyle={{ height: normalizeHeight(160) }}
-              onChangeText={value => dispatch({ type: 'description', payload: value })}
-              value={eventState.description}
-            />
-          </View>
-          <View style={[styles.padding, styles.lightGrayContainer]}>
-            <TextButton
-              text={'Create Event'}
-              onPress={handleCreateEvent}
-              style={styles.createEventButton}
-            />
-          </View>
+        <View style={[styles.padding]}>
+          <Text style={[styles.label, button, grayText]}>Description</Text>
+          <Input
+            multiline
+            containerStyle={styles.descriptionInput}
+            textStyle={{ height: normalizeHeight(160) }}
+            onChangeText={value => dispatch({ type: 'description', payload: value })}
+            value={eventState.description}
+          />
+        </View>
+        <View style={[styles.padding, styles.lightGrayContainer]}>
+          <TextButton
+            text={'Create Event'}
+            onPress={handleCreateEvent}
+            style={styles.createEventButton}
+          />
+        </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>
   )

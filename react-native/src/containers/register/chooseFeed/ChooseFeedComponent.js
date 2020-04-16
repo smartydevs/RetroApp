@@ -24,7 +24,6 @@ const ChooseFeedComponent = ({
     const existingCard = cardsChosen.find(cardId => cardId === _id)
     const cardStyle = [styles.card]
     if (existingCard) cardStyle.push(styles.highlight)
-    // console.log(imageSource)
     return (
       <Card
         onPress={() => onCardPress(_id)}

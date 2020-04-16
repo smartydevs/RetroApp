@@ -1,3 +1,5 @@
+import { Platform } from 'react-native'
+
 export const initialState = {
   startDate: new Date(),
   location: {
@@ -45,8 +47,7 @@ export const reducer = (state, action) => {
         ...state.location
       },
       startDate: newDate,
-      showDate: false,
-      showTime: false
+      showDate: Platform.OS === "ios"
     }
   }
   if (action.type === 'setTime') {
@@ -57,8 +58,7 @@ export const reducer = (state, action) => {
         ...state.location,
       },
       startDate: newDate,
-      showDate: false,
-      showTime: false,
+      showTime: Platform.OS === "ios"
     }
   }
   return {

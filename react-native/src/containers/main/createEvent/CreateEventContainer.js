@@ -79,7 +79,6 @@ class CreateEventContainer extends Component {
     const { isOk, data } = await createEvent(eventDetails)
 
     if (!isOk) {
-      console.log('[Create Event] error', data)
       return Notification.show('Something went wrong', NotificationTypeEnum.ERROR)
     }
 
@@ -93,7 +92,6 @@ class CreateEventContainer extends Component {
     const { isOk: isOkPhoto, data: photoData } = await saveEventPhoto(photo, eventId)
 
     if (!isOkPhoto) {
-      console.log('[Upload Event Image] error', photoData)
       return Notification.show(
         'Something went wrong when uploading the image',
         NotificationTypeEnum.ERROR
