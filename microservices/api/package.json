@@ -17,7 +17,7 @@
     "apollo-server-express": "^2.9.3",
     "awesome-phonenumber": "^2.23.0",
     "aws-sdk": "^2.527.0",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "dot-object": "^2.1.2",
     "expo-server-sdk": "^3.4.0",
