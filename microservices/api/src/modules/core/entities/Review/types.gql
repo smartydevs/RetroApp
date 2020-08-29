@@ -5,6 +5,7 @@ type Review {
     eventId: String!
     event: Event
     stars: Int
-    text: String!
-    createdAt: Date
+    title: String!
+    description: String!
+    createdAt: String
 }
