@@ -6,6 +6,7 @@ import { getCategories, addMemberCategories } from '../../../api'
 import { Notification } from '../../../components'
 import strings from '../../../lib/stringEnums'
 import { BackHandler } from 'react-native'
+import { StackActions, NavigationActions } from 'react-navigation'
 
 class ChooseFeedContainer extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class ChooseFeedContainer extends Component {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
   }
 
@@ -72,7 +73,11 @@ class ChooseFeedContainer extends Component {
   }
 
   onSkipButtonPress = () => {
-    this.props.navigation.push(ScreenEnum.MAIN)
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: ScreenEnum.MAIN })]
+    })
+    this.props.navigation.dispatch(resetAction)
   }
 
   onCompleteFeed = () => {
@@ -85,7 +90,11 @@ class ChooseFeedContainer extends Component {
 
     addMemberCategories({ email, categories: cardsChosen }).then(({ isOk }) => {
       if (isOk) {
-        this.props.navigation.push(ScreenEnum.MAIN)
+        const resetAction = StackActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName: ScreenEnum.MAIN })]
+        })
+        return this.props.navigation.dispatch(resetAction)
       } else {
         return Notification.error(strings.error)
       }

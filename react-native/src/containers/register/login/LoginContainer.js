@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { LoginComponent } from '.'
 import Constants, { NotificationTypeEnum, ScreenEnum } from '../../../lib/enums'
+import { StackActions, NavigationActions } from 'react-navigation'
 import { login } from '../../../api/register/login/methods'
 import { AsyncStorage } from 'react-native'
 import ApiClient from '../../../api/client'
@@ -44,7 +45,11 @@ class LoginContainer extends Component {
         const { loginMember } = data
         await this.storeToken(loginMember.token)
         await this.storeUserId(loginMember.userId)
-        this.props.navigation.push(ScreenEnum.MAIN)
+        const resetAction = StackActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName: ScreenEnum.MAIN })]
+        })
+        this.props.navigation.dispatch(resetAction)
       } else {
         const { message } = data
         if (message.indexOf('email-expected') >= 0) {

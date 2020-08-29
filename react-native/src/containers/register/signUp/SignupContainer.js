@@ -6,6 +6,7 @@ import Constants, { NotificationTypeEnum, ScreenEnum } from '../../../lib/enums'
 import { registerMember } from '../../../api'
 import { AsyncStorage, BackHandler } from 'react-native'
 import ApiClient from '../../../api/client'
+import { StackActions, NavigationActions } from 'react-navigation'
 
 const { ERROR } = NotificationTypeEnum
 
@@ -23,7 +24,7 @@ class SignupContainer extends Component {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
   }
 
@@ -65,7 +66,12 @@ class SignupContainer extends Component {
     await this.storeToken(token)
     await this.storeUserId(userId)
 
-    return this.props.navigation.push(ScreenEnum.ENTER_DETAILS, { email })
+
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: ScreenEnum.ENTER_DETAILS, params: { email: email } })]
+    })
+    this.props.navigation.dispatch(resetAction)
   }
 
   storeToken = async token => {
