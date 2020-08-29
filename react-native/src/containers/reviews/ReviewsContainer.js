@@ -25,7 +25,7 @@ class ReviewsContainer extends Component {
 
   render() {
     const { userId } = this.state;
-    const { eventId, isUserGoingToEvent } = this.props.navigation.state.params;
+    const { eventId, isUserGoingToEvent, reviews } = this.props.navigation.state.params;
 
     return (
       <ReviewsComponent
@@ -35,6 +35,7 @@ class ReviewsContainer extends Component {
         userId={userId}
         eventId={eventId}
         isUserGoingToEvent={isUserGoingToEvent}
+        reviews={reviews}
       />
     )
   }

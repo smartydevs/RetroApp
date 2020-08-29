@@ -6,6 +6,7 @@ import { Row, ProfilePicture, Button } from '../../../../components';
 import { normalizeHeight, normalizeWidth } from '../../../../themes/Metrics';
 import { ApplicationStyles, Fonts, Colors } from '../../../../themes';
 import styles from './styles';
+import dayjs from 'dayjs';
 
 const { center, shadow } = ApplicationStyles
 const { smallCaption, caption, button } = Fonts.style
@@ -39,9 +40,21 @@ export const renderStars = (rate) => {
   return stars;
 }
 
-const Review = ({ _id, user = {}, review = {}, onDeleteReview, onEditReview, personalUserId }) => {
-  const { _id: userId, firstName, lastName, profilePic, numOfReviews } = user;
-  const { rate, title, description, date } = review;
+const Review = ({
+  _id,
+  title,
+  description,
+  stars,
+  createdAt,
+  author,
+  onDeleteReview,
+  onEditReview,
+  personalUserId
+}) => {
+
+  const { _id: userId, reviewsNumber, profile = {} } = author;
+  console.log(author, profile)
+  const { firstName, lastName, avatar } = profile;
 
   return (
     <Row style={[styles.container, styles.lightGrayContainer, shadow]}>
@@ -49,21 +62,21 @@ const Review = ({ _id, user = {}, review = {}, onDeleteReview, onEditReview, per
         <ProfilePicture
           firstName={firstName}
           lastName={lastName}
-          imageSource={profilePic}
+          imageSource={(avatar && avatar.fullPath) ? avatar.fullPath : ''}
           style={styles.profilePicture}
         />
         <View style={[center, { marginTop: normalizeHeight(10), maxWidth: normalizeWidth(60)}]}>
           <Text style={smallCaption}>{firstName}</Text>
           <Text style={[smallCaption, { marginTop: normalizeHeight(5) }]}>{lastName}</Text>
           <Text style={[smallCaption, { marginTop: normalizeHeight(20) }]}>
-            Reviews: {numOfReviews}
+            Reviews: {reviewsNumber}
           </Text>          
         </View>
       </View>
 
       <View style={[styles.content]}>
         <Row style={styles.titleContainer}>
-          <Row>{renderStars(rate)}</Row>
+          <Row>{renderStars(stars)}</Row>
 
           {personalUserId === userId ? (
             <Row>
@@ -79,7 +92,7 @@ const Review = ({ _id, user = {}, review = {}, onDeleteReview, onEditReview, per
 
         <Text style={[styles.title, button]}>{title}</Text>
 
-        <Text style={[styles.title, button]}>Date of review: {date}</Text>
+        {/* <Text style={[styles.title, button]}>Date of review: {dayjs(createdAt, 'YYYY-MMM-DD')}</Text> */}
 
         <Text style={[styles.description, caption]}>{description}</Text>
       </View>

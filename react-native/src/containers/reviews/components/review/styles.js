@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingHorizontal: Metrics.margin * 2,
+    width: '100%'
   },
   description: {
     marginRight: Metrics.margin * 3,
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     justifyContent: 'space-between',
-    marginRight: Metrics.margin * 3,
+    marginRight: Metrics.margin * 3
   }
 })
 
