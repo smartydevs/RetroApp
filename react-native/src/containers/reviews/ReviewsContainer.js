@@ -3,7 +3,7 @@ import { AsyncStorage } from 'react-native';
 
 import { ReviewsComponent } from '.';
 import Constants from '../../lib/enums';
-import { editReview, deleteReview, getReviews } from '../../api';
+import { deleteReview, getReviews } from '../../api';
 import { Notification } from '../../components';
 import strings from '../../lib/stringEnums';
 

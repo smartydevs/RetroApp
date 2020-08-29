@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { TextButton, Button, Row, Input, Notification } from '../../../../components';
@@ -8,7 +8,6 @@ import { addReview } from '../../../../api';
 import strings from '../../../../lib/stringEnums';
 
 import styles from './styles';
-import { is } from 'ramda';
 
 const AddReview = ({ eventId, getReviews }) => {
   const [showAddReviewForm, setShowAddReviewForm] = useState(false);
@@ -38,7 +37,7 @@ const AddReview = ({ eventId, getReviews }) => {
 
     const input = { eventId, stars: starsAdded, title, description };
 
-    const { data, isOk } = await addReview(input)
+    const { isOk } = await addReview(input)
 
     if (isOk) {
       onCloseReview();
