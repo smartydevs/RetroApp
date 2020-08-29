@@ -15,13 +15,14 @@ const reviews = [
   {
     _id: 1,
     user: {
+      _id: 11,
       firstName: 'first name aisohdxoa',
       lastName: 'last name asjdba da',
       profilePic: 'https://picsum.photos/200',
       numOfReviews: 4
     },
     review: {
-      date: '',
+      date: '2020-03-20',
       rate: 4,
       title: 'some title',
       description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
@@ -30,13 +31,13 @@ const reviews = [
   {
     _id: 2,
     user: {
-      date: '',
+      _id: 21,
       firstName: 'first name 2',
       lastName: 'last name 2',
       numOfReviews: 19
     },
     review: {
-      date: '',
+      date: '2020-03-4',
       rate: 2,
       title: 'some title 2',
       description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
@@ -45,12 +46,14 @@ const reviews = [
   {
     _id: 3,
     user: {
+      _id: 31,
       firstName: 'first name 3',
       lastName: 'last name 3',
       profilePic: 'https://picsum.photos/200',
       numOfReviews: 1
     },
     review: {
+      date: '2020-03-14',
       rate: 5,
       title: 'some title 3',
       description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
@@ -58,7 +61,7 @@ const reviews = [
   }
 ]
 
-const ReviewsComponent = ({ onGoBack }) => {
+const ReviewsComponent = ({ onGoBack, onDeleteReview, onEditReview, userId }) => {
   return (
     <SafeAreaView style={[container, styles.container]}>
       <Header onPress={onGoBack} text={'Reviews'} />
@@ -71,7 +74,14 @@ const ReviewsComponent = ({ onGoBack }) => {
         style={styles.listContainer}
         data={reviews}
         keyExtractor={({ _id }) => _id}
-        renderItem={({ item }) => <Review {...item} />}
+        renderItem={({ item }) => (
+          <Review
+            {...item}
+            onDeleteReview={onDeleteReview}
+            onEditReview={onEditReview}
+            personalUserId={userId}
+          />
+        )}
       />
     </SafeAreaView>
   );

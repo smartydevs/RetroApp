@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-import { Row, ProfilePicture } from '../../../../components';
+import { Row, ProfilePicture, TextButton, Button } from '../../../../components';
 import { normalizeHeight, normalizeWidth } from '../../../../themes/Metrics';
 import { ApplicationStyles, Fonts, Colors } from '../../../../themes';
 import styles from './styles';
@@ -10,8 +10,8 @@ import styles from './styles';
 const { center, shadow } = ApplicationStyles
 const { smallCaption, caption, button } = Fonts.style
 
-const Review = ({ _id, user = {}, review = {} }) => {
-  const { firstName, lastName, profilePic, numOfReviews } = user;
+const Review = ({ _id, user = {}, review = {}, onDeleteReview, onEditReview, personalUserId }) => {
+  const { _id: userId, firstName, lastName, profilePic, numOfReviews } = user;
   const { rate, title, description, date } = review;
 
   const renderStars = (rate) => {
@@ -62,8 +62,25 @@ const Review = ({ _id, user = {}, review = {} }) => {
       </View>
 
       <View style={[styles.content]}>
-        <Row>{renderStars(rate)}</Row>
+        <Row style={styles.titleContainer}>
+          <Row>{renderStars(rate)}</Row>
+
+          {personalUserId === userId ? (
+            <Row>
+              <Button style={{ marginRight: normalizeWidth(15)}} onPress={() => onDeleteReview(_id)}>
+                <Ionicons name="md-remove-circle" size={20} style={{color: Colors.primaryPink}} />
+              </Button>
+              <Button onPress={() => onEditReview(_id)}>
+                <Ionicons name="md-create" size={20} style={{color: Colors.primaryAqua}} />
+              </Button>
+            </Row>
+          ) : null}
+        </Row>
+
         <Text style={[styles.title, button]}>{title}</Text>
+
+        <Text style={[styles.title, button]}>Date of review: {date}</Text>
+
         <Text style={[styles.description, caption]}>{description}</Text>
       </View>
     </Row>
@@ -71,3 +88,17 @@ const Review = ({ _id, user = {}, review = {} }) => {
 }
 
 export default Review;
+
+
+
+          {/* {personalUserId !== userId ? ( */}
+            //  <Row>
+            //   <TextButton
+            //     onPress={() => onEditReview(_id)}
+            //     style={[styles.smallBtn, center, shadow]}
+            //     hasChildren
+            //   >
+            //     <Ionicons name="md-edit" size={20} style={{color: Colors.primaryAqua}} />
+            //   </TextButton>
+            // </Row>
+          // ) : null}
