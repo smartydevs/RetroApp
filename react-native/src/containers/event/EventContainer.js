@@ -74,8 +74,11 @@ class EventContainer extends Component {
     })
   }
 
-  onGoToCommentsPage = () => {
-    this.props.navigation.navigate(ScreenEnum.COMMENTS)
+  onGoToReviewsPage = () => {
+    const { eventId } = this.props.navigation.state.params
+    this.props.navigation.navigate(ScreenEnum.REVIEWS, {
+      eventId
+    })
   }
 
   onPressToggleJoinButton = () => {
@@ -123,7 +126,7 @@ class EventContainer extends Component {
         eventData={eventData}
         userJoined={userJoined}
         onGoToUserPage={this.onGoToUserPage}
-        onGoToCommentsPage={this.onGoToCommentsPage}
+        onGoToReviewsPage={this.onGoToReviewsPage}
         onPressToggleJoinButton={this.onPressToggleJoinButton}
       />
     )

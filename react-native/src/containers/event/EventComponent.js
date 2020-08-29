@@ -21,7 +21,7 @@ const {
 const EventComponent = ({
   onGoBack,
   onGoToUserPage,
-  onGoToCommentsPage,
+  onGoToReviewsPage,
   onPressToggleJoinButton,
   userJoined,
   eventData: {
@@ -156,8 +156,8 @@ const EventComponent = ({
         <View style={[styles.padding]}>
           <TextButton
             textStyle={grayText}
-            text={'Comments section'}
-            onPress={onGoToCommentsPage}
+            text={'Reviews section'}
+            onPress={onGoToReviewsPage}
           />
         </View>
         <View style={[styles.lightGrayContainer, styles.padding]}>

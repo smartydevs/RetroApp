@@ -37,7 +37,7 @@ export const ScreenEnum = {
   FORGOT_PASSWORD: 'ForgotPassword',
   USER_PROFILE: 'UserProfile',
   EDIT: 'Edit',
-  COMMENTS: 'Comments'
+  REVIEWS: 'Reviews'
 }
 
 export const BottomStackScreensEnum = {
