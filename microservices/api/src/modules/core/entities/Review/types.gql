@@ -1,0 +1,10 @@
+type Review {
+    _id: ID!
+    authorId: String!
+    author: User
+    eventId: String!
+    event: Event
+    stars: Int
+    text: String!
+    createdAt: Date
+}

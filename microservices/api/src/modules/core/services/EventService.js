@@ -194,6 +194,29 @@ export default class EventService {
     });
   }
 
+  getAverageStars(eventId) {
+    const { db } = this;
+
+    const reviews = db.reviews
+      .find(
+        {
+          eventId,
+        },
+        {
+          fields: {
+            stars: 1,
+          },
+        }
+      )
+      .fetch();
+    const reviewsWithScore = reviews.filter(review => review.score);
+    if (!reviewsWithScore.length) {
+      return 0;
+    }
+    const nrOfStars = reviewsWithScore.reduce((sum, review) => (sum += review.stars));
+    return nrOfStars / reviewsWithScore.length;
+  }
+
   getUserEvents(userId, offset = 5) {
     const { db } = this;
 

@@ -1,0 +1,16 @@
+type Mutation {
+    addReview(input: ReviewInput!): Event
+    editReview(reviewId: String!, input: EditReviewInput!): Event
+    deleteReview(reviewId: String!): Boolean
+}
+
+input EditReviewInput {
+    stars: Int
+    text: String!
+}
+
+input ReviewInput {
+    eventId: String!
+    stars: Int
+    text: String!
+}
