@@ -4,6 +4,7 @@ import Users from '../../../accounts/db/users';
 import Categories from '../categories';
 import Reviews from '../reviews';
 import { AppUploads } from '../../../uploads/db';
+import Questions from '../questions';
 
 Events.addLinks({
   organiser: {
@@ -28,6 +29,10 @@ Events.addLinks({
   },
   reviews: {
     collection: Reviews,
+    inversedBy: 'event',
+  },
+  questions: {
+    collection: Questions,
     inversedBy: 'event',
   },
 });

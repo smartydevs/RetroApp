@@ -1,0 +1,9 @@
+type Mutation {
+    addQuestion(input: QuestionInput!): Question
+    addAnswer(questionId: String!, text: String!): Answer
+}
+
+input QuestionInput {
+    eventId: String!
+    text: String!
+}
