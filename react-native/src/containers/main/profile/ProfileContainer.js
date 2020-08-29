@@ -29,7 +29,7 @@ class ProfileContainer extends Component {
       this.setState({
         editable: false,
         userId: params.userId,
-      }, () => {console.log(this.state)})
+      }, () => { console.log(this.state) })
       this.getUser(params.userId)
     } else {
       this.cameraSetUp()
@@ -116,7 +116,9 @@ class ProfileContainer extends Component {
       },
     ])
   }
-
+  onContactUsPress=()=> {
+    this.props.navigation.navigate(ScreenEnum.CONTACT_US)
+  }
   saveAvatar(photoData) {
     fetch('http://134.122.68.158:3000/uploadAvatar', {
       method: 'POST',
@@ -174,7 +176,7 @@ class ProfileContainer extends Component {
 
   update = () => {
     this.props.navigation.state.params.shouldUpdate = false
-    this.getUser()    
+    this.getUser()
   }
 
   render() {
@@ -186,6 +188,7 @@ class ProfileContainer extends Component {
 
     return (
       <ProfileComponent
+        onContactUsPress={this.onContactUsPress}
         user={user}
         avatarUrl={avatarUrl}
         navigate={this.props.navigation.navigate}
