@@ -44,6 +44,19 @@ export default class SecurityService {
     }
   }
 
+  checkUserIsEventOrganiser(userId, eventId) {
+    const { db } = this;
+
+    const event = db.events.findOne({
+      _id: eventId,
+      organiserId: userId,
+    });
+
+    if (!event) {
+      throw new Error('not-authorized');
+    }
+  }
+
   checkUserIsInEvent(userId, eventId) {
     const { db } = this;
 

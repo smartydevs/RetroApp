@@ -9,6 +9,7 @@ type User {
   ownedEvents: [Event]
   participatingEvents: [Event]
   news: [Notification]
+  reviewsNumber: Int
   followingCategories: [Category]
 }
 
