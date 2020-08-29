@@ -21,6 +21,7 @@ const {
 const EventComponent = ({
   onGoBack,
   onGoToUserPage,
+  onGoToCommentsPage,
   onPressToggleJoinButton,
   userJoined,
   eventData: {
@@ -153,6 +154,13 @@ const EventComponent = ({
           </Row>
         </TouchableOpacity>
         <View style={[styles.padding]}>
+          <TextButton
+            textStyle={grayText}
+            text={'Comments section'}
+            onPress={onGoToCommentsPage}
+          />
+        </View>
+        <View style={[styles.lightGrayContainer, styles.padding]}>
           <TextButton
             text={userJoined ? 'Leave Event' : 'Join Event'}
             style={{ backgroundColor: userJoined ? Colors.red : Colors.primaryDark }}

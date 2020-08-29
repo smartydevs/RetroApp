@@ -74,6 +74,10 @@ class EventContainer extends Component {
     })
   }
 
+  onGoToCommentsPage = () => {
+    this.props.navigation.navigate(ScreenEnum.COMMENTS)
+  }
+
   onPressToggleJoinButton = () => {
     const {
       userJoined,
@@ -119,6 +123,7 @@ class EventContainer extends Component {
         eventData={eventData}
         userJoined={userJoined}
         onGoToUserPage={this.onGoToUserPage}
+        onGoToCommentsPage={this.onGoToCommentsPage}
         onPressToggleJoinButton={this.onPressToggleJoinButton}
       />
     )

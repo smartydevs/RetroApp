@@ -22,7 +22,7 @@ export const OS = {
 export const SERVER_URL = 'http://134.122.68.158:3000'
 
 export const ApiUrls = {
-  [EnvironmentEnum.LOCAL]: 'http://228c723dbf86.ngrok.io',
+  [EnvironmentEnum.LOCAL]: 'http://88b60311db72.ngrok.io',
   [EnvironmentEnum.DEVELOPMENT]: 'http://134.122.68.158:3000/graphql',
 }
 
@@ -36,7 +36,8 @@ export const ScreenEnum = {
   EVENT: 'Event',
   FORGOT_PASSWORD: 'ForgotPassword',
   USER_PROFILE: 'UserProfile',
-  EDIT: 'Edit'
+  EDIT: 'Edit',
+  COMMENTS: 'Comments'
 }
 
 export const BottomStackScreensEnum = {
