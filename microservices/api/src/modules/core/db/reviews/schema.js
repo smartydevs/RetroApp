@@ -7,7 +7,8 @@ const ReviewsSchema = new SimpleSchema({
     type: Number,
     optional: true,
   },
-  text: String,
+  title: String,
+  description: String,
   eventId: String,
   authorId: String,
   createdAt: {

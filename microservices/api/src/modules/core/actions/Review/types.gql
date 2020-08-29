@@ -6,11 +6,13 @@ type Mutation {
 
 input EditReviewInput {
     stars: Int
-    text: String!
+    title: String!
+    description: String!
 }
 
 input ReviewInput {
     eventId: String!
     stars: Int
-    text: String!
+    title: String!
+    description: String!
 }

@@ -7,13 +7,15 @@ export default class ReviewService {
     const { db } = this;
 
     input.authorId = userId;
-    return db.reviews.insert(input);
+    const reviewId = db.reviews.insert(input);
+    return db.reviews.findOne(reviewId);
   }
 
-  editReview(reviewId, input) {
+  async editReview(reviewId, input) {
     const { db } = this;
 
-    return db.reviews.update(reviewId, { $set: { ...input } });
+    await db.reviews.update(reviewId, { $set: { ...input } });
+    return db.reviews.findOne(reviewId);
   }
 
   deleteReview(reviewId) {

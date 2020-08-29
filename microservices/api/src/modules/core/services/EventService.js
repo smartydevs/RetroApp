@@ -217,11 +217,14 @@ export default class EventService {
         }
       )
       .fetch();
-    const reviewsWithScore = reviews.filter(review => review.score);
+    const reviewsWithScore = reviews.filter(review => review.stars);
     if (!reviewsWithScore.length) {
       return 0;
     }
-    const nrOfStars = reviewsWithScore.reduce((sum, review) => (sum += review.stars));
+    const nrOfStars = reviewsWithScore.reduce(
+      (sum, review) => sum + parseInt(review.stars),
+      0
+    );
     return nrOfStars / reviewsWithScore.length;
   }
 
