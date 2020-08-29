@@ -169,12 +169,13 @@ const ProfileComponent = ({
             </Row>
           )}
         </Row>
-        <TextButton
-          text={'Send us a message'}
-          textStyle={[button, grayText, styles.contactText]}
-          style={styles.eventButton}
-          onPress={() => onContactUsPress()}
-        />
+        <View style={{ paddingHorizontal: normalizeWidth(20)}}>
+          <TextButton
+            text={'Send us a message'}
+            style={styles.sendMessageBtn}
+            onPress={() => onContactUsPress()}
+          />
+        </View>
         <View style={[styles.content]}>
 
           <Row style={styles.buttonsRow}>
