@@ -15,7 +15,8 @@ const ReviewsComponent = ({
   userId,
   eventId,
   isUserGoingToEvent,
-  reviews
+  reviews,
+  getReviews
 }) => {
   const renderReview = ({ item }) => (
       <Review
@@ -29,7 +30,7 @@ const ReviewsComponent = ({
     <SafeAreaView style={[container, styles.container]}>
       <Header onPress={onGoBack} text={'Reviews'} />
 
-      {isUserGoingToEvent ? <AddReview eventId={eventId} /> : null}
+      {isUserGoingToEvent ? <AddReview eventId={eventId} getReviews={getReviews} /> : null}
 
       <FlatList
         style={styles.listContainer}

@@ -8,8 +8,9 @@ import { addReview } from '../../../../api';
 import strings from '../../../../lib/stringEnums';
 
 import styles from './styles';
+import { is } from 'ramda';
 
-const AddReview = ({ eventId }) => {
+const AddReview = ({ eventId, getReviews }) => {
   const [showAddReviewForm, setShowAddReviewForm] = useState(false);
   const [starsAdded, setStarsAdded] = useState(0);
   const [title, setTitle] = useState('');
@@ -41,6 +42,7 @@ const AddReview = ({ eventId }) => {
 
     if (isOk) {
       onCloseReview();
+      await getReviews();
     } else {
       Notification.error(strings.error)
     }

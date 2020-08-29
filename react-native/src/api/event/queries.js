@@ -19,25 +19,6 @@ export const GET_EVENT = gql`
           fullPath
         }
       }
-      reviews {
-        _id
-        title
-        description
-        stars        
-        author {
-          _id
-          reviewsNumber
-          profile {
-            firstName
-            lastName
-            avatarId
-            avatar {
-              path
-              fullPath
-            }
-          }
-        }
-      }
       photoId
       photo {
         path
