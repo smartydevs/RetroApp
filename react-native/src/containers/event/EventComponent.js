@@ -36,8 +36,8 @@ const EventComponent = ({
     users,
     organiser,
     categories,
-    stars = 0,
-    isUserGoingToEvent
+    averageStars,
+    isCurrentUserParticipating
   },
 }) => {
   const eventImageUrl = photo ? photo.fullPath : null
@@ -159,10 +159,10 @@ const EventComponent = ({
           </Row>
         </TouchableOpacity>
         <Row style={[styles.padding, { justifyContent: 'space-between', alignItems: 'center' }]}>
-          <Button onPress={() => onGoToReviewsPage(isUserGoingToEvent)}>
+          <Button onPress={() => onGoToReviewsPage(isCurrentUserParticipating)}>
             <Text style={grayText}>Show Reviews</Text>
           </Button>
-          <Text style={grayText}>Rate: {renderStars(parseInt(stars))}</Text>
+          <Text style={grayText}>Rate: {renderStars(Math.round(averageStars || 0))}</Text>
         </Row>
         <Row style={[styles.padding, styles.lightGrayContainer, { justifyContent: 'space-between', alignItems: 'center' }]}>
           <Button onPress={() => onGoToQuestionsPage(true)}>

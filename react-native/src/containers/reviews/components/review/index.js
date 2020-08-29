@@ -39,9 +39,17 @@ export const renderStars = (rate) => {
   return stars;
 }
 
-const Review = ({ _id, user = {}, review = {}, onDeleteReview, onEditReview, personalUserId }) => {
-  const { _id: userId, firstName, lastName, profilePic, numOfReviews } = user;
-  const { rate, title, description, date } = review;
+const Review = ({
+  _id,
+  title,
+  description,
+  stars,
+  author,
+  onDeleteReview,
+  personalUserId
+}) => {
+  const { _id: userId, reviewsNumber, profile = {} } = author;
+  const { firstName, lastName, avatar } = profile;
 
   return (
     <Row style={[styles.container, styles.lightGrayContainer, shadow]}>
@@ -49,37 +57,30 @@ const Review = ({ _id, user = {}, review = {}, onDeleteReview, onEditReview, per
         <ProfilePicture
           firstName={firstName}
           lastName={lastName}
-          imageSource={profilePic}
+          imageSource={(avatar && avatar.fullPath) ? avatar.fullPath : ''}
           style={styles.profilePicture}
         />
         <View style={[center, { marginTop: normalizeHeight(10), maxWidth: normalizeWidth(60)}]}>
           <Text style={smallCaption}>{firstName}</Text>
           <Text style={[smallCaption, { marginTop: normalizeHeight(5) }]}>{lastName}</Text>
           <Text style={[smallCaption, { marginTop: normalizeHeight(20) }]}>
-            Reviews: {numOfReviews}
+            Reviews: {reviewsNumber}
           </Text>          
         </View>
       </View>
 
       <View style={[styles.content]}>
         <Row style={styles.titleContainer}>
-          <Row>{renderStars(rate)}</Row>
+          <Row>{renderStars(stars)}</Row>
 
           {personalUserId === userId ? (
-            <Row>
-              <Button style={{ marginRight: normalizeWidth(15)}} onPress={() => onDeleteReview(_id)}>
-                <Ionicons name="md-remove-circle" size={20} style={{color: Colors.primaryPink}} />
-              </Button>
-              <Button onPress={() => onEditReview(_id)}>
-                <Ionicons name="md-create" size={20} style={{color: Colors.primaryAqua}} />
-              </Button>
-            </Row>
+            <Button style={{ marginRight: normalizeWidth(15)}} onPress={() => onDeleteReview(_id)}>
+              <Ionicons name="md-remove-circle" size={20} style={{color: Colors.primaryPink}} />
+            </Button>
           ) : null}
         </Row>
 
         <Text style={[styles.title, button]}>{title}</Text>
-
-        <Text style={[styles.title, button]}>Date of review: {date}</Text>
 
         <Text style={[styles.description, caption]}>{description}</Text>
       </View>
