@@ -21,14 +21,14 @@ const NotificationComponent = ({
     eventId,
     isViewed,
   }) => (
-    <TextCard
-      onPress={() => showNotification(_id, eventId)}
-      containerStyle={styles.cardContainer(isViewed)}
-      message={message}
-      imageSource={imageSource}
-      icon={'md-search'}
-    />
-  )
+      <TextCard
+        onPress={() => showNotification(_id, eventId)}
+        containerStyle={styles.cardContainer(isViewed)}
+        message={message}
+        imageSource={imageSource}
+        icon={'md-search'}
+      />
+    )
 
   return (
     <SafeAreaView style={[container, styles.container]}>
@@ -37,14 +37,14 @@ const NotificationComponent = ({
         text={strings.notifications}
       />
       <View style={styles.content}>
-        {notifications && notifications.length && (
+        {notifications && notifications.length ? (
           <TextButton
             text={'Mark all as read'}
             textStyle={[button]}
             onPress={markAllAsRead}
             style={[styles.markAllAsRead, shadow]}
           />
-        )}
+        ) : null}
         {notifications && notifications.length ? (
           <FlatList
             data={notifications}
@@ -52,13 +52,13 @@ const NotificationComponent = ({
             renderItem={({ item }) => renderNotification(item)}
           />
         ) : (
-          <TextCard
-            message={strings.noNotifications}
-            icon={'md-search'}
-            containerStyle={styles.noNotifications}
-            onPress={onSearchEvents}
-          />
-        )}
+            <TextCard
+              message={strings.noNotifications}
+              icon={'md-search'}
+              containerStyle={styles.noNotifications}
+              onPress={onSearchEvents}
+            />
+          )}
       </View>
     </SafeAreaView>
   )

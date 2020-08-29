@@ -9,7 +9,7 @@ const config = {
   APPLICATION_ID: 'RetroApp',
   resetCache: false,
   // environment: EnvironmentEnum.LOCAL,
-  environment: EnvironmentEnum.DEVELOPMENT,
+  environment: EnvironmentEnum.LOCAL,
 }
 
 export default config
