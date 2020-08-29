@@ -3,7 +3,7 @@ import SimpleSchema from 'simpl-schema';
 import Reviews from './collection';
 
 const ReviewsSchema = new SimpleSchema({
-  start: {
+  stars: {
     type: Number,
     optional: true,
   },
