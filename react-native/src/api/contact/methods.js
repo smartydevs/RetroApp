@@ -14,7 +14,6 @@ export const createAppReview = async contactState => {
       mutation: CREATE_APP_REVIEW,
       variables: { input: contactState },
     })
-
     return {
       isOk: true,
       data,
