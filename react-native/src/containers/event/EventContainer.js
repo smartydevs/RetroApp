@@ -19,11 +19,11 @@ class EventContainer extends Component {
     const { eventId } = this.props.navigation.state.params
     this.getUserId()
     this.getEvent(eventId)
-  
+
     BackHandler.addEventListener('hardwareBackPress', this.onGoBack)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.onGoBack)
   }
 
@@ -82,6 +82,13 @@ class EventContainer extends Component {
     })
   }
 
+  onGoToQuestionsPage = (isUserGoingToEvent) => {
+    const { eventId } = this.props.navigation.state.params
+    this.props.navigation.navigate(ScreenEnum.QUESTIONS, {
+      eventId,
+      isUserGoingToEvent
+    })
+  }
   onPressToggleJoinButton = () => {
     const {
       userJoined,
@@ -129,6 +136,7 @@ class EventContainer extends Component {
         onGoToUserPage={this.onGoToUserPage}
         onGoToReviewsPage={this.onGoToReviewsPage}
         onPressToggleJoinButton={this.onPressToggleJoinButton}
+        onGoToQuestionsPage={this.onGoToQuestionsPage}
       />
     )
   }

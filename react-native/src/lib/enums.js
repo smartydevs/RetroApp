@@ -39,6 +39,7 @@ export const ScreenEnum = {
   EDIT: 'Edit',
   REVIEWS: 'Reviews',
   CONTACT_US: 'ContactUs',
+  QUESTIONS: 'Questions'
 }
 
 export const BottomStackScreensEnum = {

@@ -26,6 +26,7 @@ const EventComponent = ({
   onGoToReviewsPage,
   onPressToggleJoinButton,
   userJoined,
+  onGoToQuestionsPage,
   eventData: {
     photo,
     title,
@@ -45,21 +46,21 @@ const EventComponent = ({
     _id,
     profile: { firstName, lastName, profilePicture = null },
   }) => (
-    <TouchableOpacity onPress={() => onGoToUserPage(_id)}>
-      <Row style={styles.participant}>
-        <ProfilePicture
-          imageSource={profilePicture}
-          firstName={firstName}
-          lastName={lastName}
-          style={styles.profilePicture}
-          textStyle={button}
-        />
-        <Text style={[button, grayText]}>
-          {firstName} {lastName}
-        </Text>
-      </Row>
-    </TouchableOpacity>
-  )
+      <TouchableOpacity onPress={() => onGoToUserPage(_id)}>
+        <Row style={styles.participant}>
+          <ProfilePicture
+            imageSource={profilePicture}
+            firstName={firstName}
+            lastName={lastName}
+            style={styles.profilePicture}
+            textStyle={button}
+          />
+          <Text style={[button, grayText]}>
+            {firstName} {lastName}
+          </Text>
+        </Row>
+      </TouchableOpacity>
+    )
 
   const renderCards = ({ name, photo: { fullPath } }) => (
     <Card
@@ -163,7 +164,12 @@ const EventComponent = ({
           </Button>
           <Text style={grayText}>Rate: {renderStars(parseInt(stars))}</Text>
         </Row>
-        <View style={[styles.lightGrayContainer, styles.padding]}>
+        <Row style={[styles.padding, styles.lightGrayContainer, { justifyContent: 'space-between', alignItems: 'center' }]}>
+          <Button onPress={() => onGoToQuestionsPage(true)}>
+            <Text style={grayText}>Questions</Text>
+          </Button>
+        </Row>
+        <View style={[styles.padding]}>
           <TextButton
             text={userJoined ? 'Leave Event' : 'Join Event'}
             style={{ backgroundColor: userJoined ? Colors.red : Colors.primaryDark }}

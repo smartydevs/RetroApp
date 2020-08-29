@@ -4,6 +4,10 @@ type Mutation {
     deleteReview(reviewId: String!): Boolean
 }
 
+type Query {
+    getReviews(eventId: String!): [Review]
+}
+
 input EditReviewInput {
     stars: Int
     title: String!

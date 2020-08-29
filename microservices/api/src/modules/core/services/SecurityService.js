@@ -64,7 +64,6 @@ export default class SecurityService {
       _id: eventId,
       usersId: { $in: [userId] },
     });
-
     if (!event) {
       throw new Error('not-authorized');
     }

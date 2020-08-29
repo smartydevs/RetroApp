@@ -3,6 +3,10 @@ type Mutation {
     addAnswer(questionId: String!, text: String!): Answer
 }
 
+type Query {
+    getQuestions(eventId: String!): [Question]
+}
+
 input QuestionInput {
     eventId: String!
     text: String!

@@ -7,6 +7,12 @@ import Questions from '../../db/questions';
 load({
   typeDefs,
   resolvers: {
+    Query: {
+      getQuestions(_, { eventId }, { userId }) {
+        SecurityService.checkLoggedIn({ userId });
+        return QuestionService.getQuestions(eventId);
+      },
+    },
     Mutation: {
       addQuestion(_, { input }, { userId }) {
         SecurityService.checkLoggedIn({ userId });
