@@ -58,7 +58,7 @@ const Input = props => {
           }}
           {...props}
           placeholderTextColor={primaryGray}
-          style={[styles.textStyle, textStyle, { textAlignVertical: "top" }]}
+          style={[styles.textStyle, textStyle]}
           onSubmitEditing={Keyboard.dismiss}
         />
         {iconSource && (
