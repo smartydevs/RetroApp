@@ -23,8 +23,7 @@ export const GET_EVENT = gql`
         _id
         title
         description
-        stars
-        createdAt
+        stars        
         author {
           _id
           reviewsNumber

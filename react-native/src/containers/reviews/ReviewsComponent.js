@@ -1,9 +1,8 @@
 import React from 'react';
-import { SafeAreaView, View, Text, FlatList } from 'react-native';
+import { SafeAreaView, FlatList } from 'react-native';
 
 import { Header } from '../../components';
-import { ApplicationStyles
- } from '../../themes';
+import { ApplicationStyles } from '../../themes';
 
 import styles from './styles';
 import { Review, AddReview } from './components';
@@ -13,7 +12,6 @@ const { container } = ApplicationStyles
 const ReviewsComponent = ({
   onGoBack,
   onDeleteReview,
-  onEditReview,
   userId,
   eventId,
   isUserGoingToEvent,
@@ -23,7 +21,6 @@ const ReviewsComponent = ({
       <Review
         {...item}
         onDeleteReview={onDeleteReview}
-        onEditReview={onEditReview}
         personalUserId={userId}
       />
     )

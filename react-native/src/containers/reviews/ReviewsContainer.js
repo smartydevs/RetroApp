@@ -3,6 +3,9 @@ import { AsyncStorage } from 'react-native';
 
 import { ReviewsComponent } from '.';
 import Constants from '../../lib/enums';
+import { editReview, deleteReview } from '../../api';
+import { Notification } from '../../components';
+import strings from '../../lib/stringEnums';
 
 class ReviewsContainer extends Component {
   state = {
@@ -19,9 +22,15 @@ class ReviewsContainer extends Component {
     this.props.navigation.goBack()
   }
 
-  onDeleteReview = reviewId => console.log(reviewId);
+  onDeleteReview = async reviewId => {
+    const { data, isOk } = await deleteReview(reviewId);
 
-  onEditReview = reviewId => console.log(reviewId);
+    if (isOk) {
+      Notification.show('Review removed successfully');
+    } else {
+      Notification.error(strings.error);
+    }
+  };
 
   render() {
     const { userId } = this.state;
@@ -31,7 +40,6 @@ class ReviewsContainer extends Component {
       <ReviewsComponent
         onGoBack={this.onGoBack}
         onDeleteReview={this.onDeleteReview}
-        onEditReview={this.onEditReview}
         userId={userId}
         eventId={eventId}
         isUserGoingToEvent={isUserGoingToEvent}

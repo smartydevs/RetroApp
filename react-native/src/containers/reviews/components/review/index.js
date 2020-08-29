@@ -6,7 +6,6 @@ import { Row, ProfilePicture, Button } from '../../../../components';
 import { normalizeHeight, normalizeWidth } from '../../../../themes/Metrics';
 import { ApplicationStyles, Fonts, Colors } from '../../../../themes';
 import styles from './styles';
-import dayjs from 'dayjs';
 
 const { center, shadow } = ApplicationStyles
 const { smallCaption, caption, button } = Fonts.style
@@ -45,15 +44,11 @@ const Review = ({
   title,
   description,
   stars,
-  createdAt,
   author,
   onDeleteReview,
-  onEditReview,
   personalUserId
 }) => {
-
   const { _id: userId, reviewsNumber, profile = {} } = author;
-  console.log(author, profile)
   const { firstName, lastName, avatar } = profile;
 
   return (
@@ -79,20 +74,13 @@ const Review = ({
           <Row>{renderStars(stars)}</Row>
 
           {personalUserId === userId ? (
-            <Row>
-              <Button style={{ marginRight: normalizeWidth(15)}} onPress={() => onDeleteReview(_id)}>
-                <Ionicons name="md-remove-circle" size={20} style={{color: Colors.primaryPink}} />
-              </Button>
-              <Button onPress={() => onEditReview(_id)}>
-                <Ionicons name="md-create" size={20} style={{color: Colors.primaryAqua}} />
-              </Button>
-            </Row>
+            <Button style={{ marginRight: normalizeWidth(15)}} onPress={() => onDeleteReview(_id)}>
+              <Ionicons name="md-remove-circle" size={20} style={{color: Colors.primaryPink}} />
+            </Button>
           ) : null}
         </Row>
 
         <Text style={[styles.title, button]}>{title}</Text>
-
-        {/* <Text style={[styles.title, button]}>Date of review: {dayjs(createdAt, 'YYYY-MMM-DD')}</Text> */}
 
         <Text style={[styles.description, caption]}>{description}</Text>
       </View>
