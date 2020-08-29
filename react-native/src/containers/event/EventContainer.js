@@ -74,6 +74,14 @@ class EventContainer extends Component {
     })
   }
 
+  onGoToReviewsPage = (isUserGoingToEvent) => {
+    const { eventId } = this.props.navigation.state.params
+    this.props.navigation.navigate(ScreenEnum.REVIEWS, {
+      eventId,
+      isUserGoingToEvent
+    })
+  }
+
   onPressToggleJoinButton = () => {
     const {
       userJoined,
@@ -119,6 +127,7 @@ class EventContainer extends Component {
         eventData={eventData}
         userJoined={userJoined}
         onGoToUserPage={this.onGoToUserPage}
+        onGoToReviewsPage={this.onGoToReviewsPage}
         onPressToggleJoinButton={this.onPressToggleJoinButton}
       />
     )

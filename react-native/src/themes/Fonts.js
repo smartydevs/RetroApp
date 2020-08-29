@@ -95,7 +95,10 @@ const style = {
   },
   primaryPinkText: {
     color: Colors.primaryPink
-  }
+  },
+  italic: {
+    fontStyle: 'italic'
+  },
 }
 
 export default {

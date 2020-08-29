@@ -36,8 +36,9 @@ export const ScreenEnum = {
   EVENT: 'Event',
   FORGOT_PASSWORD: 'ForgotPassword',
   USER_PROFILE: 'UserProfile',
+  EDIT: 'Edit',
+  REVIEWS: 'Reviews',
   CONTACT_US: 'ContactUs',
-  EDIT: 'Edit'
 }
 
 export const BottomStackScreensEnum = {

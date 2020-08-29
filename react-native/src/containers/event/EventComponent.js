@@ -3,9 +3,11 @@ import { View, Text, SafeAreaView, ScrollView, ImageBackground } from 'react-nat
 import { Ionicons } from '@expo/vector-icons'
 import dayjs from 'dayjs'
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
+
 import { ApplicationStyles, Colors, Fonts } from '../../themes'
-import { Header, Row, ProfilePicture, TextButton, Card } from '../../components'
+import { Header, Row, ProfilePicture, TextButton, Card, Button } from '../../components'
 import { normalizeHeight } from '../../themes/Metrics'
+import { renderStars } from '..'
 import styles from './styles'
 
 const { container, center, shadow } = ApplicationStyles
@@ -21,6 +23,7 @@ const {
 const EventComponent = ({
   onGoBack,
   onGoToUserPage,
+  onGoToReviewsPage,
   onPressToggleJoinButton,
   userJoined,
   eventData: {
@@ -32,6 +35,8 @@ const EventComponent = ({
     users,
     organiser,
     categories,
+    stars = 0,
+    isUserGoingToEvent
   },
 }) => {
   const eventImageUrl = photo ? photo.fullPath : null
@@ -152,7 +157,13 @@ const EventComponent = ({
             </View>
           </Row>
         </TouchableOpacity>
-        <View style={[styles.padding]}>
+        <Row style={[styles.padding, { justifyContent: 'space-between', alignItems: 'center' }]}>
+          <Button onPress={() => onGoToReviewsPage(isUserGoingToEvent)}>
+            <Text style={grayText}>Show Reviews</Text>
+          </Button>
+          <Text style={grayText}>Rate: {renderStars(parseInt(stars))}</Text>
+        </Row>
+        <View style={[styles.lightGrayContainer, styles.padding]}>
           <TextButton
             text={userJoined ? 'Leave Event' : 'Join Event'}
             style={{ backgroundColor: userJoined ? Colors.red : Colors.primaryDark }}
