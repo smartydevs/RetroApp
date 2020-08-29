@@ -1,0 +1,8 @@
+type Mutation {
+    createAppReview(input: AppReviewInput!): AppReview
+}
+
+input AppReviewInput {
+    subject: String!
+    body: String!
+}

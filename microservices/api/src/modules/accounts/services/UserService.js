@@ -56,6 +56,7 @@ export default class UserService {
           lastName: 1,
           fullName: 1,
           avatarId: 1,
+          categoryIds: 1,
           avatar: {
             path: 1,
             fullPath: 1,
@@ -101,13 +102,13 @@ export default class UserService {
       })
       .fetch();
     const user = users ? users[0] : {};
-    const filteredParticipatinEvents = user.participatingEvents
+    const filteredParticipatingEvents = user.participatingEvents
       ? user.participatingEvents.filter(event => {
           const { startDate } = event;
           return moment(startDate).diff(moment()) >= 0;
         })
       : [];
-    user.participatingEvents = filteredParticipatinEvents;
+    user.participatingEvents = filteredParticipatingEvents;
     return user;
   }
 }
