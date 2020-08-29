@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.gray,
   },
   container: {
-    marginVertical: Metrics.margin,
+    marginBottom: Metrics.margin * 2,
     padding: Metrics.margin,
     borderRadius: Metrics.margin,
     alignItems: 'flex-start'

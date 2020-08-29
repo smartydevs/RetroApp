@@ -1,15 +1,14 @@
 import React from 'react';
 import { SafeAreaView, View, Text, FlatList } from 'react-native';
 
-import { Header, Row, ProfilePicture } from '../../components';
-import { ApplicationStyles, Fonts } from '../../themes';
+import { Header } from '../../components';
+import { ApplicationStyles
+ } from '../../themes';
 
 import styles from './styles';
-import { normalizeHeight } from '../../themes/Metrics';
-import { Review } from './components';
+import { Review, AddReview } from './components';
 
-const { container, center, shadow } = ApplicationStyles
-const { smallCaption, caption } = Fonts.style
+const { container } = ApplicationStyles
 
 const reviews = [
   {
@@ -61,27 +60,27 @@ const reviews = [
   }
 ]
 
-const ReviewsComponent = ({ onGoBack, onDeleteReview, onEditReview, userId }) => {
+const ReviewsComponent = ({ onGoBack, onDeleteReview, onEditReview, userId, eventId, isUserGoingToEvent }) => {
+  const renderReview = ({ item }) => (
+      <Review
+        {...item}
+        onDeleteReview={onDeleteReview}
+        onEditReview={onEditReview}
+        personalUserId={userId}
+      />
+    )
+
   return (
     <SafeAreaView style={[container, styles.container]}>
       <Header onPress={onGoBack} text={'Reviews'} />
 
-      <View>
-        <Text> Add review section </Text>
-      </View>
+      {isUserGoingToEvent ? <AddReview eventId={eventId} userId={userId} /> : null}
 
       <FlatList
         style={styles.listContainer}
         data={reviews}
         keyExtractor={({ _id }) => _id}
-        renderItem={({ item }) => (
-          <Review
-            {...item}
-            onDeleteReview={onDeleteReview}
-            onEditReview={onEditReview}
-            personalUserId={userId}
-          />
-        )}
+        renderItem={renderReview}
       />
     </SafeAreaView>
   );

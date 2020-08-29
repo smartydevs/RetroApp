@@ -74,10 +74,11 @@ class EventContainer extends Component {
     })
   }
 
-  onGoToReviewsPage = () => {
+  onGoToReviewsPage = (isUserGoingToEvent) => {
     const { eventId } = this.props.navigation.state.params
     this.props.navigation.navigate(ScreenEnum.REVIEWS, {
-      eventId
+      eventId,
+      isUserGoingToEvent
     })
   }
 
