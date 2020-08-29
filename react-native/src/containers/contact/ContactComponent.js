@@ -44,7 +44,8 @@ let ContactComponent = ({ onGoBack, editable, loading, onPressSave }) => {
                         Message
                     </Text>
                     <Input
-                        multiline
+                        multiline={true}
+                        textStyle={{ textAlignVertical: 'top' }}
                         containerStyle={styles.descriptionInput}
                         onChangeText={value => dispatch({ type: 'body', payload: value })}
                         value={contactState.firstName}

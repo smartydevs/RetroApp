@@ -23,6 +23,9 @@ let styles = StyleSheet.create({
         backgroundColor: Colors.primaryDark
     },
     descriptionInput: {
+        alignItems: "baseline",
+        textAlignVertical: 'top',
+        padding: normalizeHeight(15),
         height: normalizeHeight(180),
     },
 })
