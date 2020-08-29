@@ -6,7 +6,8 @@ import { fromRight } from 'react-navigation-transitions'
 import {
   EventContainer, EnterDetailsContainer, ChooseFeedContainer, SignupContainer,
   LoginContainer, LoadingContainer, BottomNavigationContainer, ForgotPasswordContainer,
-  ProfileContainer, EditContainer, ReviewsContainer, ContactContainer } from '../containers'
+  ProfileContainer, EditContainer, ReviewsContainer, ContactContainer, QuestionsContainer
+} from '../containers'
 
 const {
   SIGN_UP,
@@ -20,7 +21,8 @@ const {
   USER_PROFILE,
   EDIT,
   REVIEWS,
-  CONTACT_US
+  CONTACT_US,
+  QUESTIONS
 } = ScreenEnum
 
 const PrimaryNav = createStackNavigator(
@@ -36,7 +38,8 @@ const PrimaryNav = createStackNavigator(
     [USER_PROFILE]: { screen: ProfileContainer },
     [EDIT]: { screen: EditContainer },
     [REVIEWS]: { screen: ReviewsContainer },
-    [CONTACT_US]: { screen: ContactContainer }
+    [CONTACT_US]: { screen: ContactContainer },
+    [QUESTIONS]: { screen: QuestionsContainer }
   },
   {
     headerMode: 'none',
