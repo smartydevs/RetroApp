@@ -1,0 +1,15 @@
+type Question {
+    _id: ID!
+    text: String!
+    answer: Answer
+    authorId: String!
+    author: User!
+    eventId: String!
+    event: Event!
+    createdAt: Date
+}
+
+type Answer {
+    text: String!
+    createdAt: Date
+}

@@ -5,7 +5,7 @@ import RolesEnum from '../../db/users/enums/RolesEnum';
 import { UserService } from '../../services';
 import { Users } from '../../db';
 import { AppUploads } from '../../../uploads/db';
-import { Categories } from '../../../core/db';
+import { Categories, Reviews } from '../../../core/db';
 
 export default {
   User: {
@@ -18,8 +18,13 @@ export default {
     },
     followingCategories: ({ _id }) => {
       const user = Users.findOne(_id);
-      const { categoryIds } = user.profile;
+      const { categoryIds = [] } = user.profile || {};
       return Categories.find({ _id: { $in: categoryIds } }).fetch();
+    },
+    reviewsNumber: ({ _id }) => {
+      return Reviews.find({
+        authorId: _id,
+      }).count();
     },
   },
   UserStandardProfile: {

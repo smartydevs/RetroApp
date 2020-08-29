@@ -30,8 +30,8 @@ const ProfileComponent = ({
   logout,
   editData,
   user,
+  onContactUsPress
 }) => {
-  console.log(editable)
   const [showedList, setShowedList] = useState('onGoing')
 
   const {
@@ -78,7 +78,7 @@ const ProfileComponent = ({
 
     return (
       <TextCard
-        message={editable ? strings.noGoingEvents: 'The user is not going to any event yet.'}
+        message={editable ? strings.noGoingEvents : 'The user is not going to any event yet.'}
         icon={'md-search'}
         containerStyle={{ margin: normalizeWidth(5) }}
         onPress={() => navigate(BottomStackScreensEnum.SEARCH)}
@@ -87,7 +87,6 @@ const ProfileComponent = ({
   }
 
   const getCreatedEvents = () => {
-    console.log(createdEvents)
     if (totalCreatedEvents) {
       return createdEvents.map(event => renderEvents(event))
     }
@@ -127,14 +126,14 @@ const ProfileComponent = ({
                 />
               </Button>
             ) : (
-              <ProfilePicture
-                firstName={firstName}
-                lastName={lastName}
-                style={styles.profilePicture}
-                imageSource={avatarUrl}
-              />
-            )}
-            <View style={{justifyContent: 'center'}}>
+                <ProfilePicture
+                  firstName={firstName}
+                  lastName={lastName}
+                  style={styles.profilePicture}
+                  imageSource={avatarUrl}
+                />
+              )}
+            <View style={{ justifyContent: 'center' }}>
               <Text style={[bigBoldTitle, primaryDarkText]}>
                 {firstName} {lastName}
               </Text>
@@ -145,7 +144,7 @@ const ProfileComponent = ({
           </Row>
           {editable && (
             <Row>
-              <TextButton 
+              <TextButton
                 onPress={editData}
                 style={[styles.smallBtn, center, shadow]}
                 hasChildren
@@ -170,7 +169,14 @@ const ProfileComponent = ({
             </Row>
           )}
         </Row>
+        <TextButton
+          text={'Send us a message'}
+          textStyle={[button, grayText, styles.contactText]}
+          style={styles.eventButton}
+          onPress={() => onContactUsPress()}
+        />
         <View style={[styles.content]}>
+
           <Row style={styles.buttonsRow}>
             <TextButton
               text={'Going Events'}

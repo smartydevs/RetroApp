@@ -3,9 +3,10 @@ import styles from './Styles/NavigationStyles'
 import { ScreenEnum } from '../lib/enums'
 import { createStackNavigator } from 'react-navigation-stack'
 import { fromRight } from 'react-navigation-transitions'
-import { EventContainer, EnterDetailsContainer, ChooseFeedContainer, SignupContainer,
+import {
+  EventContainer, EnterDetailsContainer, ChooseFeedContainer, SignupContainer,
   LoginContainer, LoadingContainer, BottomNavigationContainer, ForgotPasswordContainer,
-  ProfileContainer, EditContainer, ReviewsContainer } from '../containers'
+  ProfileContainer, EditContainer, ReviewsContainer, ContactContainer } from '../containers'
 
 const {
   SIGN_UP,
@@ -18,7 +19,8 @@ const {
   FORGOT_PASSWORD,
   USER_PROFILE,
   EDIT,
-  REVIEWS
+  REVIEWS,
+  CONTACT_US
 } = ScreenEnum
 
 const PrimaryNav = createStackNavigator(
@@ -33,7 +35,8 @@ const PrimaryNav = createStackNavigator(
     [FORGOT_PASSWORD]: { screen: ForgotPasswordContainer },
     [USER_PROFILE]: { screen: ProfileContainer },
     [EDIT]: { screen: EditContainer },
-    [REVIEWS]: { screen: ReviewsContainer }
+    [REVIEWS]: { screen: ReviewsContainer },
+    [CONTACT_US]: { screen: ContactContainer }
   },
   {
     headerMode: 'none',

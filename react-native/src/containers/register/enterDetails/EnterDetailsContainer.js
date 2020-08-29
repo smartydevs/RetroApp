@@ -13,11 +13,11 @@ class EnterDetailsContainer extends Component {
     lastName: '',
   }
 
-  componentDidMount () {
+  componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress)
   }
 

@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
   },
   descriptionInput: {
     height: normalizeHeight(180),
+    padding: normalizeHeight(15)
   },
   label: {
     marginBottom: normalizeHeight(10)
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     width: normalizeWidth(100),
     height: normalizeHeight(80),
     marginBottom: normalizeHeight(15),
-    borderRadius: 15, 
+    borderRadius: 15,
   },
   highlight: {
     borderColor: Colors.primaryPink,

@@ -1,0 +1,8 @@
+type AppReview {
+    _id: ID!
+    email: String!
+    subject: String!
+    body: String!
+    createdBy: String
+    createdAt: Date
+}
