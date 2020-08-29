@@ -6,6 +6,13 @@ import { ReviewService, SecurityService } from '../../services';
 load({
   typeDefs,
   resolvers: {
+    Query: {
+      getReviews(_, { eventId }, { userId }) {
+        SecurityService.checkLoggedIn({ userId });
+
+        return ReviewService.getReviews(eventId);
+      },
+    },
     Mutation: {
       addReview(_, { input }, { userId }) {
         SecurityService.checkLoggedIn({ userId });

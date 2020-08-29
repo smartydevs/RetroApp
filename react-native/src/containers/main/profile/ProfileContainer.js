@@ -119,7 +119,7 @@ class ProfileContainer extends Component {
     this.props.navigation.navigate(ScreenEnum.CONTACT_US)
   }
   saveAvatar(photoData) {
-    fetch('http://134.122.68.158:3000/uploadAvatar', {
+    fetch('http://88b60311db72.ngrok.io/uploadAvatar', {
       method: 'POST',
       body: photoData,
     })

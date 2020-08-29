@@ -18,7 +18,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // AsyncStorage.clear()
+    AsyncStorage.clear()
     AsyncStorage.getItem(Constants.TOKEN).then(token => {
       ApiClient.setToken(token)
     })

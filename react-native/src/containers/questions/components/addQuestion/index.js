@@ -1,34 +1,38 @@
-import React, { useState } from 'react';
-import { View, Text } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import React, { useState } from 'react'
+import { View, Text } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
 
-import { TextButton, Button, Row, Input } from '../../../../components';
-import { Colors } from '../../../../themes';
-import styles from './styles';
+import { TextButton, Button, Row, Input, Notification } from '../../../../components'
+import { Colors } from '../../../../themes'
+import styles from './styles'
+import { createQuestion } from '../../../../api/main/question'
 
-const AddQuestion = ({ eventId, userId }) => {
-  const [showAddQuestionForm, setShowAddQuestionForm] = useState(false);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-
+const AddQuestion = ({ eventId, userId, refetchQuestions }) => {
+  const [showAddQuestionForm, setShowAddQuestionForm] = useState(false)
+  const [question, setQuestion] = useState('')
 
   const onResetForm = () => {
-    setShowAddQuestionForm(false);
-    setTitle('');
-    setDescription('');
+    setShowAddQuestionForm(false)
+    setQuestion('')
   }
 
-  const onShowQuestionForm = () => setShowAddQuestionForm(true);
+  const onShowQuestionForm = () => setShowAddQuestionForm(true)
 
   const onCloseQuestion = () => {
-    setShowAddQuestionForm(false);
-    onResetForm();
+    setShowAddQuestionForm(false)
+    onResetForm()
   }
 
-  const onCreateQuestion = () => {
-    // create form ...
-
-    onCloseQuestion();
+  const onCreateQuestion = async () => {
+    const { isOk, data } = await createQuestion({ eventId, text: question })
+    if (isOk) {
+      refetchQuestions()
+      onCloseQuestion()
+    } else {
+      return Notification.error(
+        'Something went wrong while uploading the data. Please Try again'
+      )
+    }
   }
 
   return (
@@ -37,16 +41,9 @@ const AddQuestion = ({ eventId, userId }) => {
         <View style={[{ width: '100%' }]}>
           <Input
             containerStyle={[styles.inputContainer]}
-            placeholder={'Add a title'}
-            onChangeText={title => setTitle(title)}
-            value={title}
-          />
-          <Input
-            containerStyle={[styles.inputContainer]}
-            placeholder={'Add impressions of the event'}
-            onChangeText={description => setDescription(description)}
-            value={description}
-            multiline
+            placeholder={'Ask a question'}
+            onChangeText={question => setQuestion(question)}
+            value={question}
           />
         </View>
       ) : null}
@@ -63,7 +60,7 @@ const AddQuestion = ({ eventId, userId }) => {
         />
       ) : null}
     </View>
-  );
-};
+  )
+}
 
-export default AddQuestion;
+export default AddQuestion

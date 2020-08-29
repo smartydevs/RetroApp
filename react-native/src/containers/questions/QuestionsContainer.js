@@ -1,31 +1,39 @@
-import React, { Component } from 'react';
-import { AsyncStorage } from 'react-native';
+import React, { Component } from 'react'
+import { AsyncStorage } from 'react-native'
 
-import { QuestionsComponent } from '.';
-import Constants from '../../lib/enums';
+import { QuestionsComponent } from '.'
+import Constants from '../../lib/enums'
+import { getQuestions as fetchQuestions } from '../../api/main/question'
 
 class QuestionsContainer extends Component {
   state = {
-    userId: ''
+    questions: [],
   }
 
   componentDidMount() {
-    AsyncStorage.getItem(Constants.USER_ID).then(userId => {
-      this.setState({ userId })
-    })
+    this.getQuestions()
   }
 
   onGoBack = () => {
     this.props.navigation.goBack()
   }
 
-  onDeleteQuestion = questionId => console.log(questionId);
+  getQuestions = () => {
+    const { eventId } = this.props.navigation.state.params
+    fetchQuestions(eventId).then(({ isOk, data }) => {
+      if (isOk) {
+        this.setState({ questions: data.getQuestions })
+      }
+    })
+  }
 
-  onEditQuestion = questionId => console.log(questionId);
+  onDeleteQuestion = questionId => console.log(questionId)
+
+  onEditQuestion = questionId => console.log(questionId)
 
   render() {
-    const { userId } = this.state;
-    const { eventId, isUserGoingToEvent } = this.props.navigation.state.params;
+    const { userId, questions } = this.state
+    const { eventId, isUserGoingToEvent } = this.props.navigation.state.params
 
     return (
       <QuestionsComponent
@@ -34,10 +42,12 @@ class QuestionsContainer extends Component {
         onEditQuestion={this.onEditQuestion}
         userId={userId}
         eventId={eventId}
+        questions={questions}
+        refetchQuestions={this.getQuestions}
         isUserGoingToEvent={isUserGoingToEvent}
       />
     )
   }
 }
 
-export default QuestionsContainer;
+export default QuestionsContainer
