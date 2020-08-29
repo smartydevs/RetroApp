@@ -13,6 +13,8 @@ type Event {
     users: [User]
     photoId: String
     photo: AppUpload
+    reviews: [Review]
+    averageStars: Float
     createdAt: Date
     updatedAt: Date
 }

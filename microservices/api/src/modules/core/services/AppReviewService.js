@@ -7,6 +7,7 @@ export default class AppReviewService {
     const { db } = this;
 
     input.createdBy = userId;
-    return db.appReviews.insert(input);
+    const appReviewId = db.appReviews.insert(input);
+    return db.appReviews.findOne(appReviewId);
   }
 }

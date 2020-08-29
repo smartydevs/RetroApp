@@ -4,6 +4,7 @@ import AppReviewServiceModel from './AppReviewService';
 import ValidationServiceModel from './ValidationService';
 import SecurityServiceModel from './SecurityService';
 import EventServiceModel from './EventService';
+import ReviewServiceModel from './ReviewService';
 import CategoryServiceModel from './CategoryService';
 import NotificationServiceModel from './NotificationService';
 
@@ -21,5 +22,8 @@ export const CategoryService = new CategoryServiceModel({
   db,
 });
 export const NotificationService = new NotificationServiceModel({
+  db,
+});
+export const ReviewService = new ReviewServiceModel({
   db,
 });

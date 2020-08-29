@@ -30,4 +30,30 @@ export default class SecurityService {
 
     return notification.receiverId === userId;
   }
+
+  reviewBelongsToUser(userId, reviewId) {
+    const { db } = this;
+
+    const review = db.reviews.findOne({
+      _id: reviewId,
+      authorId: userId,
+    });
+
+    if (!review) {
+      throw new Error('not-authorized');
+    }
+  }
+
+  checkUserIsInEvent(userId, eventId) {
+    const { db } = this;
+
+    const event = db.events.findOne({
+      _id: eventId,
+      usersId: { $in: [userId] },
+    });
+
+    if (!event) {
+      throw new Error('not-authorized');
+    }
+  }
 }

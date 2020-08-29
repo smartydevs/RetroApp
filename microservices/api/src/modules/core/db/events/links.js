@@ -2,6 +2,7 @@ import Events from './collection';
 
 import Users from '../../../accounts/db/users';
 import Categories from '../categories';
+import Reviews from '../reviews';
 import { AppUploads } from '../../../uploads/db';
 
 Events.addLinks({
@@ -24,5 +25,9 @@ Events.addLinks({
     collection: Users,
     field: 'usersId',
     type: 'many',
+  },
+  reviews: {
+    collection: Reviews,
+    inversedBy: 'event',
   },
 });

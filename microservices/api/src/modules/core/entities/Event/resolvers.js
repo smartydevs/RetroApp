@@ -1,5 +1,6 @@
 import { AppUploads } from '../../../uploads/db';
 import { Categories, Events } from '../../db';
+import { EventService } from '../../services';
 
 export default {
   Event: {
@@ -13,6 +14,9 @@ export default {
         _id: { $in: event.categoriesId },
       }).fetch();
       return categories;
+    },
+    averageStars: ({ _id }) => {
+      return EventService.getAverageStars(_id);
     },
   },
 };
