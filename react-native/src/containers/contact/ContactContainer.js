@@ -4,7 +4,7 @@ import {
     Alert
 } from 'react-native'
 import ContactComponent from './ContactComponent'
-import { sendContactMessage } from '../../api/contact/methods';
+import { createAppReview } from '../../api/contact/methods';
 import { BottomStackScreensEnum } from '../../lib/enums';
 
 class ContactContainer extends React.Component {
@@ -33,8 +33,7 @@ class ContactContainer extends React.Component {
                 {
                     text: 'Yes',
                     onPress: async () => {
-                        const { data, isOk } = await sendContactMessage(contactState)
-                        console.log(data);
+                        const { data, isOk } = await createAppReview(contactState)
                         if (!isOk) {
                             return Notification.error(
                                 'Something went wrong while uploading the data. Please Try again'

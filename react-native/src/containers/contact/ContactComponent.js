@@ -11,8 +11,11 @@ import { reducer } from './reducer';
 
 const { center, shadow, container } = ApplicationStyles
 const { boldTitle, grayText, button } = Fonts.style
+
 let ContactComponent = ({ onGoBack, editable, loading, onPressSave }) => {
+
     let [contactState, dispatch] = React.useReducer(reducer, { subject: "", body: "" })
+
     return (<View style={[container, styles.container]}>
         <Header
             onPress={onGoBack}
@@ -28,7 +31,7 @@ let ContactComponent = ({ onGoBack, editable, loading, onPressSave }) => {
                 <View style={[styles.padding, styles.lightGrayContainer]}>
                     <Text style={[styles.label, button, grayText]}>
                         Subject
-            </Text>
+                    </Text>
                     <Input
                         editable={editable}
                         onChangeText={value => dispatch({ type: 'subject', payload: value })}
@@ -39,7 +42,7 @@ let ContactComponent = ({ onGoBack, editable, loading, onPressSave }) => {
                 <View style={[styles.padding]}>
                     <Text style={[styles.label, button, grayText]}>
                         Message
-            </Text>
+                    </Text>
                     <Input
                         multiline
                         containerStyle={styles.descriptionInput}

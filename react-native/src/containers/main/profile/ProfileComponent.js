@@ -32,7 +32,6 @@ const ProfileComponent = ({
   user,
   onContactUsPress
 }) => {
-  console.log(editable)
   const [showedList, setShowedList] = useState('onGoing')
 
   const {
@@ -88,7 +87,6 @@ const ProfileComponent = ({
   }
 
   const getCreatedEvents = () => {
-    console.log(createdEvents)
     if (totalCreatedEvents) {
       return createdEvents.map(event => renderEvents(event))
     }

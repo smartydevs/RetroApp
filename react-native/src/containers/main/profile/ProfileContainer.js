@@ -23,7 +23,6 @@ class ProfileContainer extends Component {
   componentDidMount() {
     const { navigation } = this.props
     const { params } = navigation.state
-    console.log(params)
 
     if (params && params.notEditable) {
       this.setState({
@@ -116,7 +115,7 @@ class ProfileContainer extends Component {
       },
     ])
   }
-  onContactUsPress=()=> {
+  onContactUsPress = () => {
     this.props.navigation.navigate(ScreenEnum.CONTACT_US)
   }
   saveAvatar(photoData) {
