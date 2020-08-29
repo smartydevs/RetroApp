@@ -7,7 +7,7 @@ export default class EventService {
     Object.assign(this, injection);
   }
 
-  getEvent(eventId) {
+  getEvent(eventId, userId) {
     const { db } = this;
 
     const events = db.events
@@ -41,7 +41,15 @@ export default class EventService {
         },
       })
       .fetch();
-    return events.length ? events[0] : {};
+
+    const event = events.length ? events[0] : {};
+    const isCurrentUserParticipating = event.users
+      ? !!event.users.find(user => user._id == userId)
+      : false;
+
+    event.isCurrentUserParticipating = isCurrentUserParticipating;
+
+    return event;
   }
 
   getEventsOnDate(date) {
@@ -68,7 +76,7 @@ export default class EventService {
   searchEvents({ userId, searchInput }) {
     const { db } = this;
     const user = db.users.findOne(userId);
-    const { categoryIds = [] } = user.profile;
+    const { categoryIds = [] } = user.profile || {};
     const finalSearchInput = searchInput ? searchInput.trim() : '';
 
     const events = finalSearchInput.length

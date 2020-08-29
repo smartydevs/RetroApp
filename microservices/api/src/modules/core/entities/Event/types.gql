@@ -14,6 +14,7 @@ type Event {
     photoId: String
     photo: AppUpload
     reviews: [Review]
+    isCurrentUserParticipating: Boolean
     averageStars: Float
     createdAt: Date
     updatedAt: Date

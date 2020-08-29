@@ -20,7 +20,7 @@ load({
       getEvent(_, { eventId }, { userId }) {
         SecurityService.checkLoggedIn({ userId });
 
-        return EventService.getEvent(eventId);
+        return EventService.getEvent(eventId, userId);
       },
     },
     Mutation: {
