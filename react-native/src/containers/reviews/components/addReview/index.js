@@ -2,15 +2,19 @@ import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-import { TextButton, Button, Row, Input } from '../../../../components';
+import { TextButton, Button, Row, Input, Notification } from '../../../../components';
 import { Colors } from '../../../../themes';
+import { addReview } from '../../../../api';
+import strings from '../../../../lib/stringEnums';
+
 import styles from './styles';
 
-const AddReview = ({ eventId, userId }) => {
+const AddReview = ({ eventId }) => {
   const [showAddReviewForm, setShowAddReviewForm] = useState(false);
   const [starsAdded, setStarsAdded] = useState(0);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const onPressStar = (stars) => setStarsAdded(stars + 1)
 
@@ -28,10 +32,20 @@ const AddReview = ({ eventId, userId }) => {
     onResetForm();
   }
 
-  const onCreateReview = () => {
-    // create form ...
+  const onCreateReview = async () => {
+    setLoading(true);
 
-    onCloseReview();
+    const input = { eventId, stars: starsAdded, title, description };
+
+    const { data, isOk } = await addReview(input)
+
+    if (isOk) {
+      onCloseReview();
+    } else {
+      Notification.error(strings.error)
+    }
+
+    setLoading(false);
   }
 
   const renderStars = () => {
@@ -86,6 +100,7 @@ const AddReview = ({ eventId, userId }) => {
         text={'Add Review'}
         style={styles.addReviewBtn}
         onPress={showAddReviewForm ? onCreateReview : onShowReviewForm}
+        isLoading={loading}
       />
       {showAddReviewForm ? (
         <TextButton

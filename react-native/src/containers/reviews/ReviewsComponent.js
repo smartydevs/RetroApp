@@ -74,7 +74,7 @@ const ReviewsComponent = ({ onGoBack, onDeleteReview, onEditReview, userId, even
     <SafeAreaView style={[container, styles.container]}>
       <Header onPress={onGoBack} text={'Reviews'} />
 
-      {isUserGoingToEvent ? <AddReview eventId={eventId} userId={userId} /> : null}
+      {isUserGoingToEvent ? <AddReview eventId={eventId} /> : null}
 
       <FlatList
         style={styles.listContainer}
