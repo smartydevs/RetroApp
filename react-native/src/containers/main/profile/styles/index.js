@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
         marginHorizontal: normalizeWidth(40),
         marginVertical: normalizeHeight(20)
     },
+    contactText:{
+        fontSize:normalizeHeight(20)
+    },
     profilePicture: {
         width: normalizeWidth(70),
         height: normalizeWidth(70),
