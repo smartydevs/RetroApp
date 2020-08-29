@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { Colors } from '../../../themes'
+import Metrics, { normalizeWidth } from '../../../themes/Metrics'
 
 const styles = StyleSheet.create({
   container: {
@@ -7,6 +8,9 @@ const styles = StyleSheet.create({
   },
   lightGrayContainer: {
     backgroundColor: Colors.lightGray,
+  },
+  listContainer: {
+    padding: Metrics.margin,
   }
 })
 
