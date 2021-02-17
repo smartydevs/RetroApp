@@ -14,7 +14,7 @@
     "apollo-link-ws": "^1.0.19",
     "apollo-live-server": "^0.2.2",
     "apollo-morpher": "^0.2.0",
-    "apollo-server-express": "^2.9.3",
+    "apollo-server-express": "^2.14.2",
     "awesome-phonenumber": "^2.23.0",
     "aws-sdk": "^2.527.0",
     "bcrypt": "^3.0.6",
