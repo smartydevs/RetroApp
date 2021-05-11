@@ -34,7 +34,7 @@
     "imagemin-pngquant": "^8.0.0",
     "indexof": "0.0.1",
     "js-cookie": "^2.2.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "meteor-node-stubs": "^0.4.1",
     "mjml": "^4.5.1",
     "mjml-react": "^1.0.55",
