@@ -16,7 +16,7 @@
     "apollo-morpher": "^0.2.0",
     "apollo-server-express": "^2.9.3",
     "awesome-phonenumber": "^2.23.0",
-    "aws-sdk": "^2.527.0",
+    "aws-sdk": "^2.814.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "dot-object": "^2.1.2",
